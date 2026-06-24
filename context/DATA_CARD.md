@@ -53,9 +53,27 @@ FJ, FM, KI, MH, NC, NR, PF, PG, PW, SB, TO, TV, VU, WS
 
 Some generated SDMX URLs returned `422 Unprocessable Entity` to Python standard-library requests but succeeded through PowerShell `Invoke-WebRequest` using `Accept: application/vnd.sdmx.data+csv;version=2.0`. The profiling script records hard failures as dataset caveats rather than silently removing them.
 
+## TASK-002 Processed Data Artifacts
+
+The processed pipeline now writes:
+
+- `data/processed/official_observations.csv`: 14,007 normalized long-form official observations across nine priority datasets and 22 geographies.
+- `data/processed/geography_lookup.csv`: geography-level dataset coverage, row counts, and year ranges.
+- `data/processed/app/atlas_dataset_summary.json`: compact app-ready dataset and geography metadata without geometry.
+- `artifacts/provenance/dataset_pipeline_summary.json`: row-count, source URL, content hash, and output provenance.
+
+Run command:
+
+```powershell
+python scripts/make_dataset.py --config configs/datasets.yml
+```
+
+The pipeline uses local files in `data/raw/official/` first. If they are missing, it fetches from the official SDMX CSV API and writes the ignored raw cache.
+
 ## Raw Data Policy
 
 - `data/raw/` is immutable and ignored by Git except for documentation.
+- Manual raw-cache filenames are listed in `data/raw/README.md`.
 - `data/interim/` is ignored and can be regenerated.
 - `data/processed/` can be selectively tracked when files are small and needed by the app.
 - Every reusable processed dataset needs a contract under `data/contracts/`.

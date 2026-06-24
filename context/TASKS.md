@@ -52,7 +52,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Phase: data-pipeline
 - Title: Build reproducible app-ready dataset pipeline
 - Depends on: TASK-001
-- Assigned agent: unassigned
+- Assigned agent: Codex
 - Contract refs: context/DATA_CARD.md, configs/datasets.yml
 - Data refs: data/raw, data/processed
 - Scientific refs: context/ASSUMPTIONS.md
@@ -65,11 +65,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Pipeline can be rerun and produces deterministic files with row-count logs.
 - Verification commands: `python scripts/make_dataset.py --config configs/datasets.yml`
 - Manual QA: Confirm app-ready files include source references and last-updated metadata.
-- QA notes:
-- Attempts: 0
+- QA notes: Added local-cache-first official data fetch script, normalized SDMX CSV rows into `data/processed/official_observations.csv`, wrote `data/processed/geography_lookup.csv`, exported `data/processed/app/atlas_dataset_summary.json`, and recorded provenance in `artifacts/provenance/dataset_pipeline_summary.json`. Pipeline output: 14,007 rows, 9 datasets, 22 geographies. Manual raw download filenames are documented in `data/raw/README.md`.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Built tested preprocessing helpers and reran `scripts/make_dataset.py --config configs/datasets.yml`; the script used the ignored raw cache when present and fetched missing official CSVs otherwise.
+- Status: done
 
 ## TASK-003
 - Phase: methodology

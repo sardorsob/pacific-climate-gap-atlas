@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "source": "Pacific Data Hub SDMX CSV API",
+  "datasets": [
+    {
+      "dataset_slug": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements",
+      "dataset_name": "Fisheries management measures in place and multilateral and bilateral fisheries management arrangements",
+      "pillar": "adaptation_capacity",
+      "row_count": 1563,
+      "geography_count": 22,
+      "first_observed_year": 1903,
+      "last_observed_year": 2026,
+      "year_range": {
+        "start": 1903,
+        "end": 2026
+      },
+      "source_content_sha256": "9556ee9432d45c743beef9d66a31bc95e31608e74223f67cd030349e23136ca6",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.FISH_MNGT_MULT_BILAT_ARGMT.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.FISH_MNGT_MULT_BILAT_ARGMT.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "greenhouse-gas-emissions-per-capita",
+      "dataset_name": "Greenhouse gas emissions per capita",
+      "pillar": "responsibility_context",
+      "row_count": 935,
+      "geography_count": 17,
+      "first_observed_year": 1970,
+      "last_observed_year": 2024,
+      "year_range": {
+        "start": 1970,
+        "end": 2024
+      },
+      "source_content_sha256": "2f2131c6cf9e5f729165fa04dcbd7e40f21ed961f75c6fe3a76953e2efeb8113",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.GHG_EMI_CAPITA.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.GHG_EMI_CAPITA.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "mean-sea-surface-temperature-anomalies",
+      "dataset_name": "Mean sea surface temperature anomalies",
+      "pillar": "climate_signal",
+      "row_count": 3696,
+      "geography_count": 21,
+      "first_observed_year": 1850,
+      "last_observed_year": 2025,
+      "year_range": {
+        "start": 1850,
+        "end": 2025
+      },
+      "source_content_sha256": "e183c11102f8430617eafdd9aade74383f5e36da83ec0165984a2a248e07e9f5",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.SST_ANOM.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.SST_ANOM.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "mean-surface-temperature-anomalies",
+      "dataset_name": "Mean surface temperature anomalies",
+      "pillar": "climate_signal",
+      "row_count": 3872,
+      "geography_count": 22,
+      "first_observed_year": 1850,
+      "last_observed_year": 2025,
+      "year_range": {
+        "start": 1850,
+        "end": 2025
+      },
+      "source_content_sha256": "522d5f4e5e19c67c6cc194216e57be85fdbc84018f02e6b279f811f1494bd1e3",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.ST_ANOM.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.ST_ANOM.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "meteorological-monitoring-network",
+      "dataset_name": "Meteorological monitoring network",
+      "pillar": "adaptation_capacity",
+      "row_count": 1650,
+      "geography_count": 18,
+      "first_observed_year": 1889,
+      "last_observed_year": 2026,
+      "year_range": {
+        "start": 1889,
+        "end": 2026
+      },
+      "source_content_sha256": "bcafcf6c2c08129dfc37ecda627427403c7dc32fc4eb0a10732884523b9ef9a9",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.METEO_MONITOR_NET.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.METEO_MONITOR_NET.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "number-of-directly-affected-persons-attributed-to-disasters",
+      "dataset_name": "Number of directly affected persons attributed to disasters",
+      "pillar": "observed_stress",
+      "row_count": 174,
+      "geography_count": 21,
+      "first_observed_year": 2005,
+      "last_observed_year": 2023,
+      "year_range": {
+        "start": 2005,
+        "end": 2023
+      },
+      "source_content_sha256": "667ce982c1491bcb2ea1a383a9d95cd21406dea9b059a0c0e4b6e971ed2e3a73",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=ds%3ASPC2&df[id]=DF_SDG_11&df[ag]=SPC&df[vs]=3.0&dq=A.VC_DSR_AFFCT.........&pd=,&to[TIME_PERIOD]=false&lb=bt",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_SDG_11/3.0/A.VC_DSR_AFFCT.........?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "power-generation",
+      "dataset_name": "Power generation",
+      "pillar": "adaptation_capacity",
+      "row_count": 432,
+      "geography_count": 18,
+      "first_observed_year": 2000,
+      "last_observed_year": 2023,
+      "year_range": {
+        "start": 2000,
+        "end": 2023
+      },
+      "source_content_sha256": "116fee8ecb2a9cf44cdc4c3a82055082d39925bc85a6dd4069a5bff404340cd7",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.POWER_GEN.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.POWER_GEN.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "rainfall-anomalies",
+      "dataset_name": "Rainfall anomalies",
+      "pillar": "climate_signal",
+      "row_count": 1034,
+      "geography_count": 22,
+      "first_observed_year": 1979,
+      "last_observed_year": 2025,
+      "year_range": {
+        "start": 1979,
+        "end": 2025
+      },
+      "source_content_sha256": "0123389776aa353268c2c23fd4840384e33a47b2db5650a6ed5f8a9ab5431d7e",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.RAIN_ANOM.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.RAIN_ANOM.?dimensionAtObservation=AllDimensions"
+    },
+    {
+      "dataset_slug": "sea-level-anomalies",
+      "dataset_name": "Sea level anomalies",
+      "pillar": "climate_signal",
+      "row_count": 651,
+      "geography_count": 21,
+      "first_observed_year": 1993,
+      "last_observed_year": 2023,
+      "year_range": {
+        "start": 1993,
+        "end": 2023
+      },
+      "source_content_sha256": "cfdf7990eb848d3af1ffb97dc7841ef78a3314450a61fa6ba9bf26362aa4816e",
+      "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.SEA_LVL.&pd=,&to[TIME_PERIOD]=false",
+      "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.SEA_LVL.?dimensionAtObservation=AllDimensions"
+    }
+  ],
+  "geographies": [
+    {
+      "geo_code": "AS",
+      "dataset_count": 7,
+      "row_count": 563,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies number-of-directly-affected-persons-attributed-to-disasters rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "CK",
+      "dataset_count": 8,
+      "row_count": 603,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "FJ",
+      "dataset_count": 9,
+      "row_count": 706,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "FM",
+      "dataset_count": 9,
+      "row_count": 667,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "GU",
+      "dataset_count": 8,
+      "row_count": 581,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "KI",
+      "dataset_count": 9,
+      "row_count": 660,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "MH",
+      "dataset_count": 9,
+      "row_count": 665,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "MP",
+      "dataset_count": 7,
+      "row_count": 536,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies number-of-directly-affected-persons-attributed-to-disasters rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "NC",
+      "dataset_count": 9,
+      "row_count": 673,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "NR",
+      "dataset_count": 9,
+      "row_count": 742,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "NU",
+      "dataset_count": 8,
+      "row_count": 657,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "PF",
+      "dataset_count": 9,
+      "row_count": 656,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "PG",
+      "dataset_count": 9,
+      "row_count": 673,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "PN",
+      "dataset_count": 4,
+      "row_count": 408,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements mean-surface-temperature-anomalies meteorological-monitoring-network rainfall-anomalies"
+    },
+    {
+      "geo_code": "PW",
+      "dataset_count": 9,
+      "row_count": 647,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "SB",
+      "dataset_count": 9,
+      "row_count": 678,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "TK",
+      "dataset_count": 8,
+      "row_count": 518,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "TO",
+      "dataset_count": 9,
+      "row_count": 730,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "TV",
+      "dataset_count": 9,
+      "row_count": 721,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "VU",
+      "dataset_count": 9,
+      "row_count": 709,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "WF",
+      "dataset_count": 6,
+      "row_count": 480,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies number-of-directly-affected-persons-attributed-to-disasters rainfall-anomalies sea-level-anomalies"
+    },
+    {
+      "geo_code": "WS",
+      "dataset_count": 9,
+      "row_count": 734,
+      "first_year": 1850,
+      "last_year": 2026,
+      "datasets": "fisheries-management-measures-in-place-and-multilateral-and-bilateral-fisheries-management-arrangements greenhouse-gas-emissions-per-capita mean-sea-surface-temperature-anomalies mean-surface-temperature-anomalies meteorological-monitoring-network number-of-directly-affected-persons-attributed-to-disasters power-generation rainfall-anomalies sea-level-anomalies"
+    }
+  ],
+  "notes": [
+    "This is a non-spatial app data draft. Geometry joins are handled in TASK-005.",
+    "Values are original SDMX observations; no missing values are imputed."
+  ]
+}

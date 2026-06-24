@@ -48,8 +48,11 @@
 
 - `data/raw/`: immutable source pulls, ignored by Git.
 - `data/interim/`: temporary transforms, ignored by Git.
-- `data/processed/`: reusable derived data, selectively tracked.
+- `data/processed/official_observations.csv`: normalized official observations in long form.
+- `data/processed/geography_lookup.csv`: geography coverage lookup across priority datasets.
+- `data/processed/app/atlas_dataset_summary.json`: compact app-ready data summary without geometry.
 - `data/external/`: boundaries and lookup tables.
 - `data/contracts/`: generated JSON source, coverage, and schema contracts for priority official datasets.
 - `artifacts/`: figures, tables, reports, run bundles, and provenance.
 - `artifacts/tables/dataset_profile.csv`: generated official dataset profile table.
+- `artifacts/provenance/dataset_pipeline_summary.json`: processed pipeline provenance, row counts, and source hashes.

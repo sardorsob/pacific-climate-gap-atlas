@@ -6,11 +6,7 @@ import argparse
 from datetime import UTC, datetime
 import json
 from pathlib import Path
-import shutil
-import subprocess
 import sys
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
 import pandas as pd
 
@@ -18,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from analysis.io.dataset_config import load_dataset_config  # noqa: E402
 from analysis.io.dataset_profile import (  # noqa: E402
     DatasetProfile,
     error_profile,
@@ -26,6 +23,7 @@ from analysis.io.dataset_profile import (  # noqa: E402
     profile_to_csv_row,
 )
 from analysis.io.official_data import OfficialDataset, read_official_inventory  # noqa: E402
+from analysis.io.sdmx import DEFAULT_ACCEPT_HEADER, fetch_sdmx_csv_text  # noqa: E402
 
 
 DEFAULT_CONFIG = ROOT / "configs" / "datasets.yml"
@@ -59,52 +57,12 @@ def parse_args() -> argparse.Namespace:
         default=30.0,
         help="HTTP timeout in seconds for each SDMX CSV request.",
     )
+    parser.add_argument(
+        "--generated-at",
+        default="",
+        help="Override generated/profiled UTC timestamp for deterministic regeneration.",
+    )
     return parser.parse_args()
-
-
-def load_config(path: Path) -> dict[str, object]:
-    config: dict[str, object] = {}
-    section: str | None = None
-    current_dataset: dict[str, str] | None = None
-
-    for raw_line in path.read_text(encoding="utf-8").splitlines():
-        stripped = raw_line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-
-        if not raw_line.startswith(" "):
-            if current_dataset is not None:
-                config.setdefault("priority_datasets", []).append(current_dataset)
-                current_dataset = None
-
-            key, _, value = stripped.partition(":")
-            section = key if not value.strip() else None
-            if value.strip():
-                config[key] = value.strip()
-            elif key == "priority_datasets":
-                config[key] = []
-            continue
-
-        if section != "priority_datasets":
-            continue
-
-        if stripped.startswith("- "):
-            if current_dataset is not None:
-                config.setdefault("priority_datasets", []).append(current_dataset)
-            current_dataset = {}
-            stripped = stripped[2:].strip()
-
-        if current_dataset is not None and ":" in stripped:
-            key, _, value = stripped.partition(":")
-            current_dataset[key.strip()] = value.strip()
-
-    if current_dataset is not None:
-        config.setdefault("priority_datasets", []).append(current_dataset)
-
-    if "priority_datasets" not in config:
-        raise ValueError(f"{path} is missing `priority_datasets`.")
-
-    return config
 
 
 def profile_priority_datasets(
@@ -113,9 +71,7 @@ def profile_priority_datasets(
     timeout: float,
 ) -> list[DatasetProfile]:
     inventory_path = ROOT / str(config.get("official_inventory", "research/official_datasets_2026.csv"))
-    accept_header = str(
-        config.get("api_accept_header", "application/vnd.sdmx.data+csv;version=2.0")
-    )
+    accept_header = str(config.get("api_accept_header", DEFAULT_ACCEPT_HEADER))
     inventory = {dataset.name: dataset for dataset in read_official_inventory(inventory_path)}
 
     profiles: list[DatasetProfile] = []
@@ -196,87 +152,6 @@ def profile_inventory_row(
     )
 
 
-def fetch_sdmx_csv_text(
-    *,
-    url: str,
-    accept_header: str,
-    timeout: float,
-) -> tuple[str | None, str | None, str]:
-    """Fetch SDMX CSV text, using PowerShell fallback for picky Windows endpoint behavior."""
-
-    headers = {
-        "Accept": accept_header,
-        "User-Agent": "pacific-climate-gap-atlas/0.1 dataset-profiler",
-    }
-    request = Request(url, headers=headers)
-    try:
-        with urlopen(request, timeout=timeout) as response:
-            status_code = response.getcode()
-            body = response.read()
-            charset = response.headers.get_content_charset() or "utf-8"
-    except HTTPError as exc:
-        if exc.code == 422:
-            fallback_text = fetch_with_powershell(url=url, accept_header=accept_header, timeout=timeout)
-            if fallback_text is not None:
-                return fallback_text, None, ""
-        return None, f"api_error_{exc.code}", f"SDMX CSV API returned HTTP {exc.code}."
-    except (OSError, URLError) as exc:
-        fallback_text = fetch_with_powershell(url=url, accept_header=accept_header, timeout=timeout)
-        if fallback_text is not None:
-            return fallback_text, None, ""
-        return None, "fetch_error", f"Could not fetch SDMX CSV API response: {exc}"
-
-    if status_code != 200:
-        return None, f"api_error_{status_code}", f"SDMX CSV API returned HTTP {status_code}."
-
-    return body.decode(charset, errors="replace"), None, ""
-
-
-def fetch_with_powershell(*, url: str, accept_header: str, timeout: float) -> str | None:
-    """Fetch through Windows PowerShell when the SDMX endpoint rejects urllib requests."""
-
-    powershell = shutil.which("powershell") or shutil.which("pwsh")
-    if powershell is None:
-        return None
-
-    timeout_seconds = max(1, int(timeout))
-    script = "\n".join(
-        [
-            "$ErrorActionPreference = 'Stop'",
-            "$headers = @{ Accept = " + _ps_single_quote(accept_header) + " }",
-            "$response = Invoke-WebRequest -UseBasicParsing "
-            + "-Uri "
-            + _ps_single_quote(url)
-            + " -Headers $headers -Method Get -TimeoutSec "
-            + str(timeout_seconds),
-            "if ($response.Content -is [byte[]]) {",
-            "  [Console]::OutputEncoding = [Text.Encoding]::UTF8",
-            "  [Console]::Write([Text.Encoding]::UTF8.GetString($response.Content))",
-            "} else {",
-            "  [Console]::OutputEncoding = [Text.Encoding]::UTF8",
-            "  [Console]::Write([string]$response.Content)",
-            "}",
-        ]
-    )
-
-    result = subprocess.run(
-        [powershell, "-NoProfile", "-NonInteractive", "-Command", script],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        timeout=timeout + 10,
-        check=False,
-    )
-    if result.returncode != 0:
-        return None
-
-    return result.stdout
-
-
-def _ps_single_quote(value: str) -> str:
-    return "'" + value.replace("'", "''") + "'"
-
-
 def write_outputs(
     *,
     profiles: list[DatasetProfile],
@@ -323,9 +198,12 @@ def main() -> int:
     output_path = ROOT / args.output if not args.output.is_absolute() else args.output
     contracts_dir = ROOT / args.contracts_dir if not args.contracts_dir.is_absolute() else args.contracts_dir
 
-    config = load_config(config_path)
+    config = load_dataset_config(config_path)
     profiles = profile_priority_datasets(config=config, timeout=args.timeout)
-    generated_at_utc = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    generated_at_utc = args.generated_at or datetime.now(UTC).replace(microsecond=0).isoformat().replace(
+        "+00:00",
+        "Z",
+    )
 
     write_outputs(
         profiles=profiles,

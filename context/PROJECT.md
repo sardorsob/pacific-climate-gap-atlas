@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-Data audit.
+Data pipeline.
 
 ## Status
 
-The repository has a committed workflow scaffold and a reproducible profile of the priority official datasets for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
+The repository has a committed workflow scaffold, official dataset contracts, and a reproducible processed data pipeline for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
 
 ## Working Title
 
@@ -23,7 +23,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Research source folder | present | `research/` includes brief, official dataset inventory, past winners, and review board |
 | Workflow shell | done | all durable project Markdown lives under `context/` |
 | Dataset profile | done | `artifacts/tables/dataset_profile.csv` and `data/contracts/*.json` cover nine priority official datasets |
-| Data science pipeline | planned | Python modules and scripts will produce processed app data |
+| Data science pipeline | done | `scripts/make_dataset.py` produces normalized observations, geography lookup, app summary, and provenance |
 | GIS atlas app | planned | React/Vite/MapLibre scaffold will consume static app-ready data |
 | Outlook model | planned | transparent baseline projection, not operational prediction |
 
@@ -33,3 +33,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Approved headline: broader adaptation gap, with monitoring as one diagnostic layer.
 - Copied reference workflow kits into ignored local context paths.
 - Completed `TASK-001` live dataset profiling and contracts for nine priority official datasets.
+- Completed `TASK-002` processed data pipeline with local raw-cache support.
