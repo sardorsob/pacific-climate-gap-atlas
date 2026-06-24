@@ -1,0 +1,30 @@
+pillars:
+  climate_signal:
+    label: Climate signal
+    atlas_question: What climate indicators are changing for this geography?
+    default_weight: 0.40
+    indicators:
+      - sea_surface_temperature_anomaly
+      - surface_temperature_anomaly
+      - rainfall_anomaly
+      - sea_level_anomaly
+  observed_stress:
+    label: Observed stress
+    atlas_question: What stresses or impacts are already visible in the data?
+    default_weight: 0.25
+    indicators:
+      - disaster_affected_people
+  adaptation_capacity:
+    label: Adaptation capacity
+    atlas_question: What monitoring, infrastructure, or governance capacity is visible?
+    default_weight: 0.35
+    indicators:
+      - meteorological_monitoring_network
+      - power_generation
+      - fisheries_management_measures
+normalization:
+  default_method: percentile_rank
+  direction_policy:
+    climate_signal: higher_values_indicate_more_pressure
+    observed_stress: higher_values_indicate_more_pressure
+    adaptation_capacity: higher_values_indicate_more_capacity

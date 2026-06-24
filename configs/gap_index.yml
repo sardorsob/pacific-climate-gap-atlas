@@ -1,0 +1,32 @@
+index_name: Pacific Adaptation Gap Index
+version: 0.1.0
+status: draft_methodology
+unit_of_analysis: country_or_territory_year
+latest_snapshot_policy:
+  climate_signal: latest_available_year_per_indicator
+  observed_stress: latest_available_year_per_indicator
+  adaptation_capacity: latest_available_year_per_indicator
+scoring:
+  climate_pressure_score:
+    method: mean_percentile_rank
+    includes:
+      - climate_signal
+      - observed_stress
+  capacity_score:
+    method: mean_percentile_rank
+    includes:
+      - adaptation_capacity
+  adaptation_gap_score:
+    method: pressure_minus_capacity_rescaled
+    formula: rescale_0_100(climate_pressure_score - capacity_score)
+missingness:
+  minimum_indicators_per_pillar: 1
+  minimum_pillars_for_score:
+    - climate_signal
+    - adaptation_capacity
+  publish_missingness_flag: true
+  missing_value_policy: do_not_impute_for_primary_score
+caveats:
+  - Draft weights are equal within each pillar until EDA justifies a change.
+  - The index is comparative within available Pacific geographies, not an absolute risk measure.
+  - Capacity indicators are proxies and should not be read as complete adaptation readiness.

@@ -1,0 +1,35 @@
+map:
+  initial_center: [172, -12]
+  initial_zoom: 3
+  basemap: natural_earth_or_maplibre_default
+layers:
+  - id: adaptation_gap_score
+    label: Adaptation gap
+    type: choropleth
+    source: data/processed/app/atlas_geographies.geojson
+    legend: higher_score_means_larger_gap
+  - id: climate_signal
+    label: Climate signal
+    type: choropleth
+    source: data/processed/app/atlas_geographies.geojson
+  - id: observed_stress
+    label: Observed stress
+    type: choropleth
+    source: data/processed/app/atlas_geographies.geojson
+  - id: adaptation_capacity
+    label: Adaptation capacity
+    type: choropleth
+    source: data/processed/app/atlas_geographies.geojson
+  - id: monitoring_network
+    label: Meteorological monitoring
+    type: point_or_centroid_overlay
+    source: data/processed/app/monitoring_network.geojson
+panels:
+  country_detail:
+    required_fields:
+      - geography_code
+      - geography_name
+      - adaptation_gap_score
+      - climate_pressure_score
+      - capacity_score
+      - missingness_flag

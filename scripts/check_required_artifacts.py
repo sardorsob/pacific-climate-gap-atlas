@@ -1,0 +1,53 @@
+"""Validate that required scaffold artifacts exist."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+REQUIRED_PATHS = [
+    "README.md",
+    ".gitignore",
+    ".env.example",
+    "pyproject.toml",
+    "package.json",
+    "research/official_datasets_2026.csv",
+    "research/pacific_dataviz_2026_research_brief.md",
+    "context/PROJECT.md",
+    "context/PROBLEM.md",
+    "context/SCOPE.md",
+    "context/TASKS.md",
+    "context/AGENTS.md",
+    "context/DATA_CARD.md",
+    "context/MODEL_CARD.md",
+    "context/EXPERIMENTS.md",
+    "context/ASSUMPTIONS.md",
+    "context/DECISIONS.md",
+    "context/STRUCTURE.md",
+    "context/HANDOVER.md",
+    "configs/datasets.yml",
+    "configs/gap_index.yml",
+    "configs/outlook.yml",
+    "analysis/__init__.py",
+    "app/package.json",
+    "scripts/validate_task_statuses.py",
+    "scripts/check_secrets.py",
+]
+
+
+def main() -> int:
+    missing = [path for path in REQUIRED_PATHS if not (ROOT / path).exists()]
+    if missing:
+        print("Missing required artifacts:")
+        for path in missing:
+            print(f"- {path}")
+        return 1
+
+    print(f"Required artifact check passed ({len(REQUIRED_PATHS)} paths).")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,25 @@
+outlook_name: Adaptation Gap Outlook
+version: 0.1.0
+status: draft_baseline
+horizons:
+  - 2030
+  - 2050
+forecasting_stance: transparent_baseline_not_operational_prediction
+climate_signal_projection:
+  baseline_model: per_geography_linear_trend
+  minimum_points: 8
+  trend_window: all_available_years_with_recent_sensitivity_check
+capacity_projection:
+  baseline_model: latest_value_carried_forward
+  scenario_variants:
+    - capacity_flat
+    - capacity_gradual_improvement
+uncertainty:
+  report_bands: true
+  preferred_methods:
+    - bootstrap_trend_uncertainty
+    - sensitivity_to_recent_window
+do_not_use_for:
+  - operational emergency management
+  - funding allocation without local review
+  - claims about individual communities

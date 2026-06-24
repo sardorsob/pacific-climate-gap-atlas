@@ -1,0 +1,16 @@
+{
+  "name": "pacific-climate-gap-atlas-root",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "app:dev": "npm --prefix app run dev",
+    "app:build": "npm --prefix app run build",
+    "app:preview": "npm --prefix app run preview",
+    "validate:artifacts": "python scripts/check_required_artifacts.py",
+    "validate:tasks": "python scripts/validate_task_statuses.py",
+    "check:secrets": "python scripts/check_secrets.py"
+  },
+  "workspaces": [
+    "app"
+  ]
+}

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pacific Dataviz Winner Review Board</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #5f6f7c;
+      --line: #d8e1e7;
+      --wash: #f5f8fa;
+      --sea: #0c6b78;
+      --coral: #c75146;
+      --gold: #b87921;
+      --leaf: #4f7b43;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.45;
+    }
+    header {
+      padding: 24px clamp(18px, 4vw, 48px);
+      border-bottom: 1px solid var(--line);
+      background: var(--wash);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 6px;
+      font-size: clamp(26px, 4vw, 42px);
+      letter-spacing: 0;
+    }
+    .subhead {
+      max-width: 980px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    main {
+      padding: 28px clamp(18px, 4vw, 48px) 48px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      padding: 10px 14px;
+      font: inherit;
+    }
+    button[aria-pressed="true"] {
+      border-color: var(--sea);
+      background: #e6f3f4;
+      color: #064b55;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 18px;
+    }
+    .panel h2 {
+      margin-bottom: 8px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+    .tag {
+      display: inline-block;
+      margin: 0 6px 10px 0;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: var(--wash);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      text-transform: uppercase;
+    }
+    .sea { border-top: 5px solid var(--sea); }
+    .coral { border-top: 5px solid var(--coral); }
+    .gold { border-top: 5px solid var(--gold); }
+    .leaf { border-top: 5px solid var(--leaf); }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+    li + li { margin-top: 7px; }
+    a { color: #075e69; }
+    .wide {
+      grid-column: 1 / -1;
+    }
+    .score {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px;
+      background: var(--wash);
+    }
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .hidden { display: none; }
+    @media (max-width: 820px) {
+      .grid, .score { grid-template-columns: 1fr; }
+      main { padding-bottom: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pacific Dataviz Winner Review Board</h1>
+    <p class="subhead">A working comparison board for the 2026 climate-change entry direction: what prior interactive winners did well, and what official datasets can support an adaptation-gap atlas.</p>
+  </header>
+  <main>
+    <div class="toolbar" aria-label="Review filters">
+      <button type="button" aria-pressed="true" data-view="all">All</button>
+      <button type="button" aria-pressed="false" data-view="winners">Winner Patterns</button>
+      <button type="button" aria-pressed="false" data-view="datasets">Dataset Shortlist</button>
+      <button type="button" aria-pressed="false" data-view="strategy">Strategy</button>
+    </div>
+
+    <section class="grid">
+      <article class="panel sea" data-group="winners">
+        <span class="tag">2025 Open Interactive</span>
+        <h2>Carbon Debt</h2>
+        <p><a href="https://hnuradhyaksa.github.io/post/pacific-dataviz-2025">Paying the Heaviest of the Carbon Debt Never Incurred</a></p>
+        <ul>
+          <li>Starts with a moral claim: least responsible, most exposed.</li>
+          <li>Moves from emissions footprint to vulnerability to resilience gaps.</li>
+          <li>Uses scrollytelling sections with clear captions and visible sources.</li>
+        </ul>
+      </article>
+
+      <article class="panel coral" data-group="winners">
+        <span class="tag">2025 Pacific Interactive</span>
+        <h2>Blue Paradigm</h2>
+        <p><a href="https://blue-paradigm.org/">BLUE PARADIGM 2050</a></p>
+        <ul>
+          <li>Frames the entry as an immersive sound-driven climate game.</li>
+          <li>Connects choices to future scenarios and personal consequences.</li>
+          <li>Wins through experience design, not just chart density.</li>
+        </ul>
+      </article>
+
+      <article class="panel gold" data-group="winners">
+        <span class="tag">2024 Interactive 1st</span>
+        <h2>Women in the Pacific</h2>
+        <p><a href="https://holtzy.github.io/pacific-challenge/">A look at gender inequality</a></p>
+        <ul>
+          <li>Small number of charts, each tied to one explicit sentence.</li>
+          <li>Pacific-specific comparison across seven geographies.</li>
+          <li>Methods, data links, and source code are easy to find.</li>
+        </ul>
+      </article>
+
+      <article class="panel leaf" data-group="winners">
+        <span class="tag">2024 Interactive 2nd</span>
+        <h2>Blooming</h2>
+        <p><a href="https://blooming-pacific.kristin-baumann.com/">Exploring Poverty in the Pacific Region</a></p>
+        <ul>
+          <li>Turns a multidimensional dataset into one memorable visual metaphor.</li>
+          <li>Explains the custom encoding through a legend and hover details.</li>
+          <li>Uses local ecological reference to make the visual feel Pacific-specific.</li>
+        </ul>
+      </article>
+
+      <article class="panel wide" data-group="datasets">
+        <span class="tag">Official 2026 Dataset Spine</span>
+        <h2>Best Starting Bundle</h2>
+        <p>Use a tight atlas spine first, then add extras only if the story needs them.</p>
+        <div class="score">
+          <div class="metric"><strong>22</strong> geos for rainfall, fisheries, surface temperature</div>
+          <div class="metric"><strong>21</strong> geos for sea level and sea surface temperature</div>
+          <div class="metric"><strong>14</strong> geos covered by all 9 candidate datasets</div>
+          <div class="metric"><strong>2025</strong> latest year for core anomaly series</div>
+        </div>
+      </article>
+
+      <article class="panel sea" data-group="datasets">
+        <span class="tag">Signal</span>
+        <h2>Climate Change Is Measurable</h2>
+        <ul>
+          <li>Mean sea surface temperature anomalies: 3,696 rows, 21 geos, 1850-2025.</li>
+          <li>Mean surface temperature anomalies: 3,872 rows, 22 geos, 1850-2025.</li>
+          <li>Rainfall anomalies: 1,034 rows, 22 geos, 1979-2025.</li>
+          <li>Sea level anomalies: 651 rows, 21 geos, 1993-2023.</li>
+        </ul>
+      </article>
+
+      <article class="panel coral" data-group="datasets">
+        <span class="tag">Gap</span>
+        <h2>Capacity Is Uneven</h2>
+        <ul>
+          <li>Meteorological monitoring network: 1,650 rows, 18 geos, 1889-2026.</li>
+          <li>Power generation: 432 rows, 18 geos, 2000-2023.</li>
+          <li>Fisheries management measures: 1,563 rows, 22 geos, 1903-2026.</li>
+          <li>Environmental taxes are usable but sparse: 5-6 geos.</li>
+        </ul>
+      </article>
+
+      <article class="panel wide gold" data-group="strategy">
+        <span class="tag">Recommended Direction</span>
+        <h2>The Pacific Adaptation Gap Atlas</h2>
+        <p>Build a guided map-first website that lets readers move from climate signal to exposure, monitoring, and response capacity. The winning angle is not another broad climate dashboard; it is a diagnostic tool that asks where risk is rising faster than measurement and response capacity.</p>
+        <ul>
+          <li>Opening claim: Pacific islands face climate burdens they did little to create, but the gap is not uniform.</li>
+          <li>Main interaction: choose a geography and see signal, impact, monitoring, and response cards.</li>
+          <li>Competition advantage: combines the moral clarity of Carbon Debt, the country-card usefulness of Digital Access, and the polished guided story of Women in the Pacific.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+  <script>
+    const buttons = document.querySelectorAll('[data-view]');
+    const panels = document.querySelectorAll('[data-group]');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const view = button.dataset.view;
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        panels.forEach((panel) => {
+          panel.classList.toggle('hidden', view !== 'all' && panel.dataset.group !== view);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

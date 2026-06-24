@@ -1,0 +1,47 @@
+official_inventory: research/official_datasets_2026.csv
+api_accept_header: application/vnd.sdmx.data+csv;version=2.0
+priority_geography_policy:
+  minimum_candidate_coverage: 8
+  full_overlap_geographies:
+    - FJ
+    - FM
+    - KI
+    - MH
+    - NC
+    - NR
+    - PF
+    - PG
+    - PW
+    - SB
+    - TO
+    - TV
+    - VU
+    - WS
+priority_datasets:
+  - name: Mean sea surface temperature anomalies
+    pillar: climate_signal
+    source: official_2026
+  - name: Mean surface temperature anomalies
+    pillar: climate_signal
+    source: official_2026
+  - name: Rainfall anomalies
+    pillar: climate_signal
+    source: official_2026
+  - name: Sea level anomalies
+    pillar: climate_signal
+    source: official_2026
+  - name: Number of directly affected persons attributed to disasters
+    pillar: observed_stress
+    source: official_2026
+  - name: Meteorological monitoring network
+    pillar: adaptation_capacity
+    source: official_2026
+  - name: Power generation
+    pillar: adaptation_capacity
+    source: official_2026
+  - name: Fisheries management measures in place and multilateral and bilateral fisheries management arrangements
+    pillar: adaptation_capacity
+    source: official_2026
+  - name: Greenhouse gas emissions per capita
+    pillar: responsibility_context
+    source: official_2026

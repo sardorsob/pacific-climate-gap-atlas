@@ -1,0 +1,39 @@
+.superpowers/
+
+# Local reference workflow kits copied for agent context only.
+context/agentic-workflow-kit/
+context/data-science-agentic-workflow-kit/
+
+# Local environments and secrets.
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node/Vite outputs.
+node_modules/
+app/node_modules/
+dist/
+app/dist/
+
+# Data tiers: keep manifests/contracts, not bulky generated inputs.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+data/interim/*
+!data/interim/.gitkeep
+!data/interim/README.md
+
+# Generated artifacts and run bundles.
+artifacts/logs/runs/*
+!artifacts/logs/runs/.gitkeep
+artifacts/models/*
+!artifacts/models/.gitkeep
+artifacts/reports/*
+!artifacts/reports/.gitkeep

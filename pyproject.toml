@@ -1,0 +1,23 @@
+[project]
+name = "pacific-climate-gap-atlas"
+version = "0.1.0"
+description = "Python analysis pipeline for the Pacific Adaptation Gap Atlas."
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyyaml>=6.0",
+  "requests>=2.31",
+  "scikit-learn>=1.5",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
