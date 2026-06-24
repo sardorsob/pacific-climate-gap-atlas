@@ -50,5 +50,6 @@
 - `data/interim/`: temporary transforms, ignored by Git.
 - `data/processed/`: reusable derived data, selectively tracked.
 - `data/external/`: boundaries and lookup tables.
-- `data/contracts/`: data contracts and schemas.
+- `data/contracts/`: generated JSON source, coverage, and schema contracts for priority official datasets.
 - `artifacts/`: figures, tables, reports, run bundles, and provenance.
+- `artifacts/tables/dataset_profile.csv`: generated official dataset profile table.

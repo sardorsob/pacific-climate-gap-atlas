@@ -1,0 +1,66 @@
+{
+  "name": "Meteorological monitoring network",
+  "slug": "meteorological-monitoring-network",
+  "pillar": "adaptation_capacity",
+  "story_role": "climate_exposure",
+  "status": "ok",
+  "generated_at_utc": "2026-06-24T23:13:48Z",
+  "source": {
+    "provider": "Pacific Data Hub / Pacific Community",
+    "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=SPC2&df[id]=DF_CLIMATE_CHANGE&df[ag]=SPC&df[vs]=1.0&av=true&dq=A.METEO_MONITOR_NET.&pd=,&to[TIME_PERIOD]=false",
+    "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_CLIMATE_CHANGE/1.0/A.METEO_MONITOR_NET.?dimensionAtObservation=AllDimensions"
+  },
+  "coverage": {
+    "row_count": 1650,
+    "geography_count": 18,
+    "geography_codes": [
+      "CK",
+      "FJ",
+      "FM",
+      "KI",
+      "MH",
+      "NC",
+      "NR",
+      "NU",
+      "PF",
+      "PG",
+      "PN",
+      "PW",
+      "SB",
+      "TK",
+      "TO",
+      "TV",
+      "VU",
+      "WS"
+    ],
+    "year_range": {
+      "start": 1889,
+      "end": 2026
+    },
+    "value_count": 1650,
+    "missing_value_count": 0,
+    "missing_value_pct": 0.0
+  },
+  "schema": {
+    "columns": [
+      "STRUCTURE",
+      "STRUCTURE_ID",
+      "ACTION",
+      "FREQ",
+      "CLIMATE_CHANGE_INDICATORS",
+      "GEO_PICT",
+      "TIME_PERIOD",
+      "OBS_VALUE",
+      "OBS_STATUS",
+      "UNIT_MEASURE",
+      "ERROR_TYPE",
+      "ERROR_VAL",
+      "REPORTING_TYPE",
+      "OBS_COMMENT"
+    ],
+    "geography_column": "GEO_PICT",
+    "time_column": "TIME_PERIOD",
+    "value_column": "OBS_VALUE"
+  },
+  "caveat_notes": ""
+}

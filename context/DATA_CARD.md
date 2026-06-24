@@ -12,9 +12,24 @@ Pacific Data Hub / Pacific Community data infrastructure, as referenced by the o
 
 At least one official dataset is required for the competition. This project targets a multi-dataset official-data spine and may add open external GIS reference files only when they improve map usability or boundary context.
 
-## Initial Coverage Findings
+## TASK-001 Profile Artifacts
 
-Priority official datasets from the research pass:
+The tracked profiler now writes:
+
+- `artifacts/tables/dataset_profile.csv`: flat row/geography/year/missingness summary for the configured priority datasets.
+- `data/contracts/*.json`: per-dataset source, coverage, schema, and caveat contracts.
+
+Run command:
+
+```powershell
+python scripts/profile_datasets.py --config configs/datasets.yml
+```
+
+The script first tries Python standard-library HTTP and falls back to Windows PowerShell `Invoke-WebRequest -UseBasicParsing` when the Pacific SDMX endpoint returns `422` to the Python client. The fallback preserves the same configured SDMX CSV accept header.
+
+## Coverage Findings
+
+Priority official datasets from the reproducible `TASK-001` profile:
 
 | Dataset | Role | Rows | Geographies | Years | Notes |
 | --- | --- | ---: | ---: | --- | --- |
@@ -36,7 +51,7 @@ FJ, FM, KI, MH, NC, NR, PF, PG, PW, SB, TO, TV, VU, WS
 
 ## Known API Caveats
 
-Some generated SDMX URLs returned `422 Unprocessable Entity` during initial profiling. These should be recorded rather than silently removed. The data pipeline should keep per-dataset status and fallback links.
+Some generated SDMX URLs returned `422 Unprocessable Entity` to Python standard-library requests but succeeded through PowerShell `Invoke-WebRequest` using `Accept: application/vnd.sdmx.data+csv;version=2.0`. The profiling script records hard failures as dataset caveats rather than silently removing them.
 
 ## Raw Data Policy
 

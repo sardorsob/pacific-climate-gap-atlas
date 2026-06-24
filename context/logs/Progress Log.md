@@ -8,5 +8,6 @@
 - Copied local reference workflow kits into ignored `context/` subfolders.
 - Initialized context-first scaffold.
 - Verified scaffold artifacts, task statuses, secret scan, and ignored workflow-kit paths.
+- Completed `TASK-001` by adding a reproducible official dataset profiler, generating nine dataset contracts, and writing `artifacts/tables/dataset_profile.csv`.
 
 AI tools used: Codex.

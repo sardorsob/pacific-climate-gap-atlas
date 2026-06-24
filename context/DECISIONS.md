@@ -31,3 +31,9 @@ Independent tasks should run in parallel when dependencies and file ownership al
 Commits should be task-oriented and must not include `Co-authored-by` trailers or assistant/agent authorship credit.
 
 Reason: the user wants fast agentic execution without losing review discipline or clean authorship.
+
+## 2026-06-24: Use PowerShell Fallback For Pacific SDMX CSV Profiling
+
+The dataset profiler first tries Python standard-library HTTP, then falls back to Windows PowerShell `Invoke-WebRequest -UseBasicParsing` when the SDMX endpoint returns `422`.
+
+Reason: the early repo does not have Python dependencies installed, and the official Pacific SDMX endpoint accepted the PowerShell request with the same SDMX CSV accept header.

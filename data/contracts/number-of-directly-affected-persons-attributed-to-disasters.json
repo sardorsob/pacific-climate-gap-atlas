@@ -1,0 +1,77 @@
+{
+  "name": "Number of directly affected persons attributed to disasters",
+  "slug": "number-of-directly-affected-persons-attributed-to-disasters",
+  "pillar": "observed_stress",
+  "story_role": "impact",
+  "status": "ok",
+  "generated_at_utc": "2026-06-24T23:13:48Z",
+  "source": {
+    "provider": "Pacific Data Hub / Pacific Community",
+    "official_url": "https://stats.pacificdata.org/vis?lc=en&df[ds]=ds%3ASPC2&df[id]=DF_SDG_11&df[ag]=SPC&df[vs]=3.0&dq=A.VC_DSR_AFFCT.........&pd=,&to[TIME_PERIOD]=false&lb=bt",
+    "sdmx_csv_api_url": "https://stats-sdmx-disseminate.pacificdata.org/rest/v2/data/dataflow/SPC/DF_SDG_11/3.0/A.VC_DSR_AFFCT.........?dimensionAtObservation=AllDimensions"
+  },
+  "coverage": {
+    "row_count": 174,
+    "geography_count": 21,
+    "geography_codes": [
+      "AS",
+      "CK",
+      "FJ",
+      "FM",
+      "GU",
+      "KI",
+      "MH",
+      "MP",
+      "NC",
+      "NR",
+      "NU",
+      "PF",
+      "PG",
+      "PW",
+      "SB",
+      "TK",
+      "TO",
+      "TV",
+      "VU",
+      "WF",
+      "WS"
+    ],
+    "year_range": {
+      "start": 2005,
+      "end": 2023
+    },
+    "value_count": 174,
+    "missing_value_count": 0,
+    "missing_value_pct": 0.0
+  },
+  "schema": {
+    "columns": [
+      "STRUCTURE",
+      "STRUCTURE_ID",
+      "ACTION",
+      "FREQ",
+      "INDICATOR",
+      "GEO_PICT",
+      "SEX",
+      "AGE",
+      "URBANIZATION",
+      "INCOME",
+      "EDUCATION",
+      "OCCUPATION",
+      "COMPOSITE_BREAKDOWN",
+      "DISABILITY",
+      "TIME_PERIOD",
+      "OBS_VALUE",
+      "UNIT_MEASURE",
+      "REPORTING_TYPE",
+      "NATURE",
+      "DATA_SOURCE",
+      "OBS_STATUS",
+      "OBS_COMMENT"
+    ],
+    "geography_column": "GEO_PICT",
+    "time_column": "TIME_PERIOD",
+    "value_column": "OBS_VALUE"
+  },
+  "caveat_notes": ""
+}

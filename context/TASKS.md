@@ -29,7 +29,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Phase: data-audit
 - Title: Profile official 2026 datasets and create dataset contracts
 - Depends on: TASK-000
-- Assigned agent: unassigned
+- Assigned agent: Codex
 - Contract refs: context/DATA_CARD.md, configs/datasets.yml
 - Data refs: research/official_datasets_2026.csv
 - Scientific refs: context/ASSUMPTIONS.md
@@ -42,11 +42,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Each priority dataset has status, row count, geography count, year range, and caveat notes.
 - Verification commands: `python scripts/profile_datasets.py --config configs/datasets.yml`
 - Manual QA: Spot-check sea-level and monitoring datasets against the official CSV inventory.
-- QA notes:
-- Attempts: 0
+- QA notes: Added tested SDMX CSV profiling helpers, implemented `scripts/profile_datasets.py`, generated `artifacts/tables/dataset_profile.csv`, and wrote nine JSON dataset contracts under `data/contracts/`. Live profile returned 9/9 priority datasets with `ok` status. Spot-checked sea-level anomalies and meteorological monitoring network contracts against the official inventory URLs and expected coverage.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Built reproducible profile script and contracts; Python HTTP returned 422 for the SDMX endpoint, so the script uses a Windows PowerShell fallback with the configured SDMX CSV accept header.
+- Status: done
 
 ## TASK-002
 - Phase: data-pipeline
