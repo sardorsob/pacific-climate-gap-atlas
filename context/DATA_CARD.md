@@ -86,6 +86,22 @@ python scripts/build_gap_index.py --config configs/gap_index.yml
 
 The score is comparative within the available Pacific geographies. It uses latest observations, percentile ranks, absolute anomaly magnitudes for anomaly datasets, equal weights, and no missing-value imputation.
 
+## TASK-004 Outlook Artifacts
+
+The outlook pipeline now writes:
+
+- `artifacts/tables/adaptation_gap_outlook.csv`: 2030 and 2050 scenario rows for `capacity_flat` and `capacity_gradual_improvement`.
+- `artifacts/tables/climate_trend_diagnostics.csv`: per-geography climate-signal trend diagnostics and holdout comparisons.
+- `artifacts/provenance/outlook_summary.json`: metrics, caveats, inputs, and outputs.
+
+Run command:
+
+```powershell
+python scripts/run_outlook.py --config configs/outlook.yml
+```
+
+The outlook is a transparent stress-test layer, not an operational forecast. It should remain secondary unless caveats are visible in the app.
+
 ## Raw Data Policy
 
 - `data/raw/` is immutable and ignored by Git except for documentation.

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "pipeline_task": "TASK-004",
+  "status": "methodology_ready_app_optional",
+  "stance": "transparent outlook baseline, not operational prediction",
+  "horizons": [
+    2030,
+    2050
+  ],
+  "minimum_points": 8,
+  "inputs": {
+    "observations": "data/processed/official_observations.csv",
+    "current_index": "artifacts/tables/adaptation_gap_index.csv"
+  },
+  "outputs": {
+    "projection": "artifacts/tables/adaptation_gap_outlook.csv",
+    "diagnostics": "artifacts/tables/climate_trend_diagnostics.csv"
+  },
+  "metrics": {
+    "trend_series_count": 86,
+    "trend_geography_count": 22,
+    "projection_rows": 88,
+    "backtested_series_count": 86,
+    "linear_beats_naive_count": 39,
+    "mean_linear_holdout_mae": 1.7731,
+    "mean_naive_holdout_mae": 2.9953
+  },
+  "caveats": [
+    "Climate trends are simple linear baselines over available historical observations.",
+    "Capacity scenarios use current capacity scores carried forward or modestly improved.",
+    "The outlook is useful for exploration and communication, not operational forecasting.",
+    "Rows include caveat_notes and should not appear in the app without visible methodology."
+  ]
+}

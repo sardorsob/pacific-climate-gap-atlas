@@ -57,5 +57,8 @@
 - `artifacts/tables/dataset_profile.csv`: generated official dataset profile table.
 - `artifacts/tables/adaptation_gap_index.csv`: geography-level draft Adaptation Gap Index baseline.
 - `artifacts/tables/adaptation_gap_indicator_trace.csv`: latest-observation trace table behind each score.
+- `artifacts/tables/adaptation_gap_outlook.csv`: 2030 and 2050 outlook scenario table.
+- `artifacts/tables/climate_trend_diagnostics.csv`: climate-signal trend diagnostics and backtest metrics.
 - `artifacts/provenance/dataset_pipeline_summary.json`: processed pipeline provenance, row counts, and source hashes.
 - `artifacts/provenance/gap_index_summary.json`: index method summary, score counts, and top/bottom geography review set.
+- `artifacts/provenance/outlook_summary.json`: outlook metrics, caveats, inputs, and outputs.

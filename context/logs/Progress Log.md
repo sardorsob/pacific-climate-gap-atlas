@@ -11,5 +11,6 @@
 - Completed `TASK-001` by adding a reproducible official dataset profiler, generating nine dataset contracts, and writing `artifacts/tables/dataset_profile.csv`.
 - Completed `TASK-002` by building a local-cache-first processed data pipeline with 14,007 normalized official observations across 22 geographies.
 - Completed `TASK-003` by building a draft Adaptation Gap Index baseline with 22 scored geographies and 182 trace rows.
+- Completed `TASK-004` by building an app-optional outlook stress-test baseline with 86 trend series and 88 scenario rows.
 
 AI tools used: Codex.

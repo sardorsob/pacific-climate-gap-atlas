@@ -98,7 +98,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Phase: modeling
 - Title: Build Adaptation Gap Outlook baseline
 - Depends on: TASK-003
-- Assigned agent: unassigned
+- Assigned agent: Codex
 - Contract refs: configs/outlook.yml, context/MODEL_CARD.md
 - Data refs: data/processed
 - Scientific refs: context/ASSUMPTIONS.md, context/EXPERIMENTS.md
@@ -111,11 +111,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Outlook results include uncertainty/caveat fields and are not described as operational predictions.
 - Verification commands: `python scripts/run_outlook.py --config configs/outlook.yml`
 - Manual QA: Compare outlook rankings to current gap rankings and investigate surprises.
-- QA notes:
-- Attempts: 0
+- QA notes: Added tested outlook trend helpers, implemented `scripts/run_outlook.py`, generated `artifacts/tables/adaptation_gap_outlook.csv`, generated `artifacts/tables/climate_trend_diagnostics.csv`, wrote `artifacts/provenance/outlook_summary.json`, and produced a local ignored run bundle under `artifacts/logs/runs/task-004-outlook-baseline/`. Output includes 86 trend series, 88 projection rows, 86 backtested series, 39 series where linear trend beats naive, mean linear holdout MAE 1.7731, and mean naive holdout MAE 2.9953. Decision: methodology-ready and app-optional, not a primary prediction layer.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Built transparent trend stress-test baseline with 2030/2050 horizons, capacity-flat and gradual-improvement scenarios, residual diagnostics, holdout comparisons, and row-level caveats.
+- Status: done
 
 ## TASK-005
 - Phase: app-data

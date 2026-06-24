@@ -51,3 +51,9 @@ The first Adaptation Gap Index keeps the latest non-missing observation per geog
 Anomaly datasets use absolute anomaly magnitude for scoring while preserving raw values in the trace table.
 
 Reason: this gives us a transparent, auditable baseline quickly without imputation or opaque weighting, while leaving room for sensitivity analysis later.
+
+## 2026-06-24: Treat Outlook As App-Optional Stress Test
+
+The Adaptation Gap Outlook uses simple climate-signal linear trends and capacity scenarios for 2030 and 2050. It is methodology-ready but app-optional, and must not be described as an operational prediction.
+
+Reason: aggregate linear holdout MAE beats naive, but fewer than half of individual trend series beat the naive baseline, so the result is useful for exploration only with visible caveats.

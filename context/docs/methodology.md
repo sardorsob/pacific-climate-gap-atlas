@@ -37,4 +37,15 @@ The score table includes `included_indicator_count`, `available_pillars`, `missi
 
 ## Outlook Method
 
-Outlook modeling is optional. If included, it will use transparent time-series trend baselines and scenario assumptions. It will not be described as an operational prediction.
+The Adaptation Gap Outlook is implemented as a transparent stress test. It fits simple climate-signal trends for geography/indicator series with at least 8 observations, projects climate-signal pressure to 2030 and 2050, and compares those projected pressure scores against two capacity scenarios:
+
+- `capacity_flat`: current capacity score carried forward.
+- `capacity_gradual_improvement`: capacity moves partway toward 100, by 5% of the remaining capacity gap in 2030 and 15% in 2050.
+
+Outputs:
+
+- `artifacts/tables/adaptation_gap_outlook.csv`
+- `artifacts/tables/climate_trend_diagnostics.csv`
+- `artifacts/provenance/outlook_summary.json`
+
+This outlook is not an operational prediction. It should only appear in the app as a secondary exploratory layer with visible caveats.
