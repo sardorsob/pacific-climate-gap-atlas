@@ -20,5 +20,6 @@
 - Completed `TASK-012` with indicator forensics preserving all trace rows and flagging within-dataset outliers for careful story evidence.
 - Completed `TASK-013` with country story labels that join pressure/capacity signals, coverage caveats, rank-volatility caveats, and non-causal interpretation notes.
 - Completed `TASK-017` with monitoring-gap GIS story priorities and caveats distinguishing missing rows from reported-zero monitoring counts.
+- Refreshed context and Markdown docs so handoff, backlog, methodology, design, decisions, assumptions, memory notes, and submission notes reflect the current EDA state.
 
 AI tools used: Codex.

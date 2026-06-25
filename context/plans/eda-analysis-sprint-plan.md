@@ -4,6 +4,8 @@
 
 **Goal:** Build a script-first exploratory analysis sprint that turns the existing data spine into evidence, story candidates, and app-design requirements.
 
+**Status:** Executed through the EDA foundation and follow-on analysis lanes for GIS context, coverage, indicator forensics, country story labels, rank volatility, and monitoring-gap priorities. Remaining analysis implementation lives in `TASK-015` and `TASK-016`; synthesis and Claude handoff live in `TASK-018`.
+
 **Architecture:** Keep notebooks optional and non-authoritative. Put reusable logic in `analysis/eda/`, run it through `scripts/run_eda.py`, and save reportable outputs under `artifacts/tables/`, `artifacts/figures/`, and `artifacts/provenance/`. Keep durable interpretation and task status under `context/`.
 
 **Tech Stack:** Python, pandas, existing project CSV/JSON artifacts, config files, and standard unittest coverage.
@@ -17,10 +19,10 @@
 - Modify: `context/TASKS.md`
 - Modify: `context/PROJECT.md`
 
-- [ ] Add the analysis backlog with GIS/data-science questions, expected artifacts, and dependency order.
-- [ ] Add `TASK-009` as the first executable EDA scaffold task.
-- [ ] Add later pending EDA tasks for coverage, driver decomposition, sensitivity, spatial context, trends, monitoring gap, and story synthesis.
-- [ ] Mark the current phase as analysis sprint, with app implementation paused until story evidence is stronger.
+- [x] Add the analysis backlog with GIS/data-science questions, expected artifacts, and dependency order.
+- [x] Add `TASK-009` as the first executable EDA scaffold task.
+- [x] Add later pending EDA tasks for coverage, driver decomposition, sensitivity, spatial context, trends, monitoring gap, and story synthesis.
+- [x] Mark the current phase as analysis sprint, with app implementation paused until story evidence is stronger.
 
 ### Task 2: Script-First EDA Helpers
 
@@ -32,10 +34,10 @@
 - Create: `analysis/eda/trends.py`
 - Create: `tests/analysis/test_eda.py`
 
-- [ ] Write failing tests for coverage summaries, driver labels, sensitivity ranking, and trend-profile helpers.
-- [ ] Implement minimal pandas helpers with small, focused functions.
-- [ ] Use comments only for non-obvious blocks, formatted as `# comment`.
-- [ ] Keep function outputs deterministic by sorting rows and columns explicitly.
+- [x] Write failing tests for coverage summaries, driver labels, sensitivity ranking, and trend-profile helpers.
+- [x] Implement minimal pandas helpers with small, focused functions.
+- [x] Use comments only for non-obvious blocks, formatted as `# comment`.
+- [x] Keep function outputs deterministic by sorting rows and columns explicitly.
 
 ### Task 3: EDA Runner And Artifacts
 
@@ -49,10 +51,10 @@
 - Create: `artifacts/tables/eda_monitoring_gap.csv`
 - Create: `artifacts/provenance/eda_summary.json`
 
-- [ ] Write a CLI runner that reads generated project artifacts rather than notebooks.
-- [ ] Save every table with a stable filename under `artifacts/tables/`.
-- [ ] Save one provenance summary with inputs, outputs, row counts, and caveats.
-- [ ] Print a short run summary.
+- [x] Write a CLI runner that reads generated project artifacts rather than notebooks.
+- [x] Save every table with a stable filename under `artifacts/tables/`.
+- [x] Save one provenance summary with inputs, outputs, row counts, and caveats.
+- [x] Print a short run summary.
 
 ### Task 4: Context Sync And QA
 
@@ -63,7 +65,7 @@
 - Modify: `context/HANDOVER.md`
 - Modify: `context/logs/Progress Log.md`
 
-- [ ] Summarize what the first EDA pass does and does not prove.
-- [ ] Index new artifacts and rerun commands in handoff docs.
-- [ ] Run unit tests, EDA runner, task status validation, required artifact validation, secret scan, compile check, and diff check.
-- [ ] Commit with a task-oriented message and no co-author trailer.
+- [x] Summarize what the first EDA pass does and does not prove.
+- [x] Index new artifacts and rerun commands in handoff docs.
+- [x] Run unit tests, EDA runner, task status validation, required artifact validation, secret scan, compile check, and diff check.
+- [x] Commit with a task-oriented message and no co-author trailer.

@@ -79,3 +79,13 @@ These fields are descriptive only and must not feed Adaptation Gap Index scoring
 Pacific subregions follow UN M49 statistical groupings and should not be framed as cultural or political boundaries. Boundary polygons remain undecided; keep centroid-first mapping until an authoritative boundary source is selected and documented.
 
 Reason: the atlas needs spatial context for GIS exploration, but status labels and regional groupings are politically sensitive and should not be smuggled into the quantitative method.
+
+## 2026-06-25: Treat EDA Story Labels As Descriptive Screens
+
+TASK-012, TASK-013, TASK-014, and TASK-017 produce interpretation tables for story selection: indicator forensics, country story labels, rank volatility, and monitoring-gap priorities.
+
+These outputs guide app copy, layer priority, and exemplar selection. They do not alter the baseline index and must not be described as causal explanations.
+
+Monitoring-gap language should distinguish reported-zero monitoring rows from missing monitoring rows. Missing rows are reporting gaps unless an external source verifies infrastructure absence.
+
+Reason: the current evidence base is strong enough for exploratory story selection but not for causal attribution, definitive rankings, or infrastructure-absence claims.

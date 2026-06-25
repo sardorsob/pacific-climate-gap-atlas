@@ -19,3 +19,5 @@
 - Keep geography codes stable across all processed outputs.
 - Use GeoJSON for app map layers.
 - Keep source metadata attached to app-ready data.
+- Treat current geometry as centroid fallback; use point/centroid map layers until a boundary source is chosen.
+- Use `scripts/run_eda.py --config configs/eda.yml` to regenerate EDA story tables before visual synthesis.

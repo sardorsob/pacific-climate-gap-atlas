@@ -20,3 +20,10 @@
 - Capacity indicators are slower-moving and may be projected using simple scenario assumptions.
 - Climate signal trends require enough historical observations to avoid misleading projections.
 - Weak projections should be omitted from the app rather than dressed up.
+
+## EDA Story Assumptions
+
+- Country story labels are descriptive screens for exploration, not causal explanations.
+- Rank order is fragile for many geographies and should be shown as context, not a definitive leaderboard.
+- Indicator outliers should be compared within the same dataset and unit only.
+- Missing monitoring rows are reporting gaps unless a reviewed external source confirms infrastructure absence.

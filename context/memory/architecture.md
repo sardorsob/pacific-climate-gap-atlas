@@ -11,3 +11,5 @@ The repository is divided into five major areas:
 - `app/`: future GIS web app.
 
 Generated data and outputs live under `data/` and `artifacts/`.
+
+Script-first EDA lives in `analysis/eda/` and is orchestrated by `scripts/run_eda.py`. Its current reportable outputs include coverage diagnostics, indicator forensics, country story labels, rank volatility, trend profiles, and monitoring-gap priorities.

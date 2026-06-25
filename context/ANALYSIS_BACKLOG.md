@@ -4,6 +4,10 @@
 
 The project is pausing visual design work until the atlas has a stronger evidence base. This backlog defines the in-depth EDA and GIS-oriented analysis needed before a final app story, layout, and Claude visual-design handoff.
 
+## Current Status
+
+Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, and monitoring-gap GIS priorities. Remaining analysis lanes before story synthesis are spatial typologies (`TASK-015`) and trend/outlook interpretation (`TASK-016`). Story synthesis and Claude visual handoff belong in `TASK-018`.
+
 ## Principles
 
 - Start from analytical questions, not chart ideas.
@@ -23,8 +27,14 @@ Outputs:
 - `scripts/run_eda.py`
 - `analysis/eda/*`
 - `artifacts/tables/eda_data_coverage.csv`
+- `artifacts/tables/eda_coverage_by_geography.csv`
+- `artifacts/tables/eda_coverage_by_dataset.csv`
+- `artifacts/tables/eda_indicator_forensics.csv`
+- `artifacts/tables/eda_indicator_outliers.csv`
 - `artifacts/tables/eda_country_drivers.csv`
+- `artifacts/tables/eda_country_story_labels.csv`
 - `artifacts/tables/index_sensitivity.csv`
+- `artifacts/tables/eda_rank_volatility.csv`
 - `artifacts/tables/eda_trend_profiles.csv`
 - `artifacts/tables/eda_monitoring_gap.csv`
 - `artifacts/provenance/eda_summary.json`

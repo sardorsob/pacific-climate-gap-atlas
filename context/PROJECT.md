@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-Analysis sprint before app shell.
+Analysis sprint before app shell. Competition deadline: August 31, 2026.
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, and a script-first EDA sprint foundation for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, and script-first EDA outputs for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
 
 ## Working Title
 

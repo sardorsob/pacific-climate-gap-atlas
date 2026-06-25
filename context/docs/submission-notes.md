@@ -2,7 +2,7 @@
 
 ## Competition
 
-Pacific Dataviz Challenge 2026.
+Pacific Dataviz Challenge 2026. Due date: August 31, 2026.
 
 ## Theme
 
@@ -23,3 +23,7 @@ The Pacific Adaptation Gap Atlas.
 ## Draft Description
 
 A GIS-first atlas that helps readers explore where Pacific climate signals, observed stress, and adaptation-capacity proxies appear most out of balance.
+
+## Current Analysis State
+
+The project has script-first EDA outputs for indicator forensics, country story labels, rank volatility, and monitoring-gap GIS priorities. Final submission copy should wait for story synthesis and Claude visual handoff after the remaining analysis lanes.

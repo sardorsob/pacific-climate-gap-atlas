@@ -35,6 +35,17 @@ The score table includes `included_indicator_count`, `available_pillars`, `missi
 - Responsibility-context indicators are included in the trace table but not in the pressure-minus-capacity score.
 - Rankings are sensitive to latest-year availability and should be treated as prompts for exploration, not definitive classifications.
 
+## EDA Interpretation Tables
+
+The script-first EDA runner adds interpretation surfaces around the baseline index:
+
+- `eda_indicator_forensics.csv` preserves the row-level indicator trace, score role, within-indicator rank context, and outlier flags.
+- `eda_country_story_labels.csv` provides descriptive country labels, story priorities, pressure/capacity summaries, and non-causal caveats for app copy drafts.
+- `eda_monitoring_gap.csv` compares monitoring proxy coverage with adaptation-gap and pressure/capacity scores, including GIS story quadrants and missing-reporting caveats.
+- `eda_rank_volatility.csv` frames rank uncertainty with weight shifts and leave-one-indicator stress tests.
+
+These EDA tables guide story selection. They do not change the baseline score and should not be described as causal attribution.
+
 ## Outlook Method
 
 The Adaptation Gap Outlook is implemented as a transparent stress test. It fits simple climate-signal trends for geography/indicator series with at least 8 observations, projects climate-signal pressure to 2030 and 2050, and compares those projected pressure scores against two capacity scenarios:
