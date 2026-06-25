@@ -121,7 +121,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Phase: app-data
 - Title: Export GIS layer data for the web app
 - Depends on: TASK-003
-- Assigned agent: unassigned
+- Assigned agent: Codex
 - Contract refs: configs/app_layers.yml
 - Data refs: data/processed
 - Scientific refs: context/DATA_CARD.md
@@ -129,16 +129,16 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Functional notes: Convert scored geography data into app-ready GeoJSON/JSON with metadata.
 - Statistical notes: Keep raw values and score fields separate.
 - Edge cases: Missing geometries should fall back to centroids or disabled map states.
-- Files to create/modify: `scripts/build_app_data.py`, `data/processed/app/*`, `app/public/data/*`
-- Artifacts to produce: atlas geographies GeoJSON, layer metadata JSON, country details JSON
+- Files to create/modify: `analysis/preprocessing/app_data.py`, `scripts/build_app_data.py`, `scripts/validate_data_contracts.py`, `configs/app_layers.yml`, `data/processed/app/*`, `app/public/data/*`
+- Artifacts to produce: atlas geographies GeoJSON, layer metadata JSON, country details JSON, app-data provenance summary
 - Acceptance criteria: App data passes contract validation and includes source/methodology references.
 - Verification commands: `python scripts/build_app_data.py --config configs/app_layers.yml`; `python scripts/validate_data_contracts.py`
 - Manual QA: Open exported JSON and confirm geography code/name consistency.
-- QA notes:
-- Attempts: 0
+- QA notes: Added tested app-data builders, generated `data/processed/app/geographies.json`, `data/processed/app/atlas_geographies.geojson`, `data/processed/app/monitoring_network.geojson`, `data/processed/app/layers.json`, and `data/processed/app/country_details.json`, mirrored all five files into `app/public/data/`, and wrote `artifacts/provenance/app_data_summary.json`. Output includes 22 geography records, 6 layers, and 18 monitoring features. Geometry uses documented centroid fallback until a boundary join is added.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Built app-facing aliases, flattened 2030/2050 outlook fields for map styling, and strengthened contract validation for public file parity.
+- Status: done
 
 ## TASK-006
 - Phase: app

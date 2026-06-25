@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-004` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, and stress-tested with an app-optional outlook baseline.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON.
 
 ## How To Validate The Scaffold
 
@@ -40,11 +40,20 @@ python scripts/build_gap_index.py --config configs/gap_index.yml
 python scripts/run_outlook.py --config configs/outlook.yml
 ```
 
+## How To Rebuild App Data
+
+```powershell
+python scripts/build_app_data.py --config configs/app_layers.yml
+python scripts/validate_data_contracts.py
+```
+
+This writes app data under `data/processed/app/`, mirrors the website-facing files to `app/public/data/`, and records `artifacts/provenance/app_data_summary.json`.
+
 ## Next Recommended Work
 
-1. Complete `TASK-005`: export GIS layer data for the web app after the index exists.
-2. Start `TASK-006`: build the GIS atlas app shell once app data exists.
-3. Decide whether the outlook appears as a secondary app layer or only in methodology notes.
+1. Start `TASK-006`: build the GIS atlas app shell from `app/public/data/`.
+2. Decide how visible the outlook caveats should be in the layer controls and side panel.
+3. Prepare `TASK-007` source/methodology polish once the app shell exists.
 
 ## Known Caveats
 
@@ -54,4 +63,5 @@ python scripts/run_outlook.py --config configs/outlook.yml
 - Raw official CSV cache files under `data/raw/official/` are ignored by Git.
 - The gap index is a draft comparative baseline. The app must show indicator counts, trace details, and methodology caveats near the score.
 - The outlook baseline is app-optional. Only include it in the interface with visible caveats and row-level notes.
+- TASK-005 GIS exports use centroid fallback geometry, not island boundaries. Treat layers as centroid/point maps until boundary data is added.
 - The copied reference workflow kits are intentionally ignored under `context/`.

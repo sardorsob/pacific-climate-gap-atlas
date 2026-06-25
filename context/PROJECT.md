@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-Modeling.
+App-data complete; ready for app shell.
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, and an app-optional Adaptation Gap Outlook baseline for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, and static app-ready JSON/GeoJSON for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
 
 ## Working Title
 
@@ -26,6 +26,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Data science pipeline | done | `scripts/make_dataset.py` produces normalized observations, geography lookup, app summary, and provenance |
 | Adaptation Gap Index | done | `scripts/build_gap_index.py` produces geography scores plus indicator trace |
 | Outlook model | done | trend stress-test baseline is methodology-ready and app-optional |
+| Static app data | done | `scripts/build_app_data.py` produces public JSON/GeoJSON layer inputs |
 | GIS atlas app | planned | React/Vite/MapLibre scaffold will consume static app-ready data |
 
 ## Last Session Notes
@@ -37,3 +38,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Completed `TASK-002` processed data pipeline with local raw-cache support.
 - Completed `TASK-003` baseline Adaptation Gap Index and methodology update.
 - Completed `TASK-004` Adaptation Gap Outlook baseline and model-card update.
+- Completed `TASK-005` app-data export with centroid GeoJSON, layer metadata, country details, and public app copies.

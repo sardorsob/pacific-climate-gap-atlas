@@ -51,6 +51,11 @@
 - `data/processed/official_observations.csv`: normalized official observations in long form.
 - `data/processed/geography_lookup.csv`: geography coverage lookup across priority datasets.
 - `data/processed/app/atlas_dataset_summary.json`: compact app-ready data summary without geometry.
+- `data/processed/app/geographies.json`: score, source, centroid, and outlook records for each geography.
+- `data/processed/app/atlas_geographies.geojson`: centroid GeoJSON for adaptation-gap, pillar, and outlook map layers.
+- `data/processed/app/monitoring_network.geojson`: latest monitoring-network centroid overlay.
+- `data/processed/app/layers.json`: app layer manifest.
+- `data/processed/app/country_details.json`: geography detail records with indicator trace rows.
 - `data/external/`: boundaries and lookup tables.
 - `data/contracts/`: generated JSON source, coverage, and schema contracts for priority official datasets.
 - `artifacts/`: figures, tables, reports, run bundles, and provenance.
@@ -62,3 +67,4 @@
 - `artifacts/provenance/dataset_pipeline_summary.json`: processed pipeline provenance, row counts, and source hashes.
 - `artifacts/provenance/gap_index_summary.json`: index method summary, score counts, and top/bottom geography review set.
 - `artifacts/provenance/outlook_summary.json`: outlook metrics, caveats, inputs, and outputs.
+- `artifacts/provenance/app_data_summary.json`: app-data output counts, source refs, and geometry policy.

@@ -102,6 +102,27 @@ python scripts/run_outlook.py --config configs/outlook.yml
 
 The outlook is a transparent stress-test layer, not an operational forecast. It should remain secondary unless caveats are visible in the app.
 
+## TASK-005 App Data Artifacts
+
+The app-data exporter now writes:
+
+- `data/processed/app/geographies.json`: app-facing geography records with scores, source refs, centroid metadata, and nested outlook values.
+- `data/processed/app/atlas_geographies.geojson`: centroid GeoJSON for map layers with flattened score and outlook fields.
+- `data/processed/app/monitoring_network.geojson`: latest monitoring-network centroid overlay.
+- `data/processed/app/layers.json`: layer manifest for six atlas layers.
+- `data/processed/app/country_details.json`: detail-panel records with indicator trace rows.
+- `app/public/data/*`: byte-for-byte public copies consumed by the web app.
+- `artifacts/provenance/app_data_summary.json`: output counts, source refs, and geometry policy.
+
+Run command:
+
+```powershell
+python scripts/build_app_data.py --config configs/app_layers.yml
+python scripts/validate_data_contracts.py
+```
+
+Current output includes 22 geography records, 6 atlas layers, and 18 monitoring overlay features. Geometry is a centroid fallback until a proper boundary join is added, so the first app iteration should style these as point/centroid layers rather than true polygon choropleths.
+
 ## Raw Data Policy
 
 - `data/raw/` is immutable and ignored by Git except for documentation.
