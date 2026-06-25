@@ -5,6 +5,7 @@
   "pipeline_tasks": [
     "TASK-009",
     "TASK-011",
+    "TASK-012",
     "TASK-014"
   ],
   "config": "configs/eda.yml",
@@ -22,6 +23,8 @@
     "eda_coverage_by_dataset.csv": "artifacts/tables/eda_coverage_by_dataset.csv",
     "eda_coverage_by_geography.csv": "artifacts/tables/eda_coverage_by_geography.csv",
     "eda_data_coverage.csv": "artifacts/tables/eda_data_coverage.csv",
+    "eda_indicator_forensics.csv": "artifacts/tables/eda_indicator_forensics.csv",
+    "eda_indicator_outliers.csv": "artifacts/tables/eda_indicator_outliers.csv",
     "eda_monitoring_gap.csv": "artifacts/tables/eda_monitoring_gap.csv",
     "eda_rank_volatility.csv": "artifacts/tables/eda_rank_volatility.csv",
     "eda_trend_profiles.csv": "artifacts/tables/eda_trend_profiles.csv",
@@ -33,6 +36,8 @@
     "eda_coverage_by_dataset.csv": 9,
     "eda_coverage_by_geography.csv": 22,
     "eda_data_coverage.csv": 22,
+    "eda_indicator_forensics.csv": 182,
+    "eda_indicator_outliers.csv": 11,
     "eda_monitoring_gap.csv": 22,
     "eda_rank_volatility.csv": 22,
     "eda_trend_profiles.csv": 22,
@@ -56,6 +61,12 @@
     "lower relative gap": 7,
     "mixed signals": 4
   },
+  "indicator_forensics": {
+    "trace_row_count": 182,
+    "score_input_count": 165,
+    "context_only_count": 17,
+    "outlier_count": 11
+  },
   "monitoring_story_count": 4,
   "rank_fragility": {
     "fragile": 12,
@@ -73,6 +84,7 @@
     "Monitoring counts are proxy coverage and are not normalized by population or area yet.",
     "Sensitivity scenarios are simple stress tests for narrative confidence.",
     "Leave-one-indicator rank volatility frames uncertainty, not a new ranking.",
-    "Coverage diagnostics are about official data availability, not outcomes."
+    "Coverage diagnostics are about official data availability, not outcomes.",
+    "Indicator outliers are comparable only within the same dataset and unit."
   ]
 }

@@ -295,11 +295,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Every indicator row traces to dataset slug, pillar, latest year, raw value, score, and outlier flag.
 - Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
 - Manual QA: Spot-check top outliers against indicator trace rows.
-- QA notes:
-- Attempts: 0
+- QA notes: Added `eda_indicator_forensics.csv` preserving all 182 indicator trace rows with raw latest values, scoring values, within-indicator ranks, score roles, and outlier fields. Added `eda_indicator_outliers.csv` with 11 within-dataset 1.5x-IQR scoring-value outliers. Outlier interpretation is within-indicator only because units and denominators differ. NC and PW GHG outliers are context-only, not score drivers.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented in parallel with country-driver and monitoring-gap analysis, then integrated into the EDA runner and committed separately.
+- Status: done
 
 ## TASK-013
 - Phase: analysis

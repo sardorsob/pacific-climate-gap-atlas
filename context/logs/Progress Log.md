@@ -17,5 +17,6 @@
 - Completed `TASK-009` with an analysis backlog, EDA helper modules, and first-pass coverage, driver, sensitivity, trend, and monitoring-gap tables.
 - Completed `TASK-010` with descriptive GIS context for all scored geographies, source provenance, and boundary-neutral caveats.
 - Completed `TASK-011` with geography-level and dataset-level data coverage tables, identifying PN as the current data-desert outlier and several partial-coverage datasets.
+- Completed `TASK-012` with indicator forensics preserving all trace rows and flagging within-dataset outliers for careful story evidence.
 
 AI tools used: Codex.

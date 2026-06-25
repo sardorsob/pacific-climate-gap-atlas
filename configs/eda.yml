@@ -12,6 +12,8 @@ outputs:
   data_coverage: artifacts/tables/eda_data_coverage.csv
   coverage_by_geography: artifacts/tables/eda_coverage_by_geography.csv
   coverage_by_dataset: artifacts/tables/eda_coverage_by_dataset.csv
+  indicator_forensics: artifacts/tables/eda_indicator_forensics.csv
+  indicator_outliers: artifacts/tables/eda_indicator_outliers.csv
   country_drivers: artifacts/tables/eda_country_drivers.csv
   index_sensitivity: artifacts/tables/index_sensitivity.csv
   rank_volatility: artifacts/tables/eda_rank_volatility.csv
@@ -24,3 +26,4 @@ caveats:
   - Monitoring counts are proxy coverage until normalized with external context.
   - Rank volatility is uncertainty framing, not a replacement ranking.
   - Coverage diagnostics describe official-data availability, not outcomes.
+  - Indicator outliers are comparable only within the same dataset and unit.

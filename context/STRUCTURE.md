@@ -71,6 +71,8 @@
 - `artifacts/tables/eda_data_coverage.csv`: geography-level EDA coverage tiers and data-desert flags.
 - `artifacts/tables/eda_coverage_by_geography.csv`: geography-level official-data coverage deep dive.
 - `artifacts/tables/eda_coverage_by_dataset.csv`: dataset-level official-data coverage deep dive.
+- `artifacts/tables/eda_indicator_forensics.csv`: indicator trace rows with score roles, rank context, and outlier fields.
+- `artifacts/tables/eda_indicator_outliers.csv`: subset of indicator forensics rows flagged by within-dataset outlier checks.
 - `artifacts/tables/eda_country_drivers.csv`: country-level descriptive driver labels and evidence density.
 - `artifacts/tables/index_sensitivity.csv`: simple pressure-heavy/capacity-heavy rank sensitivity table.
 - `artifacts/tables/eda_rank_volatility.csv`: rank-volatility table combining weight shifts and leave-one-indicator stress tests.

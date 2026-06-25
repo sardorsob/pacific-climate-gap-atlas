@@ -19,6 +19,7 @@ from analysis.eda.coverage import (  # noqa: E402
     build_task011_coverage_tables,
 )
 from analysis.eda.drivers import build_country_drivers  # noqa: E402
+from analysis.eda.indicator_forensics import build_indicator_forensics_tables  # noqa: E402
 from analysis.eda.sensitivity import build_rank_volatility, build_weight_sensitivity  # noqa: E402
 from analysis.eda.trends import build_trend_profiles  # noqa: E402
 
@@ -83,6 +84,7 @@ def run_eda(
         "eda_monitoring_gap.csv": build_monitoring_gap(index, observations),
     }
     tables.update(build_task011_coverage_tables(observations, lookup, dataset_profile))
+    tables.update(build_indicator_forensics_tables(indicator_trace))
 
     table_dir.mkdir(parents=True, exist_ok=True)
     for file_name, table in tables.items():
@@ -127,6 +129,8 @@ def build_summary(
     coverage_by_geography = tables["eda_coverage_by_geography.csv"]
     coverage_by_dataset = tables["eda_coverage_by_dataset.csv"]
     drivers = tables["eda_country_drivers.csv"]
+    indicator_forensics = tables["eda_indicator_forensics.csv"]
+    indicator_outliers = tables["eda_indicator_outliers.csv"]
     monitoring = tables["eda_monitoring_gap.csv"]
     sensitivity = tables["index_sensitivity.csv"]
     rank_volatility = tables["eda_rank_volatility.csv"]
@@ -135,7 +139,7 @@ def build_summary(
         "schema_version": 1,
         "pipeline_task": "TASK-009",
         "status": "eda_foundation_ready",
-        "pipeline_tasks": ["TASK-009", "TASK-011", "TASK-014"],
+        "pipeline_tasks": ["TASK-009", "TASK-011", "TASK-012", "TASK-014"],
         "config": relative_path(config_path),
         "inputs": {
             "dataset_profile": relative_path(dataset_profile_path),
@@ -168,6 +172,16 @@ def build_summary(
             ),
         },
         "driver_labels": drivers["driver_label"].value_counts().sort_index().to_dict(),
+        "indicator_forensics": {
+            "trace_row_count": int(len(indicator_forensics)),
+            "score_input_count": int(
+                (indicator_forensics["score_input_role"] == "score_input").sum()
+            ),
+            "context_only_count": int(
+                (indicator_forensics["score_input_role"] == "context_only").sum()
+            ),
+            "outlier_count": int(len(indicator_outliers)),
+        },
         "monitoring_story_count": int(monitoring["monitoring_story_flag"].sum()),
         "rank_fragility": sensitivity["robustness_label"].value_counts().sort_index().to_dict(),
         "rank_volatility": (
@@ -184,6 +198,7 @@ def build_summary(
             "Sensitivity scenarios are simple stress tests for narrative confidence.",
             "Leave-one-indicator rank volatility frames uncertainty, not a new ranking.",
             "Coverage diagnostics are about official data availability, not outcomes.",
+            "Indicator outliers are comparable only within the same dataset and unit.",
         ],
     }
 
