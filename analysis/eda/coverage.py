@@ -8,6 +8,251 @@ import pandas as pd
 
 
 MONITORING_DATASET_SLUG = "meteorological-monitoring-network"
+COVERAGE_PILLARS = (
+    "adaptation_capacity",
+    "climate_signal",
+    "observed_stress",
+    "responsibility_context",
+)
+TIMESERIES_COVERAGE_CAVEAT = (
+    "High row counts can reflect long time series rather than better spatial coverage; "
+    "compare dataset counts, geography counts, missing fields, and year spans before "
+    "interpreting official data coverage."
+)
+COVERAGE_ONLY_CAVEAT = (
+    "Coverage flags describe official data availability only; they are separate from "
+    "climate, adaptation, or responsibility outcome rankings."
+)
+
+
+def build_coverage_by_geography(
+    observations: pd.DataFrame,
+    geography_lookup: pd.DataFrame | None = None,
+    dataset_profile: pd.DataFrame | None = None,
+    expected_pillars: tuple[str, ...] | None = None,
+) -> pd.DataFrame:
+    """Build TASK-011 geography-level official-data coverage diagnostics."""
+
+    normalized = _normalize_observations(observations)
+    geographies = _all_geographies(normalized, geography_lookup, dataset_profile)
+    all_datasets = _all_dataset_slugs(normalized, dataset_profile)
+    all_pillars = _expected_pillars(normalized, dataset_profile, expected_pillars)
+    total_dataset_count = len(all_datasets)
+
+    rows: list[dict[str, object]] = []
+    for geo_code in geographies:
+        geo_observations = normalized[normalized["geo_code"] == geo_code]
+        datasets = _sorted_unique(geo_observations, "dataset_slug")
+        pillars = _sorted_unique(geo_observations, "pillar")
+        years = geo_observations["year"].dropna()
+        missing_datasets = [slug for slug in all_datasets if slug not in datasets]
+        missing_pillars = [pillar for pillar in all_pillars if pillar not in pillars]
+        row_count = int(len(geo_observations))
+        dataset_count = len(datasets)
+        pillar_count = len(pillars)
+
+        data_desert_flag = _task011_data_desert_flag(
+            dataset_count=dataset_count,
+            total_dataset_count=total_dataset_count,
+            pillar_count=pillar_count,
+        )
+        row = {
+            "geo_code": geo_code,
+            "row_count": row_count,
+            "dataset_count": dataset_count,
+            "total_dataset_count": total_dataset_count,
+            "missing_dataset_count": len(missing_datasets),
+            "first_observation_year": _first_year(years),
+            "last_observation_year": _last_year(years),
+            "observation_year_count": int(years.nunique()),
+            "year_span": _year_span(years),
+            "pillar_count": pillar_count,
+            "missing_pillar_count": len(missing_pillars),
+            "missing_pillars": " ".join(missing_pillars),
+            "partial_dataset_coverage_flag": bool(missing_datasets),
+            "data_desert_flag": data_desert_flag,
+            "monitoring_network_missing_flag": MONITORING_DATASET_SLUG not in datasets,
+            "coverage_flag": _geography_coverage_flag(data_desert_flag, missing_datasets),
+            "coverage_caveat": _coverage_caveat(),
+            "datasets": " ".join(datasets),
+            "missing_datasets": " ".join(missing_datasets),
+            "pillars": " ".join(pillars),
+        }
+        for pillar in all_pillars:
+            row[f"missing_{pillar}_flag"] = pillar not in pillars
+        rows.append(row)
+
+    columns = [
+        "geo_code",
+        "row_count",
+        "dataset_count",
+        "total_dataset_count",
+        "missing_dataset_count",
+        "first_observation_year",
+        "last_observation_year",
+        "observation_year_count",
+        "year_span",
+        "pillar_count",
+        "missing_pillar_count",
+        "missing_pillars",
+        "missing_adaptation_capacity_flag",
+        "missing_climate_signal_flag",
+        "missing_observed_stress_flag",
+        "missing_responsibility_context_flag",
+        "partial_dataset_coverage_flag",
+        "data_desert_flag",
+        "monitoring_network_missing_flag",
+        "coverage_flag",
+        "coverage_caveat",
+        "datasets",
+        "missing_datasets",
+        "pillars",
+    ]
+    table = pd.DataFrame(rows)
+    if table.empty:
+        return pd.DataFrame(columns=columns)
+    return (
+        table[columns]
+        .sort_values(
+            ["data_desert_flag", "dataset_count", "row_count", "geo_code"],
+            ascending=[False, True, True, True],
+            kind="mergesort",
+        )
+        .reset_index(drop=True)
+    )
+
+
+def build_coverage_by_dataset(
+    observations: pd.DataFrame,
+    dataset_profile: pd.DataFrame | None = None,
+    geography_lookup: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Build TASK-011 dataset-level official-data coverage diagnostics."""
+
+    normalized = _normalize_observations(observations)
+    geographies = _all_geographies(normalized, geography_lookup, dataset_profile)
+    all_datasets = _all_dataset_slugs(normalized, dataset_profile)
+    profiles = _profile_records_by_slug(dataset_profile)
+    total_geography_count = len(geographies)
+
+    rows: list[dict[str, object]] = []
+    for dataset_slug in all_datasets:
+        dataset_observations = normalized[normalized["dataset_slug"] == dataset_slug]
+        years = dataset_observations["year"].dropna()
+        covered_geographies = _sorted_unique(dataset_observations, "geo_code")
+        missing_geographies = [geo for geo in geographies if geo not in covered_geographies]
+        profile = profiles.get(dataset_slug, {})
+        row_count = int(len(dataset_observations))
+        geography_count = len(covered_geographies)
+        missing_geography_count = len(missing_geographies)
+        thin_geography_coverage_flag = _thin_geography_coverage_flag(
+            geography_count=geography_count,
+            total_geography_count=total_geography_count,
+        )
+
+        rows.append(
+            {
+                "dataset_slug": dataset_slug,
+                "dataset_name": _dataset_label(
+                    dataset_observations, profile, "dataset_name", "name"
+                ),
+                "pillar": _dataset_label(dataset_observations, profile, "pillar", "pillar"),
+                "story_role": _dataset_label(
+                    dataset_observations, profile, "story_role", "story_role"
+                ),
+                "row_count": row_count,
+                "dataset_count": 1,
+                "geography_count": geography_count,
+                "total_geography_count": total_geography_count,
+                "geography_coverage_pct": _coverage_pct(
+                    geography_count, total_geography_count
+                ),
+                "missing_geography_count": missing_geography_count,
+                "first_observation_year": _first_year(years),
+                "last_observation_year": _last_year(years),
+                "observation_year_count": int(years.nunique()),
+                "year_span": _year_span(years),
+                "average_rows_per_geography": _average_rows(row_count, geography_count),
+                "full_geography_coverage_flag": bool(
+                    total_geography_count and missing_geography_count == 0
+                ),
+                "partial_geography_coverage_flag": bool(missing_geography_count),
+                "thin_geography_coverage_flag": thin_geography_coverage_flag,
+                "long_timeseries_flag": bool(row_count > geography_count),
+                "coverage_flag": _dataset_coverage_flag(
+                    missing_geography_count=missing_geography_count,
+                    thin_geography_coverage_flag=thin_geography_coverage_flag,
+                ),
+                "coverage_caveat": _coverage_caveat(),
+                "covered_geographies": " ".join(covered_geographies),
+                "missing_geographies": " ".join(missing_geographies),
+                "profile_row_count": _profile_number(profile, "row_count"),
+                "profile_geography_count": _profile_number(profile, "geography_count"),
+                "profile_year_start": _profile_number(profile, "year_start"),
+                "profile_year_end": _profile_number(profile, "year_end"),
+                "profile_caveat_notes": _profile_text(profile, "caveat_notes"),
+            }
+        )
+
+    columns = [
+        "dataset_slug",
+        "dataset_name",
+        "pillar",
+        "story_role",
+        "row_count",
+        "dataset_count",
+        "geography_count",
+        "total_geography_count",
+        "geography_coverage_pct",
+        "missing_geography_count",
+        "first_observation_year",
+        "last_observation_year",
+        "observation_year_count",
+        "year_span",
+        "average_rows_per_geography",
+        "full_geography_coverage_flag",
+        "partial_geography_coverage_flag",
+        "thin_geography_coverage_flag",
+        "long_timeseries_flag",
+        "coverage_flag",
+        "coverage_caveat",
+        "covered_geographies",
+        "missing_geographies",
+        "profile_row_count",
+        "profile_geography_count",
+        "profile_year_start",
+        "profile_year_end",
+        "profile_caveat_notes",
+    ]
+    table = pd.DataFrame(rows)
+    if table.empty:
+        return pd.DataFrame(columns=columns)
+    return (
+        table[columns]
+        .sort_values(
+            ["geography_count", "row_count", "dataset_slug"],
+            ascending=[True, True, True],
+            kind="mergesort",
+        )
+        .reset_index(drop=True)
+    )
+
+
+def build_task011_coverage_tables(
+    observations: pd.DataFrame,
+    geography_lookup: pd.DataFrame,
+    dataset_profile: pd.DataFrame,
+) -> dict[str, pd.DataFrame]:
+    """Build both TASK-011 coverage tables for runner integration."""
+
+    return {
+        "eda_coverage_by_geography.csv": build_coverage_by_geography(
+            observations, geography_lookup, dataset_profile
+        ),
+        "eda_coverage_by_dataset.csv": build_coverage_by_dataset(
+            observations, dataset_profile, geography_lookup
+        ),
+    }
 
 
 def build_data_coverage(lookup: pd.DataFrame) -> pd.DataFrame:
@@ -82,6 +327,204 @@ def build_monitoring_gap(index: pd.DataFrame, observations: pd.DataFrame) -> pd.
         "monitoring_story_flag",
     ]
     return merged[columns].sort_values("geo_code", kind="mergesort").reset_index(drop=True)
+
+
+def _normalize_observations(observations: pd.DataFrame) -> pd.DataFrame:
+    normalized = observations.copy()
+    for column in [
+        "dataset_slug",
+        "dataset_name",
+        "pillar",
+        "story_role",
+        "geo_code",
+        "year",
+        "value",
+    ]:
+        if column not in normalized.columns:
+            normalized[column] = pd.NA
+    for column in ["dataset_slug", "dataset_name", "pillar", "story_role", "geo_code"]:
+        normalized[column] = normalized[column].fillna("").astype(str).str.strip()
+    normalized["year"] = pd.to_numeric(normalized["year"], errors="coerce")
+    return normalized
+
+
+def _all_geographies(
+    observations: pd.DataFrame,
+    geography_lookup: pd.DataFrame | None,
+    dataset_profile: pd.DataFrame | None,
+) -> list[str]:
+    geographies = set(_sorted_unique(observations, "geo_code"))
+    if geography_lookup is not None and "geo_code" in geography_lookup.columns:
+        geographies.update(_sorted_unique(geography_lookup, "geo_code"))
+    if dataset_profile is not None and "geography_codes" in dataset_profile.columns:
+        for codes in dataset_profile["geography_codes"].dropna():
+            geographies.update(str(codes).split())
+    return sorted(geo for geo in geographies if geo)
+
+
+def _all_dataset_slugs(
+    observations: pd.DataFrame,
+    dataset_profile: pd.DataFrame | None,
+) -> list[str]:
+    dataset_slugs = set(_sorted_unique(observations, "dataset_slug"))
+    if dataset_profile is not None:
+        profile_slug_column = _profile_slug_column(dataset_profile)
+        if profile_slug_column:
+            dataset_slugs.update(_sorted_unique(dataset_profile, profile_slug_column))
+    return sorted(slug for slug in dataset_slugs if slug)
+
+
+def _expected_pillars(
+    observations: pd.DataFrame,
+    dataset_profile: pd.DataFrame | None,
+    expected_pillars: tuple[str, ...] | None,
+) -> list[str]:
+    pillars = set(expected_pillars or COVERAGE_PILLARS)
+    pillars.update(_sorted_unique(observations, "pillar"))
+    if dataset_profile is not None and "pillar" in dataset_profile.columns:
+        pillars.update(_sorted_unique(dataset_profile, "pillar"))
+    return sorted(pillar for pillar in pillars if pillar)
+
+
+def _profile_records_by_slug(dataset_profile: pd.DataFrame | None) -> dict[str, dict[str, object]]:
+    if dataset_profile is None:
+        return {}
+    profile_slug_column = _profile_slug_column(dataset_profile)
+    if not profile_slug_column:
+        return {}
+    profiles: dict[str, dict[str, object]] = {}
+    for _, row in dataset_profile.iterrows():
+        slug = row.get(profile_slug_column)
+        if pd.isna(slug):
+            continue
+        profiles[str(slug).strip()] = row.to_dict()
+    return profiles
+
+
+def _profile_slug_column(dataset_profile: pd.DataFrame) -> str | None:
+    for column in ["slug", "dataset_slug"]:
+        if column in dataset_profile.columns:
+            return column
+    return None
+
+
+def _sorted_unique(frame: pd.DataFrame, column: str) -> list[str]:
+    if column not in frame.columns:
+        return []
+    return sorted(
+        {
+            str(value).strip()
+            for value in frame[column].dropna()
+            if str(value).strip() and str(value).strip().lower() != "nan"
+        }
+    )
+
+
+def _dataset_label(
+    dataset_observations: pd.DataFrame,
+    profile: dict[str, object],
+    observation_column: str,
+    profile_column: str,
+) -> str:
+    values = _sorted_unique(dataset_observations, observation_column)
+    if values:
+        return values[0]
+    return _profile_text(profile, profile_column)
+
+
+def _profile_text(profile: dict[str, object], column: str) -> str:
+    value = profile.get(column, "")
+    if value is None or pd.isna(value):
+        return ""
+    return str(value).strip()
+
+
+def _profile_number(profile: dict[str, object], column: str) -> int | pd.NA:
+    value = profile.get(column)
+    if value is None or pd.isna(value):
+        return pd.NA
+    numeric = pd.to_numeric(value, errors="coerce")
+    if pd.isna(numeric):
+        return pd.NA
+    return int(numeric)
+
+
+def _first_year(years: pd.Series) -> int | pd.NA:
+    years = years.dropna()
+    if years.empty:
+        return pd.NA
+    return int(years.min())
+
+
+def _last_year(years: pd.Series) -> int | pd.NA:
+    years = years.dropna()
+    if years.empty:
+        return pd.NA
+    return int(years.max())
+
+
+def _year_span(years: pd.Series) -> int | pd.NA:
+    years = years.dropna()
+    if years.empty:
+        return pd.NA
+    return int(years.max() - years.min() + 1)
+
+
+def _task011_data_desert_flag(
+    *,
+    dataset_count: int,
+    total_dataset_count: int,
+    pillar_count: int,
+) -> bool:
+    if dataset_count == 0 or pillar_count <= 1:
+        return True
+    return bool(total_dataset_count and dataset_count <= max(1, total_dataset_count // 2))
+
+
+def _thin_geography_coverage_flag(
+    *,
+    geography_count: int,
+    total_geography_count: int,
+) -> bool:
+    if geography_count == 0:
+        return True
+    return bool(total_geography_count and geography_count <= max(1, total_geography_count // 2))
+
+
+def _geography_coverage_flag(data_desert_flag: bool, missing_datasets: list[str]) -> str:
+    if data_desert_flag:
+        return "data_desert"
+    if missing_datasets:
+        return "partial_dataset_coverage"
+    return "complete_dataset_coverage"
+
+
+def _dataset_coverage_flag(
+    *,
+    missing_geography_count: int,
+    thin_geography_coverage_flag: bool,
+) -> str:
+    if thin_geography_coverage_flag:
+        return "thin_geography_coverage"
+    if missing_geography_count:
+        return "partial_geography_coverage"
+    return "full_geography_coverage"
+
+
+def _coverage_pct(count: int, total_count: int) -> float:
+    if not total_count:
+        return 0.0
+    return round((count / total_count) * 100, 2)
+
+
+def _average_rows(row_count: int, denominator: int) -> float:
+    if not denominator:
+        return 0.0
+    return round(row_count / denominator, 2)
+
+
+def _coverage_caveat() -> str:
+    return f"{TIMESERIES_COVERAGE_CAVEAT} {COVERAGE_ONLY_CAVEAT}"
 
 
 def _coverage_tier(row: pd.Series) -> str:

@@ -40,6 +40,8 @@ REQUIRED_PATHS = [
     "scripts/run_eda.py",
     "data/external/geography_context.csv",
     "artifacts/provenance/geography_context_sources.json",
+    "artifacts/tables/eda_coverage_by_geography.csv",
+    "artifacts/tables/eda_coverage_by_dataset.csv",
 ]
 
 

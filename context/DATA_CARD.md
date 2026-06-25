@@ -137,6 +137,8 @@ This table is not a score input. UN M49 subregions are statistical groupings, no
 The script-first EDA foundation now writes:
 
 - `artifacts/tables/eda_data_coverage.csv`: geography-level coverage tiers, year spans, row counts, and data-desert flags.
+- `artifacts/tables/eda_coverage_by_geography.csv`: geography-level dataset/pillar coverage, missing-dataset flags, year spans, and coverage caveats.
+- `artifacts/tables/eda_coverage_by_dataset.csv`: dataset-level geography coverage, missing-geography lists, row counts, year spans, and long-timeseries caveats.
 - `artifacts/tables/eda_country_drivers.csv`: descriptive country driver labels, score ranks, and evidence-density labels.
 - `artifacts/tables/index_sensitivity.csv`: baseline, pressure-heavy, and capacity-heavy rank comparisons.
 - `artifacts/tables/eda_rank_volatility.csv`: weight-shift and leave-one-indicator rank-volatility summary for uncertainty framing.
@@ -150,7 +152,7 @@ Run command:
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This is descriptive EDA only. It is designed to guide deeper analysis and story selection, not to make causal claims or finalize the atlas narrative. Rank-volatility outputs should be used to caveat or de-emphasize rank order, not to create a new definitive ranking.
+This is descriptive EDA only. It is designed to guide deeper analysis and story selection, not to make causal claims or finalize the atlas narrative. Coverage outputs describe official-data availability, not outcomes. Rank-volatility outputs should be used to caveat or de-emphasize rank order, not to create a new definitive ranking.
 
 ## Raw Data Policy
 

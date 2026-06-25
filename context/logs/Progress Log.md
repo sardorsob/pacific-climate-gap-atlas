@@ -16,5 +16,6 @@
 - Paused app implementation to run a deeper script-first EDA/story sprint before visual design.
 - Completed `TASK-009` with an analysis backlog, EDA helper modules, and first-pass coverage, driver, sensitivity, trend, and monitoring-gap tables.
 - Completed `TASK-010` with descriptive GIS context for all scored geographies, source provenance, and boundary-neutral caveats.
+- Completed `TASK-011` with geography-level and dataset-level data coverage tables, identifying PN as the current data-desert outlier and several partial-coverage datasets.
 
 AI tools used: Codex.

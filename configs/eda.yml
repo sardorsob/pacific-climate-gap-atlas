@@ -1,6 +1,7 @@
 task: TASK-009
 description: Script-first exploratory analysis sprint foundation.
 inputs:
+  dataset_profile: artifacts/tables/dataset_profile.csv
   geography_lookup: data/processed/geography_lookup.csv
   observations: data/processed/official_observations.csv
   gap_index: artifacts/tables/adaptation_gap_index.csv
@@ -9,6 +10,8 @@ inputs:
   outlook: artifacts/tables/adaptation_gap_outlook.csv
 outputs:
   data_coverage: artifacts/tables/eda_data_coverage.csv
+  coverage_by_geography: artifacts/tables/eda_coverage_by_geography.csv
+  coverage_by_dataset: artifacts/tables/eda_coverage_by_dataset.csv
   country_drivers: artifacts/tables/eda_country_drivers.csv
   index_sensitivity: artifacts/tables/index_sensitivity.csv
   rank_volatility: artifacts/tables/eda_rank_volatility.csv
@@ -20,3 +23,4 @@ caveats:
   - Current geometry is centroid fallback, not polygon boundaries.
   - Monitoring counts are proxy coverage until normalized with external context.
   - Rank volatility is uncertainty framing, not a replacement ranking.
+  - Coverage diagnostics describe official-data availability, not outcomes.

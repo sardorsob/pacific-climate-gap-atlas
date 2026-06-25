@@ -272,11 +272,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Tables include row counts, dataset counts, year spans, and coverage flags.
 - Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
 - Manual QA: Compare table totals to TASK-001 and TASK-002 summaries.
-- QA notes:
-- Attempts: 0
+- QA notes: Added geography-level and dataset-level coverage deep-dive tables. `eda_coverage_by_geography.csv` has 22 rows and flags PN as the only current data-desert geography under the stricter TASK-011 rule. `eda_coverage_by_dataset.csv` has 9 rows and shows partial geography coverage for GHG per capita, power generation, meteorological monitoring network, directly affected persons, sea-level anomalies, and sea-surface temperature anomalies. Geography and dataset row-count sums match 14,007 processed observation rows.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented in parallel with GIS context and rank-sensitivity work, then integrated into the EDA runner and committed separately.
+- Status: done
 
 ## TASK-012
 - Phase: analysis

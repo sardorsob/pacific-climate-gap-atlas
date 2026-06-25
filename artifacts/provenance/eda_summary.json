@@ -4,10 +4,12 @@
   "status": "eda_foundation_ready",
   "pipeline_tasks": [
     "TASK-009",
+    "TASK-011",
     "TASK-014"
   ],
   "config": "configs/eda.yml",
   "inputs": {
+    "dataset_profile": "artifacts/tables/dataset_profile.csv",
     "geography_lookup": "data/processed/geography_lookup.csv",
     "observations": "data/processed/official_observations.csv",
     "gap_index": "artifacts/tables/adaptation_gap_index.csv",
@@ -17,6 +19,8 @@
   },
   "outputs": {
     "eda_country_drivers.csv": "artifacts/tables/eda_country_drivers.csv",
+    "eda_coverage_by_dataset.csv": "artifacts/tables/eda_coverage_by_dataset.csv",
+    "eda_coverage_by_geography.csv": "artifacts/tables/eda_coverage_by_geography.csv",
     "eda_data_coverage.csv": "artifacts/tables/eda_data_coverage.csv",
     "eda_monitoring_gap.csv": "artifacts/tables/eda_monitoring_gap.csv",
     "eda_rank_volatility.csv": "artifacts/tables/eda_rank_volatility.csv",
@@ -26,6 +30,8 @@
   },
   "row_counts": {
     "eda_country_drivers.csv": 22,
+    "eda_coverage_by_dataset.csv": 9,
+    "eda_coverage_by_geography.csv": 22,
     "eda_data_coverage.csv": 22,
     "eda_monitoring_gap.csv": 22,
     "eda_rank_volatility.csv": 22,
@@ -36,6 +42,13 @@
     "geography_count": 22,
     "thin_coverage_count": 1,
     "data_desert_count": 1
+  },
+  "coverage_deep_dive": {
+    "geography_count": 22,
+    "dataset_count": 9,
+    "data_desert_count": 1,
+    "partial_geography_dataset_count": 6,
+    "partial_dataset_geography_count": 8
   },
   "driver_labels": {
     "high pressure": 5,
@@ -59,6 +72,7 @@
     "Current GIS geometry is centroid fallback until a boundary source is added.",
     "Monitoring counts are proxy coverage and are not normalized by population or area yet.",
     "Sensitivity scenarios are simple stress tests for narrative confidence.",
-    "Leave-one-indicator rank volatility frames uncertainty, not a new ranking."
+    "Leave-one-indicator rank volatility frames uncertainty, not a new ranking.",
+    "Coverage diagnostics are about official data availability, not outcomes."
   ]
 }

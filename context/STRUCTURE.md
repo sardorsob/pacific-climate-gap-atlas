@@ -69,6 +69,8 @@
 - `artifacts/tables/adaptation_gap_outlook.csv`: 2030 and 2050 outlook scenario table.
 - `artifacts/tables/climate_trend_diagnostics.csv`: climate-signal trend diagnostics and backtest metrics.
 - `artifacts/tables/eda_data_coverage.csv`: geography-level EDA coverage tiers and data-desert flags.
+- `artifacts/tables/eda_coverage_by_geography.csv`: geography-level official-data coverage deep dive.
+- `artifacts/tables/eda_coverage_by_dataset.csv`: dataset-level official-data coverage deep dive.
 - `artifacts/tables/eda_country_drivers.csv`: country-level descriptive driver labels and evidence density.
 - `artifacts/tables/index_sensitivity.csv`: simple pressure-heavy/capacity-heavy rank sensitivity table.
 - `artifacts/tables/eda_rank_volatility.csv`: rank-volatility table combining weight shifts and leave-one-indicator stress tests.

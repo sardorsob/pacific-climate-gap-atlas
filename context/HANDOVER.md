@@ -59,11 +59,11 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
+This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep-dive tables by geography and dataset. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
 
 ## Next Recommended Work
 
-1. Complete `TASK-011` through `TASK-017` analysis lanes, starting with coverage/data-desert analysis.
+1. Complete `TASK-012`, `TASK-013`, and `TASK-017` next so indicator forensics, country explanations, and monitoring story strength can be compared.
 2. Use `TASK-018` to synthesize the story and write `context/CLAUDE_VISUAL_HANDOFF.md`.
 3. Resume `TASK-006` only after the strongest story and layer priorities are evidence-backed.
 
@@ -77,5 +77,6 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - The outlook baseline is app-optional. Only include it in the interface with visible caveats and row-level notes.
 - TASK-005 GIS exports use centroid fallback geometry, not island boundaries. Treat layers as centroid/point maps until boundary data is added.
 - TASK-010 GIS context is descriptive and boundary-neutral. It can support grouping and app copy, but not scoring.
+- TASK-011 coverage tables show PN as the only current data-desert geography; broader coverage caveats are mostly dataset-specific rather than geography-wide.
 - TASK-014 leave-one-indicator sensitivity shows rank volatility is widespread. Avoid definitive rank-order language; use rankings as exploratory context with visible uncertainty.
 - The copied reference workflow kits are intentionally ignored under `context/`.

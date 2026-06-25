@@ -13,13 +13,18 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from analysis.eda.coverage import build_data_coverage, build_monitoring_gap  # noqa: E402
+from analysis.eda.coverage import (  # noqa: E402
+    build_data_coverage,
+    build_monitoring_gap,
+    build_task011_coverage_tables,
+)
 from analysis.eda.drivers import build_country_drivers  # noqa: E402
 from analysis.eda.sensitivity import build_rank_volatility, build_weight_sensitivity  # noqa: E402
 from analysis.eda.trends import build_trend_profiles  # noqa: E402
 
 
 DEFAULT_CONFIG = ROOT / "configs" / "eda.yml"
+DEFAULT_DATASET_PROFILE = ROOT / "artifacts" / "tables" / "dataset_profile.csv"
 DEFAULT_LOOKUP = ROOT / "data" / "processed" / "geography_lookup.csv"
 DEFAULT_OBSERVATIONS = ROOT / "data" / "processed" / "official_observations.csv"
 DEFAULT_INDEX = ROOT / "artifacts" / "tables" / "adaptation_gap_index.csv"
@@ -33,6 +38,7 @@ DEFAULT_SUMMARY = ROOT / "artifacts" / "provenance" / "eda_summary.json"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--dataset-profile", type=Path, default=DEFAULT_DATASET_PROFILE)
     parser.add_argument("--geography-lookup", type=Path, default=DEFAULT_LOOKUP)
     parser.add_argument("--observations", type=Path, default=DEFAULT_OBSERVATIONS)
     parser.add_argument("--index", type=Path, default=DEFAULT_INDEX)
@@ -47,6 +53,7 @@ def parse_args() -> argparse.Namespace:
 def run_eda(
     *,
     config_path: Path,
+    dataset_profile_path: Path,
     lookup_path: Path,
     observations_path: Path,
     index_path: Path,
@@ -59,6 +66,7 @@ def run_eda(
     if not config_path.exists():
         raise FileNotFoundError(f"EDA config not found: {config_path}")
 
+    dataset_profile = pd.read_csv(dataset_profile_path)
     lookup = pd.read_csv(lookup_path)
     observations = pd.read_csv(observations_path)
     index = pd.read_csv(index_path)
@@ -74,6 +82,7 @@ def run_eda(
         "eda_trend_profiles.csv": build_trend_profiles(trend_diagnostics, outlook),
         "eda_monitoring_gap.csv": build_monitoring_gap(index, observations),
     }
+    tables.update(build_task011_coverage_tables(observations, lookup, dataset_profile))
 
     table_dir.mkdir(parents=True, exist_ok=True)
     for file_name, table in tables.items():
@@ -81,6 +90,7 @@ def run_eda(
 
     summary = build_summary(
         config_path=config_path,
+        dataset_profile_path=dataset_profile_path,
         lookup_path=lookup_path,
         observations_path=observations_path,
         index_path=index_path,
@@ -102,6 +112,7 @@ def run_eda(
 def build_summary(
     *,
     config_path: Path,
+    dataset_profile_path: Path,
     lookup_path: Path,
     observations_path: Path,
     index_path: Path,
@@ -113,6 +124,8 @@ def build_summary(
     summary_output: Path,
 ) -> dict[str, object]:
     coverage = tables["eda_data_coverage.csv"]
+    coverage_by_geography = tables["eda_coverage_by_geography.csv"]
+    coverage_by_dataset = tables["eda_coverage_by_dataset.csv"]
     drivers = tables["eda_country_drivers.csv"]
     monitoring = tables["eda_monitoring_gap.csv"]
     sensitivity = tables["index_sensitivity.csv"]
@@ -122,9 +135,10 @@ def build_summary(
         "schema_version": 1,
         "pipeline_task": "TASK-009",
         "status": "eda_foundation_ready",
-        "pipeline_tasks": ["TASK-009", "TASK-014"],
+        "pipeline_tasks": ["TASK-009", "TASK-011", "TASK-014"],
         "config": relative_path(config_path),
         "inputs": {
+            "dataset_profile": relative_path(dataset_profile_path),
             "geography_lookup": relative_path(lookup_path),
             "observations": relative_path(observations_path),
             "gap_index": relative_path(index_path),
@@ -142,6 +156,17 @@ def build_summary(
             "thin_coverage_count": int((coverage["coverage_tier"] == "thin").sum()),
             "data_desert_count": int(coverage["data_desert_flag"].sum()),
         },
+        "coverage_deep_dive": {
+            "geography_count": int(coverage_by_geography["geo_code"].nunique()),
+            "dataset_count": int(coverage_by_dataset["dataset_slug"].nunique()),
+            "data_desert_count": int(coverage_by_geography["data_desert_flag"].sum()),
+            "partial_geography_dataset_count": int(
+                coverage_by_dataset["partial_geography_coverage_flag"].sum()
+            ),
+            "partial_dataset_geography_count": int(
+                coverage_by_geography["partial_dataset_coverage_flag"].sum()
+            ),
+        },
         "driver_labels": drivers["driver_label"].value_counts().sort_index().to_dict(),
         "monitoring_story_count": int(monitoring["monitoring_story_flag"].sum()),
         "rank_fragility": sensitivity["robustness_label"].value_counts().sort_index().to_dict(),
@@ -158,6 +183,7 @@ def build_summary(
             ),
             "Sensitivity scenarios are simple stress tests for narrative confidence.",
             "Leave-one-indicator rank volatility frames uncertainty, not a new ranking.",
+            "Coverage diagnostics are about official data availability, not outcomes.",
         ],
     }
 
@@ -177,6 +203,7 @@ def main() -> int:
     args = parse_args()
     summary = run_eda(
         config_path=resolve_path(args.config),
+        dataset_profile_path=resolve_path(args.dataset_profile),
         lookup_path=resolve_path(args.geography_lookup),
         observations_path=resolve_path(args.observations),
         index_path=resolve_path(args.index),
