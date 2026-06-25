@@ -60,6 +60,7 @@
 - `data/processed/app/layers.json`: app layer manifest.
 - `data/processed/app/country_details.json`: geography detail records with indicator trace rows.
 - `data/external/`: boundaries and lookup tables.
+- `data/external/geography_context.csv`: descriptive GIS context table for subregions, status labels, and island-group notes.
 - `data/contracts/`: generated JSON source, coverage, and schema contracts for priority official datasets.
 - `artifacts/`: figures, tables, reports, run bundles, and provenance.
 - `artifacts/tables/dataset_profile.csv`: generated official dataset profile table.
@@ -77,4 +78,5 @@
 - `artifacts/provenance/gap_index_summary.json`: index method summary, score counts, and top/bottom geography review set.
 - `artifacts/provenance/outlook_summary.json`: outlook metrics, caveats, inputs, and outputs.
 - `artifacts/provenance/app_data_summary.json`: app-data output counts, source refs, and geometry policy.
+- `artifacts/provenance/geography_context_sources.json`: source notes and caveats for the descriptive GIS context table.
 - `artifacts/provenance/eda_summary.json`: EDA output counts, early signal counts, inputs, outputs, and caveats.

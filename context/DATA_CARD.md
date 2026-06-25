@@ -123,6 +123,15 @@ python scripts/validate_data_contracts.py
 
 Current output includes 22 geography records, 6 atlas layers, and 18 monitoring overlay features. Geometry is a centroid fallback until a proper boundary join is added, so the first app iteration should style these as point/centroid layers rather than true polygon choropleths.
 
+## TASK-010 GIS Context Artifacts
+
+The GIS context enrichment now writes:
+
+- `data/external/geography_context.csv`: descriptive Pacific subregion, political-status, administering/sovereign authority, island-group notes, and review flags for all 22 scored geographies.
+- `artifacts/provenance/geography_context_sources.json`: source keys, URLs, caveats, and review recommendations for the context table.
+
+This table is not a score input. UN M49 subregions are statistical groupings, not cultural or political boundary claims. Political-status labels are conservative and flagged for review where legal or diplomatic wording is sensitive.
+
 ## TASK-009 EDA Artifacts
 
 The script-first EDA foundation now writes:

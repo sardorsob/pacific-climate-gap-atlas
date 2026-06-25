@@ -69,3 +69,13 @@ Reason: the official processed data has reliable geography codes and scores, but
 The project will slow down before the visual design pass and run deeper exploratory analysis in Python modules and scripts rather than notebooks as the source of truth.
 
 Reason: the atlas needs an evidence-backed story before Claude or any visual-design pass polishes the interface. Python files keep diffs smaller, artifacts reproducible, and parallel agent work easier to review.
+
+## 2026-06-25: Keep GIS Context Descriptive And Boundary-Neutral
+
+TASK-010 adds `data/external/geography_context.csv` and source notes for Pacific subregion, political status, administering or sovereign authority, and island-group context.
+
+These fields are descriptive only and must not feed Adaptation Gap Index scoring unless a future reviewed methodology explicitly changes that.
+
+Pacific subregions follow UN M49 statistical groupings and should not be framed as cultural or political boundaries. Boundary polygons remain undecided; keep centroid-first mapping until an authoritative boundary source is selected and documented.
+
+Reason: the atlas needs spatial context for GIS exploration, but status labels and regional groupings are politically sensitive and should not be smuggled into the quantitative method.

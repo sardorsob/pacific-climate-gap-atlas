@@ -27,7 +27,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Adaptation Gap Index | done | `scripts/build_gap_index.py` produces geography scores plus indicator trace |
 | Outlook model | done | trend stress-test baseline is methodology-ready and app-optional |
 | Static app data | done | `scripts/build_app_data.py` produces public JSON/GeoJSON layer inputs |
-| EDA sprint | in progress | app design is paused while analysis surfaces the strongest story |
+| EDA sprint | in progress | GIS context is complete; coverage/data-desert analysis is next |
 | GIS atlas app | planned | React/Vite/MapLibre scaffold will consume static app-ready data after analysis synthesis |
 
 ## Last Session Notes
@@ -42,3 +42,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Completed `TASK-005` app-data export with centroid GeoJSON, layer metadata, country details, and public app copies.
 - Paused TASK-006 app build to run deeper GIS/story EDA first.
 - Completed `TASK-009` script-first EDA foundation with analysis backlog, repeatable tables, and provenance.
+- Completed `TASK-010` GIS context enrichment with descriptive subregion/status context and boundary-neutral caveats.

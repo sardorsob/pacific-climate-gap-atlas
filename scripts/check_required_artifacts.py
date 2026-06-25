@@ -38,6 +38,8 @@ REQUIRED_PATHS = [
     "scripts/validate_task_statuses.py",
     "scripts/check_secrets.py",
     "scripts/run_eda.py",
+    "data/external/geography_context.csv",
+    "artifacts/provenance/geography_context_sources.json",
 ]
 
 

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "artifact": "data/external/geography_context.csv",
+  "created_date": "2026-06-25",
+  "usage": {
+    "score_input": false,
+    "description": "Descriptive GIS context only. These fields are not used as adaptation-gap score inputs."
+  },
+  "sources": [
+    {
+      "source_key": "un_m49",
+      "name": "United Nations Statistics Division M49 standard country or area codes and geographic regions",
+      "url": "https://unstats.un.org/unsd/methodology/m49/",
+      "access_date": "2026-06-25",
+      "caveats": "Used for Pacific subregion labels and UN short-form country or area names. UNSD states that grouping assignments are for statistical convenience and do not imply political affiliation or legal status."
+    },
+    {
+      "source_key": "us_doi_oia_as",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - American Samoa",
+      "url": "https://www.doi.gov/oia/islands/american-samoa",
+      "access_date": "2026-06-25",
+      "caveats": "Used for high-level U.S. territory context. Local constitutional and citizenship details are summarized and should be reviewed before publication."
+    },
+    {
+      "source_key": "us_doi_oia_guam",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - Guam",
+      "url": "https://www.doi.gov/oia/islands/guam",
+      "access_date": "2026-06-25",
+      "caveats": "Used for high-level U.S. territory context. The table does not attempt a full constitutional-law summary."
+    },
+    {
+      "source_key": "us_doi_oia_cnmi",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - Commonwealth of the Northern Mariana Islands",
+      "url": "https://www.doi.gov/oia/islands/cnmi",
+      "access_date": "2026-06-25",
+      "caveats": "Used for high-level U.S. commonwealth territory context. The table does not attempt a full covenant-law summary."
+    },
+    {
+      "source_key": "us_doi_oia_fsm",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - Federated States of Micronesia",
+      "url": "https://www.doi.gov/oia/islands/fsm",
+      "access_date": "2026-06-25",
+      "caveats": "Used for Compact of Free Association summary. Compact provisions are summarized at a high level only."
+    },
+    {
+      "source_key": "us_doi_oia_marshall_islands",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - The Marshall Islands",
+      "url": "https://www.doi.gov/oia/islands/marshallislands",
+      "access_date": "2026-06-25",
+      "caveats": "Used for Compact of Free Association summary. Compact renewal details and defense provisions should be checked before publication."
+    },
+    {
+      "source_key": "us_doi_oia_palau",
+      "name": "U.S. Department of the Interior Office of Insular Affairs - Republic of Palau",
+      "url": "https://www.doi.gov/oia/islands/palau",
+      "access_date": "2026-06-25",
+      "caveats": "Used for Compact of Free Association summary. Compact provisions are summarized at a high level only."
+    },
+    {
+      "source_key": "nz_mfat_cook_islands",
+      "name": "New Zealand Ministry of Foreign Affairs and Trade - Cook Islands",
+      "url": "https://www.mfat.govt.nz/en/countries-and-regions/australia-and-pacific/cook-islands",
+      "access_date": "2026-06-25",
+      "caveats": "Used for free-association context. Cook Islands international personality and citizenship relationship are nuanced and flagged for review."
+    },
+    {
+      "source_key": "nz_mfat_niue",
+      "name": "New Zealand Ministry of Foreign Affairs and Trade - Niue",
+      "url": "https://www.mfat.govt.nz/en/countries-and-regions/australia-and-pacific/niue",
+      "access_date": "2026-06-25",
+      "caveats": "Used for free-association context. Niue international personality and citizenship relationship are nuanced and flagged for review."
+    },
+    {
+      "source_key": "nz_mfat_tokelau",
+      "name": "New Zealand Ministry of Foreign Affairs and Trade - Tokelau",
+      "url": "https://www.mfat.govt.nz/en/countries-and-regions/australia-and-pacific/tokelau",
+      "access_date": "2026-06-25",
+      "caveats": "Used for non-self-governing territory context. Tokelau governance is summarized at a high level only."
+    },
+    {
+      "source_key": "france_constitution",
+      "name": "Legifrance - Constitution of 4 October 1958",
+      "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000571356/",
+      "access_date": "2026-06-25",
+      "caveats": "Used for French constitutional context including overseas collectivities and New Caledonia transitional provisions. This table keeps French territory labels high level and flags sensitive cases for review."
+    },
+    {
+      "source_key": "france_polynesia_statute",
+      "name": "Legifrance - Organic Law 2004-192 on the autonomy status of French Polynesia",
+      "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000435515",
+      "access_date": "2026-06-25",
+      "caveats": "Used for French Polynesia overseas collectivity and overseas-country wording. UN non-self-governing context should be reviewed separately before publication."
+    },
+    {
+      "source_key": "pitcairn_government",
+      "name": "Government of the Pitcairn Islands - official website",
+      "url": "https://www.government.pn/",
+      "access_date": "2026-06-25",
+      "caveats": "Used for British Overseas Territory and island-group context. Governance details are summarized and should be reviewed against UK constitutional sources before publication."
+    },
+    {
+      "source_key": "state_independent_states",
+      "name": "U.S. Department of State - Independent States in the World",
+      "url": "https://www.state.gov/independent-states-in-the-world/",
+      "access_date": "2026-06-25",
+      "caveats": "Automated access returned a forbidden response during this task. Sovereign-state rows therefore use this as a follow-up review pointer and are marked needs_review_sovereign_status rather than precise legal determinations."
+    },
+    {
+      "source_key": "new_caledonia_current_status_review",
+      "name": "Le Monde - State of New Caledonia agreement coverage",
+      "url": "https://www.lemonde.fr/en/politics/article/2025/07/12/state-of-new-caledonia-created-in-hard-won-agreement-with-french-government_6743299_5.html",
+      "access_date": "2026-06-25",
+      "caveats": "Used only as a current-status review flag for New Caledonia. Not an official legal source. Confirm the latest French and New Caledonian legal position before publication."
+    }
+  ],
+  "artifact_caveats": [
+    "All rows are descriptive GIS context and must remain outside adaptation-gap scoring unless a future reviewed methodology explicitly changes that.",
+    "Pacific subregion labels follow UN M49 statistical groupings and should not be framed as cultural or political boundaries.",
+    "Sovereign-state rows use coarse public-status labels and are marked for review because the official country-status source could not be fetched by the automated browser.",
+    "Political-status language for free-associated states and non-self-governing or overseas territories is intentionally conservative and should be reviewed before public copy is finalized.",
+    "The table does not provide polygon boundaries or settle boundary-source choices."
+  ],
+  "review_recommendations": [
+    "Before polygon choropleths, choose and document an authoritative boundary source or keep centroid-only mapping.",
+    "Review New Caledonia and French Polynesia labels immediately before publication because status and self-determination context can be politically sensitive.",
+    "Use this table for grouping and explanatory context only; do not join it into score calculations."
+  ]
+}

@@ -249,11 +249,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Every scored geography has context fields or an explicit missing-context note.
 - Verification commands: `python scripts/validate_data_contracts.py`
 - Manual QA: Spot-check Pacific subregion labels and status labels.
-- QA notes:
-- Attempts: 0
+- QA notes: Added `data/external/geography_context.csv` with all 22 scored geographies exactly once, source keys, review flags, and `score_input_role=descriptive_only_not_score_input`. Added source provenance and a decision log entry keeping GIS context descriptive, UN M49 subregions statistical, and boundary choices unresolved until a reviewed polygon source is selected.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented in parallel with coverage and rank-sensitivity tasks, then reviewed and committed separately.
+- Status: done
 
 ## TASK-011
 - Phase: analysis

@@ -15,5 +15,6 @@
 - Completed `TASK-005` by exporting app-ready centroid GeoJSON/JSON layers with 22 geographies, 6 layers, and 18 monitoring features.
 - Paused app implementation to run a deeper script-first EDA/story sprint before visual design.
 - Completed `TASK-009` with an analysis backlog, EDA helper modules, and first-pass coverage, driver, sensitivity, trend, and monitoring-gap tables.
+- Completed `TASK-010` with descriptive GIS context for all scored geographies, source provenance, and boundary-neutral caveats.
 
 AI tools used: Codex.
