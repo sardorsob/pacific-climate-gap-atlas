@@ -387,11 +387,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Tables include diagnostic fields and clear display/withhold recommendations.
 - Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
 - Manual QA: Compare strongest outlook shifts to trend diagnostic quality.
-- QA notes:
-- Attempts: 0
+- QA notes: Added enriched `eda_trend_profiles.csv` and new `eda_outlook_interpretation.csv` with diagnostic quality labels, movement fields, fragility labels, and display recommendations. Outlook remains stress-test interpretation, not forecasting. Supported rows can show as context, mixed diagnostics require strong caveats, and weak or sparse diagnostics should be withheld from outlook layers.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented in parallel with spatial typologies, then integrated into the EDA runner and committed separately.
+- Status: done
 
 ## TASK-017
 - Phase: analysis

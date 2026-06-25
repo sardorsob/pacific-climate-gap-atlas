@@ -26,6 +26,7 @@ The runner writes:
 - `artifacts/tables/index_sensitivity.csv`
 - `artifacts/tables/eda_rank_volatility.csv`
 - `artifacts/tables/eda_trend_profiles.csv`
+- `artifacts/tables/eda_outlook_interpretation.csv`
 - `artifacts/tables/eda_monitoring_gap.csv`
 - `artifacts/provenance/eda_summary.json`
 
@@ -37,7 +38,7 @@ The runner writes:
 - Spatial typologies are rule-based, not statistical clusters. Polynesia currently has the highest mean adaptation-gap score and the most high-gap/low-capacity cases; Melanesia reads more as high-pressure with higher visible capacity; Micronesia is mostly mixed-gap context with fragile ranks.
 - Rank robustness is a major story risk. The first weight-sensitivity table labeled 12 of 22 geographies fragile, 7 sensitive, and only 3 stable. The deeper leave-one-indicator volatility table labels 19 geographies fragile and 3 sensitive, with a maximum rank range of 15. The atlas should avoid presenting rank order as definitive.
 - The monitoring-gap table now ranks GIS story priorities and flags 4 high-gap plus low-monitoring candidates: PN, NR, AS, and WF. PN and NR have latest monitoring rows reporting 0; AS and WF have no monitoring rows in processed observations, so they should be described as reporting gaps unless independently verified.
-- Trend profiles classify some geographies as stronger and many as mixed. Outlook layers should remain secondary and visibly caveated unless later trend review raises confidence.
+- Trend/outlook interpretation is now conservative display guidance, not forecasting. Supported diagnostics can be shown as stress-test context; mixed diagnostics require strong visible caveats; weak or sparse rows should be withheld from outlook layers.
 
 ## Caveats
 
@@ -50,12 +51,13 @@ The runner writes:
 - Country story labels are descriptive screens for app copy and story selection. They summarize available indicators and should not be read as causal explanations.
 - Spatial typologies are descriptive rule groups. They do not use centroid-distance or land-adjacency inference.
 - Sensitivity scenarios are simple stress tests. Weight shifts and leave-one-indicator tests frame uncertainty; they are not a replacement ranking or a claim about true risk order.
+- Outlook interpretation is stress-test display guidance. It should not be framed as a prediction or operational forecast.
 - Driver labels are useful for exploration and app copy drafts, not final scientific claims.
 
 ## Next Analysis Priorities
 
-1. Use spatial typologies to decide whether subregion filters should appear as a major atlas interaction.
-2. Complete trend/outlook interpretation before deciding whether future-facing layers deserve app space.
-3. Review primary and secondary country story labels against indicator forensics before choosing atlas exemplar geographies.
-4. Use the rank-volatility table to decide how rankings should appear, if at all, in the visual story.
+1. Use `TASK-018` to synthesize the story, layer priority, country exemplars, and caveat placements.
+2. Decide whether subregion filters should appear as a major atlas interaction using spatial typologies.
+3. Treat outlook layers as optional stress-test context, with display controlled by `eda_outlook_interpretation.csv`.
+4. Review primary and secondary country story labels against indicator forensics before choosing atlas exemplar geographies.
 5. Decide whether the monitoring-gap lane should be the main atlas story or one diagnostic layer inside a broader adaptation-gap narrative.

@@ -25,6 +25,7 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 - Primary high-gap story labels: PN, NR, AS, WF, and TV.
 - Priority monitoring-gap candidates: PN, NR, AS, and WF.
 - AS and WF have missing monitoring rows, so the design copy should frame them as reporting gaps unless externally verified.
+- Outlook layers are optional stress-test context and should follow `eda_outlook_interpretation.csv` display recommendations.
 - Rankings are fragile for most geographies; avoid interfaces that imply a definitive leaderboard.
 
 ## Tone

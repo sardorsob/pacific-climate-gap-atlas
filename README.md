@@ -12,7 +12,7 @@ The project investigates where Pacific island countries may face the largest mis
 - `scripts/` contains command-line entry points for reproducible data and validation work.
 - `app/` contains the planned GIS atlas web app scaffold.
 
-Current analysis outputs include indicator forensics, country story labels, rank-volatility checks, and monitoring-gap GIS priorities. App implementation is paused until the remaining EDA synthesis work turns those outputs into an evidence-backed story brief.
+Current analysis outputs include indicator forensics, country story labels, spatial typologies, trend/outlook display guidance, rank-volatility checks, and monitoring-gap GIS priorities. App implementation is paused until `TASK-018` turns those outputs into an evidence-backed story brief.
 
 ## Working Rule
 

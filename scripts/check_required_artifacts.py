@@ -47,6 +47,7 @@ REQUIRED_PATHS = [
     "artifacts/tables/eda_country_story_labels.csv",
     "artifacts/tables/eda_spatial_typologies.csv",
     "artifacts/tables/eda_subregion_comparisons.csv",
+    "artifacts/tables/eda_outlook_interpretation.csv",
     "artifacts/tables/eda_monitoring_gap.csv",
 ]
 

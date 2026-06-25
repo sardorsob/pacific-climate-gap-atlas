@@ -89,3 +89,11 @@ These outputs guide app copy, layer priority, and exemplar selection. They do no
 Monitoring-gap language should distinguish reported-zero monitoring rows from missing monitoring rows. Missing rows are reporting gaps unless an external source verifies infrastructure absence.
 
 Reason: the current evidence base is strong enough for exploratory story selection but not for causal attribution, definitive rankings, or infrastructure-absence claims.
+
+## 2026-06-25: Gate Outlook Layers With Diagnostic Quality
+
+TASK-016 adds `eda_outlook_interpretation.csv` as display guidance for future-facing layers.
+
+Supported diagnostics can appear as stress-test context. Mixed diagnostics require strong visible caveats. Weak or sparse diagnostics should be withheld from outlook layers.
+
+Reason: the outlook is useful for exploratory contrast, but the diagnostics are too uneven for forecast language or automatic display across every geography.

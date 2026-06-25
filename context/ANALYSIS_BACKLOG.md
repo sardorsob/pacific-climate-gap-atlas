@@ -6,7 +6,7 @@ The project is pausing visual design work until the atlas has a stronger evidenc
 
 ## Current Status
 
-Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, and monitoring-gap GIS priorities. Remaining analysis lanes before story synthesis are spatial typologies (`TASK-015`) and trend/outlook interpretation (`TASK-016`). Story synthesis and Claude visual handoff belong in `TASK-018`.
+Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, and monitoring-gap GIS priorities. Story synthesis and Claude visual handoff are next in `TASK-018`.
 
 ## Principles
 

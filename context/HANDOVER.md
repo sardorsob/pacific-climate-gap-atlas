@@ -63,9 +63,9 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 
 ## Next Recommended Work
 
-1. Complete `TASK-015` spatial typologies and `TASK-016` trend/outlook interpretation so regional patterns and future-facing claims are reviewed.
-2. Use `TASK-018` to synthesize the story and write `context/STORY_BRIEF.md` plus `context/CLAUDE_VISUAL_HANDOFF.md`.
-3. Resume `TASK-006` only after the strongest story, layer priorities, and caveat placements are evidence-backed.
+1. Use `TASK-018` to synthesize the story and write `context/STORY_BRIEF.md` plus `context/CLAUDE_VISUAL_HANDOFF.md`.
+2. Resume `TASK-006` only after the strongest story, layer priorities, and caveat placements are evidence-backed.
+3. Keep Claude visual design work downstream of the evidence-backed story brief, not ahead of it.
 
 ## Known Caveats
 
@@ -80,6 +80,8 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - TASK-011 coverage tables show PN as the only current data-desert geography; broader coverage caveats are mostly dataset-specific rather than geography-wide.
 - TASK-012 indicator forensics preserve all 182 trace rows and flag 11 within-indicator outliers. GHG outliers for NC and PW are context-only, not score drivers.
 - TASK-013 country story labels are descriptive screens for app copy and story selection, not causal explanations.
+- TASK-015 spatial typologies are rule-based descriptors, not statistical clusters or adjacency claims.
 - TASK-014 leave-one-indicator sensitivity shows rank volatility is widespread. Avoid definitive rank-order language; use rankings as exploratory context with visible uncertainty.
+- TASK-016 outlook interpretation is stress-test display guidance, not forecasting. Weak or sparse diagnostics should be withheld from outlook layers.
 - TASK-017 monitoring-gap outputs identify PN, NR, AS, and WF as high-gap low-monitoring candidates. AS and WF have missing monitoring rows, so describe them as reporting gaps unless externally verified.
 - The copied reference workflow kits are intentionally ignored under `context/`.

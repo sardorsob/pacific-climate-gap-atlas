@@ -22,7 +22,7 @@ from analysis.eda.drivers import build_country_drivers, build_country_story_labe
 from analysis.eda.indicator_forensics import build_indicator_forensics_tables  # noqa: E402
 from analysis.eda.sensitivity import build_rank_volatility, build_weight_sensitivity  # noqa: E402
 from analysis.eda.spatial_patterns import build_spatial_pattern_tables  # noqa: E402
-from analysis.eda.trends import build_trend_profiles  # noqa: E402
+from analysis.eda.trends import build_outlook_interpretation, build_trend_profiles  # noqa: E402
 
 
 DEFAULT_CONFIG = ROOT / "configs" / "eda.yml"
@@ -103,6 +103,11 @@ def run_eda(
         "index_sensitivity.csv": build_weight_sensitivity(index),
         "eda_rank_volatility.csv": rank_volatility,
         "eda_trend_profiles.csv": build_trend_profiles(trend_diagnostics, outlook),
+        "eda_outlook_interpretation.csv": build_outlook_interpretation(
+            trend_diagnostics,
+            outlook,
+            index,
+        ),
         "eda_monitoring_gap.csv": build_monitoring_gap(index, observations),
     }
     tables.update(coverage_tables)
@@ -158,6 +163,7 @@ def build_summary(
     indicator_forensics = tables["eda_indicator_forensics.csv"]
     indicator_outliers = tables["eda_indicator_outliers.csv"]
     monitoring = tables["eda_monitoring_gap.csv"]
+    outlook_interpretation = tables["eda_outlook_interpretation.csv"]
     sensitivity = tables["index_sensitivity.csv"]
     spatial_typologies = tables["eda_spatial_typologies.csv"]
     subregion_comparisons = tables["eda_subregion_comparisons.csv"]
@@ -174,6 +180,7 @@ def build_summary(
             "TASK-013",
             "TASK-014",
             "TASK-015",
+            "TASK-016",
             "TASK-017",
         ],
         "config": relative_path(config_path),
@@ -264,6 +271,24 @@ def build_summary(
                 ).iloc[0]["subregion"]
             ),
         },
+        "outlook_interpretation": {
+            "row_count": int(len(outlook_interpretation)),
+            "display_recommendations": (
+                outlook_interpretation["display_recommendation"]
+                .value_counts()
+                .sort_index()
+                .to_dict()
+            ),
+            "diagnostic_quality": (
+                outlook_interpretation["diagnostic_quality_label"]
+                .value_counts()
+                .sort_index()
+                .to_dict()
+            ),
+            "large_movement_count": int(
+                (outlook_interpretation["movement_magnitude_label"] == "large").sum()
+            ),
+        },
         "rank_fragility": sensitivity["robustness_label"].value_counts().sort_index().to_dict(),
         "rank_volatility": (
             rank_volatility["robustness_label"].value_counts().sort_index().to_dict()
@@ -283,6 +308,7 @@ def build_summary(
             "Country story labels are descriptive screens, not causal explanations.",
             "Spatial typologies are rule-based descriptors, not statistical clusters.",
             "No centroid-distance or land-adjacency inference is used.",
+            "Outlook interpretation is stress-test display guidance, not forecasting.",
             "Missing monitoring rows are reporting gaps, not confirmed infrastructure absence.",
         ],
     }

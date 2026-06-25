@@ -33,8 +33,19 @@ Provide a transparent, caveated outlook layer showing where adaptation gaps may 
 
 - `artifacts/tables/adaptation_gap_outlook.csv`
 - `artifacts/tables/climate_trend_diagnostics.csv`
+- `artifacts/tables/eda_trend_profiles.csv`
+- `artifacts/tables/eda_outlook_interpretation.csv`
 - `artifacts/provenance/outlook_summary.json`
 - Local ignored run bundle: `artifacts/logs/runs/task-004-outlook-baseline/`
+
+## Current Interpretation Policy
+
+- Treat outlook movement as stress-test interpretation, not forecasting.
+- Show outlook rows only when `diagnostic_quality_label` is `supported`.
+- Use `show_with_strong_caveat` for mixed diagnostics; caveats must be visible wherever the row appears.
+- Withhold weak or sparse diagnostic rows from app outlook layers.
+- Use `outlook_movement_rank` and `fragility_rank` as review queues, not certainty or impact rankings.
+- In `eda_outlook_interpretation.csv`, `current_score` is the current Adaptation Gap Index baseline when generated through `scripts/run_eda.py`; `reference_year` is blank for that baseline path. Direct helper calls without an index fall back to the earliest available outlook row as the reference.
 
 ## Evaluation Requirements
 

@@ -41,7 +41,9 @@ The script-first EDA runner adds interpretation surfaces around the baseline ind
 
 - `eda_indicator_forensics.csv` preserves the row-level indicator trace, score role, within-indicator rank context, and outlier flags.
 - `eda_country_story_labels.csv` provides descriptive country labels, story priorities, pressure/capacity summaries, and non-causal caveats for app copy drafts.
+- `eda_spatial_typologies.csv` and `eda_subregion_comparisons.csv` provide rule-based regional story groupings, not statistical clusters or adjacency claims.
 - `eda_monitoring_gap.csv` compares monitoring proxy coverage with adaptation-gap and pressure/capacity scores, including GIS story quadrants and missing-reporting caveats.
+- `eda_outlook_interpretation.csv` converts outlook scenarios into stress-test display guidance with diagnostic quality labels and show/withhold recommendations.
 - `eda_rank_volatility.csv` frames rank uncertainty with weight shifts and leave-one-indicator stress tests.
 
 These EDA tables guide story selection. They do not change the baseline score and should not be described as causal attribution.

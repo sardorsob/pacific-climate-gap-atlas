@@ -26,4 +26,4 @@ A GIS-first atlas that helps readers explore where Pacific climate signals, obse
 
 ## Current Analysis State
 
-The project has script-first EDA outputs for indicator forensics, country story labels, rank volatility, and monitoring-gap GIS priorities. Final submission copy should wait for story synthesis and Claude visual handoff after the remaining analysis lanes.
+The project has script-first EDA outputs for indicator forensics, country story labels, spatial typologies, trend/outlook display guidance, rank volatility, and monitoring-gap GIS priorities. Final submission copy should wait for `TASK-018` story synthesis and Claude visual handoff.

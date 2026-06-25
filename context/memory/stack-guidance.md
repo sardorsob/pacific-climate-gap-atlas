@@ -21,3 +21,4 @@
 - Keep source metadata attached to app-ready data.
 - Treat current geometry as centroid fallback; use point/centroid map layers until a boundary source is chosen.
 - Use `scripts/run_eda.py --config configs/eda.yml` to regenerate EDA story tables before visual synthesis.
+- Use `eda_outlook_interpretation.csv` display recommendations before showing future-facing map or side-panel layers.

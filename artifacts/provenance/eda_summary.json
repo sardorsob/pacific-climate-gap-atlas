@@ -9,6 +9,7 @@
     "TASK-013",
     "TASK-014",
     "TASK-015",
+    "TASK-016",
     "TASK-017"
   ],
   "config": "configs/eda.yml",
@@ -31,6 +32,7 @@
     "eda_indicator_forensics.csv": "artifacts/tables/eda_indicator_forensics.csv",
     "eda_indicator_outliers.csv": "artifacts/tables/eda_indicator_outliers.csv",
     "eda_monitoring_gap.csv": "artifacts/tables/eda_monitoring_gap.csv",
+    "eda_outlook_interpretation.csv": "artifacts/tables/eda_outlook_interpretation.csv",
     "eda_rank_volatility.csv": "artifacts/tables/eda_rank_volatility.csv",
     "eda_spatial_typologies.csv": "artifacts/tables/eda_spatial_typologies.csv",
     "eda_subregion_comparisons.csv": "artifacts/tables/eda_subregion_comparisons.csv",
@@ -47,6 +49,7 @@
     "eda_indicator_forensics.csv": 182,
     "eda_indicator_outliers.csv": 11,
     "eda_monitoring_gap.csv": 22,
+    "eda_outlook_interpretation.csv": 88,
     "eda_rank_volatility.csv": 22,
     "eda_spatial_typologies.csv": 22,
     "eda_subregion_comparisons.csv": 3,
@@ -112,6 +115,20 @@
     },
     "top_mean_gap_subregion": "Polynesia"
   },
+  "outlook_interpretation": {
+    "row_count": 88,
+    "display_recommendations": {
+      "show": 28,
+      "show_with_strong_caveat": 48,
+      "withhold": 12
+    },
+    "diagnostic_quality": {
+      "mixed": 48,
+      "supported": 28,
+      "weak": 12
+    },
+    "large_movement_count": 35
+  },
   "rank_fragility": {
     "fragile": 12,
     "sensitive": 7,
@@ -133,6 +150,7 @@
     "Country story labels are descriptive screens, not causal explanations.",
     "Spatial typologies are rule-based descriptors, not statistical clusters.",
     "No centroid-distance or land-adjacency inference is used.",
+    "Outlook interpretation is stress-test display guidance, not forecasting.",
     "Missing monitoring rows are reporting gaps, not confirmed infrastructure absence."
   ]
 }
