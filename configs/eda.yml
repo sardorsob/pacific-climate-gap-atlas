@@ -1,0 +1,20 @@
+task: TASK-009
+description: Script-first exploratory analysis sprint foundation.
+inputs:
+  geography_lookup: data/processed/geography_lookup.csv
+  observations: data/processed/official_observations.csv
+  gap_index: artifacts/tables/adaptation_gap_index.csv
+  indicator_trace: artifacts/tables/adaptation_gap_indicator_trace.csv
+  trend_diagnostics: artifacts/tables/climate_trend_diagnostics.csv
+  outlook: artifacts/tables/adaptation_gap_outlook.csv
+outputs:
+  data_coverage: artifacts/tables/eda_data_coverage.csv
+  country_drivers: artifacts/tables/eda_country_drivers.csv
+  index_sensitivity: artifacts/tables/index_sensitivity.csv
+  trend_profiles: artifacts/tables/eda_trend_profiles.csv
+  monitoring_gap: artifacts/tables/eda_monitoring_gap.csv
+  summary: artifacts/provenance/eda_summary.json
+caveats:
+  - Descriptive EDA only; no causal claims.
+  - Current geometry is centroid fallback, not polygon boundaries.
+  - Monitoring counts are proxy coverage until normalized with external context.

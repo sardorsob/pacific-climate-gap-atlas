@@ -208,3 +208,233 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Max attempts: 1
 - Attempt log: Recorded user baseline workflow rules in context files.
 - Status: done
+
+## TASK-009
+- Phase: analysis
+- Title: Build script-first EDA foundation
+- Depends on: TASK-005
+- Assigned agent: Codex
+- Contract refs: context/ANALYSIS_BACKLOG.md, context/plans/eda-analysis-sprint-plan.md
+- Data refs: artifacts/tables, data/processed, data/processed/app
+- Scientific refs: context/DATA_CARD.md, context/docs/methodology.md
+- User value / decision value: Creates reproducible analysis artifacts before visual design resumes.
+- Functional notes: Use Python modules and a CLI runner, not notebooks, as the source of truth.
+- Statistical notes: Produce descriptive EDA tables only; do not overstate causal or predictive claims.
+- Edge cases: Null scores, sparse trend series, and centroid-only geometry must remain visible.
+- Files to create/modify: `configs/eda.yml`, `analysis/eda/*`, `scripts/run_eda.py`, `tests/analysis/test_eda.py`, `artifacts/tables/eda_*.csv`, `artifacts/provenance/eda_summary.json`, `context/ANALYSIS_BRIEF.md`
+- Artifacts to produce: first EDA tables, provenance summary, analysis brief
+- Acceptance criteria: EDA runner is deterministic, saves artifacts in the expected locations, and tests cover core helper logic.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`; `python -m unittest tests.analysis.test_eda -v`
+- Manual QA: Inspect output row counts and top driver labels for obvious artifacts.
+- QA notes: Added `context/ANALYSIS_BACKLOG.md`, `context/plans/eda-analysis-sprint-plan.md`, tested EDA helpers, implemented `scripts/run_eda.py`, and generated five first-pass EDA tables plus `artifacts/provenance/eda_summary.json`. Output includes 22 rows in each table, 1 thin-coverage/data-desert geography under the first threshold, 4 high-gap plus low-monitoring candidates, and rank-fragility labels showing 12 fragile, 7 sensitive, and 3 stable geographies under simple weighting stress tests. Passed 25 unit tests, EDA runner, task-status validation, required-artifact check, secret scan, and compile check.
+- Attempts: 1
+- Max attempts: 3
+- Attempt log: Started script-first EDA foundation after deciding to pause app design for deeper analysis.
+- Status: done
+
+## TASK-010
+- Phase: analysis
+- Title: Add GIS context enrichment
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: data/external, data/processed/geography_lookup.csv
+- Scientific refs: context/DATA_CARD.md, context/DECISIONS.md
+- User value / decision value: Prevents weak spatial claims by documenting geography context and boundary choices.
+- Functional notes: Add subregion/status context and decide whether boundary data is needed before polygon mapping.
+- Statistical notes: Context fields should be descriptive, not score inputs unless explicitly reviewed.
+- Edge cases: External geography fields may be incomplete or politically sensitive; source caveats must be recorded.
+- Files to create/modify: `data/external/geography_context.csv`, `artifacts/provenance/geography_context_sources.json`, `context/DECISIONS.md`
+- Artifacts to produce: geography context table and source notes
+- Acceptance criteria: Every scored geography has context fields or an explicit missing-context note.
+- Verification commands: `python scripts/validate_data_contracts.py`
+- Manual QA: Spot-check Pacific subregion labels and status labels.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-011
+- Phase: analysis
+- Title: Analyze data coverage and data deserts
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: data/processed/geography_lookup.csv, artifacts/tables/dataset_profile.csv
+- Scientific refs: context/DATA_CARD.md
+- User value / decision value: Shows where official data coverage itself shapes the atlas story.
+- Functional notes: Produce geography-level and dataset-level coverage tables.
+- Statistical notes: Separate data coverage from climate/adaptation outcomes.
+- Edge cases: High row counts may reflect long time series rather than better spatial coverage.
+- Files to create/modify: `analysis/eda/coverage.py`, `artifacts/tables/eda_coverage_by_geography.csv`, `artifacts/tables/eda_coverage_by_dataset.csv`
+- Artifacts to produce: coverage EDA tables and optional figure
+- Acceptance criteria: Tables include row counts, dataset counts, year spans, and coverage flags.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Compare table totals to TASK-001 and TASK-002 summaries.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-012
+- Phase: analysis
+- Title: Run indicator-level forensics
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: artifacts/tables/adaptation_gap_indicator_trace.csv
+- Scientific refs: context/docs/methodology.md
+- User value / decision value: Explains which indicators carry the score and which may mislead.
+- Functional notes: Identify indicator outliers, latest-year gaps, and high-leverage signals.
+- Statistical notes: Preserve raw values and scoring values separately.
+- Edge cases: Indicator units and denominators differ across datasets.
+- Files to create/modify: `analysis/eda/drivers.py`, `artifacts/tables/eda_indicator_forensics.csv`, `artifacts/tables/eda_indicator_outliers.csv`
+- Artifacts to produce: indicator forensics tables
+- Acceptance criteria: Every indicator row traces to dataset slug, pillar, latest year, raw value, score, and outlier flag.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Spot-check top outliers against indicator trace rows.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-013
+- Phase: analysis
+- Title: Decompose country adaptation-gap drivers
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: artifacts/tables/adaptation_gap_index.csv, artifacts/tables/adaptation_gap_indicator_trace.csv
+- Scientific refs: context/docs/methodology.md
+- User value / decision value: Gives the atlas country-level explanations instead of only rankings.
+- Functional notes: Create driver labels and exemplar flags for app side panels and story selection.
+- Statistical notes: Do not infer causality from descriptive driver labels.
+- Edge cases: Mid-ranked geographies may have mixed signals rather than one clean explanation.
+- Files to create/modify: `analysis/eda/drivers.py`, `artifacts/tables/eda_country_drivers.csv`, `artifacts/tables/eda_country_story_labels.csv`
+- Artifacts to produce: country driver and story-label tables
+- Acceptance criteria: Every scored geography has a reason label, pressure/capacity summary, and evidence-count fields.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Review highest and lowest five geographies for plausible labels.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-014
+- Phase: analysis
+- Title: Test rank robustness and sensitivity
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: artifacts/tables/adaptation_gap_index.csv, artifacts/tables/adaptation_gap_indicator_trace.csv
+- Scientific refs: context/ASSUMPTIONS.md
+- User value / decision value: Prevents the app from overclaiming fragile rankings.
+- Functional notes: Run simple weight and leave-one-indicator stress tests.
+- Statistical notes: Treat sensitivity as uncertainty framing, not a new definitive ranking.
+- Edge cases: Small sample size makes rank movement easy; report volatility plainly.
+- Files to create/modify: `analysis/eda/sensitivity.py`, `artifacts/tables/index_sensitivity.csv`, `artifacts/tables/eda_rank_volatility.csv`
+- Artifacts to produce: sensitivity and rank-volatility tables
+- Acceptance criteria: Every geography has baseline rank, scenario ranks, rank range, and robustness label.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Investigate geographies with large rank swings.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-015
+- Phase: analysis
+- Title: Build spatial typologies and regional comparisons
+- Depends on: TASK-010, TASK-013
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: data/external/geography_context.csv, artifacts/tables/eda_country_drivers.csv
+- Scientific refs: context/DATA_CARD.md
+- User value / decision value: Lets the atlas show patterns and groups, not only ranked countries.
+- Functional notes: Create quadrant/typology fields and regional summaries after GIS context exists.
+- Statistical notes: Avoid overfitting clusters with only 22 geographies.
+- Edge cases: Centroid distances across ocean space should not be treated like land adjacency.
+- Files to create/modify: `analysis/eda/spatial_patterns.py`, `artifacts/tables/eda_spatial_typologies.csv`, `artifacts/tables/eda_subregion_comparisons.csv`
+- Artifacts to produce: typology and regional comparison tables
+- Acceptance criteria: Typologies are interpretable and documented with caveats.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Check whether typology labels align with country driver labels.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-016
+- Phase: analysis
+- Title: Interpret trends and outlook credibility
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: artifacts/tables/climate_trend_diagnostics.csv, artifacts/tables/adaptation_gap_outlook.csv
+- Scientific refs: context/MODEL_CARD.md
+- User value / decision value: Decides whether outlook layers deserve app space and how caveated they must be.
+- Functional notes: Rank trend strength, outlook movement, and fragile projections.
+- Statistical notes: Keep outlook framed as stress-test interpretation, not forecasting.
+- Edge cases: Series with weak diagnostics should be excluded or visibly caveated.
+- Files to create/modify: `analysis/eda/trends.py`, `artifacts/tables/eda_trend_profiles.csv`, `artifacts/tables/eda_outlook_interpretation.csv`, `context/MODEL_CARD.md`
+- Artifacts to produce: trend and outlook interpretation tables
+- Acceptance criteria: Tables include diagnostic fields and clear display/withhold recommendations.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Compare strongest outlook shifts to trend diagnostic quality.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-017
+- Phase: analysis
+- Title: Analyze monitoring gap as a GIS story
+- Depends on: TASK-009
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md
+- Data refs: artifacts/tables/adaptation_gap_index.csv, data/processed/official_observations.csv
+- Scientific refs: context/DATA_CARD.md
+- User value / decision value: Tests whether monitoring coverage is one of the atlas's strongest story layers.
+- Functional notes: Compare monitoring counts to climate pressure, capacity, and adaptation gap.
+- Statistical notes: Treat monitoring count as proxy coverage until normalized by population or area.
+- Edge cases: Missing monitoring data may reflect reporting gaps rather than true infrastructure absence.
+- Files to create/modify: `analysis/eda/coverage.py`, `artifacts/tables/eda_monitoring_gap.csv`
+- Artifacts to produce: monitoring gap table and optional quadrant figure
+- Acceptance criteria: High-gap low-monitoring geographies are identified with caveats.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
+- Manual QA: Review monitoring values against `meteorological-monitoring-network` rows.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-018
+- Phase: analysis
+- Title: Synthesize story and Claude visual handoff
+- Depends on: TASK-011, TASK-012, TASK-013, TASK-014, TASK-015, TASK-016, TASK-017
+- Assigned agent: unassigned
+- Contract refs: context/ANALYSIS_BACKLOG.md, context/SCOPE.md
+- Data refs: artifacts/tables/eda_*.csv
+- Scientific refs: context/DATA_CARD.md, context/MODEL_CARD.md, context/ANALYSIS_BRIEF.md
+- User value / decision value: Turns EDA evidence into an app narrative and design brief.
+- Functional notes: Pick story arcs, layer priorities, country exemplars, and caveat placements.
+- Statistical notes: Label story confidence and unresolved uncertainty.
+- Edge cases: If no robust story emerges, revise analysis scope before visual design.
+- Files to create/modify: `context/STORY_BRIEF.md`, `context/CLAUDE_VISUAL_HANDOFF.md`, `context/TASKS.md`
+- Artifacts to produce: story brief and visual-design handoff
+- Acceptance criteria: Claude receives a concrete, evidence-backed visual brief rather than abstract layout instructions.
+- Verification commands: `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
+- Manual QA: Read story brief against EDA outputs and confirm claims are source-backed.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending

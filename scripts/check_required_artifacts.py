@@ -20,6 +20,8 @@ REQUIRED_PATHS = [
     "context/SCOPE.md",
     "context/TASKS.md",
     "context/AGENTS.md",
+    "context/ANALYSIS_BACKLOG.md",
+    "context/ANALYSIS_BRIEF.md",
     "context/DATA_CARD.md",
     "context/MODEL_CARD.md",
     "context/EXPERIMENTS.md",
@@ -28,12 +30,14 @@ REQUIRED_PATHS = [
     "context/STRUCTURE.md",
     "context/HANDOVER.md",
     "configs/datasets.yml",
+    "configs/eda.yml",
     "configs/gap_index.yml",
     "configs/outlook.yml",
     "analysis/__init__.py",
     "app/package.json",
     "scripts/validate_task_statuses.py",
     "scripts/check_secrets.py",
+    "scripts/run_eda.py",
 ]
 
 

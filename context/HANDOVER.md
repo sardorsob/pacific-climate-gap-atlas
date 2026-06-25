@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. App implementation is intentionally paused while the project runs a deeper EDA/story sprint.
 
 ## How To Validate The Scaffold
 
@@ -49,11 +49,19 @@ python scripts/validate_data_contracts.py
 
 This writes app data under `data/processed/app/`, mirrors the website-facing files to `app/public/data/`, and records `artifacts/provenance/app_data_summary.json`.
 
+## How To Rebuild The EDA Foundation
+
+```powershell
+python scripts/run_eda.py --config configs/eda.yml
+```
+
+This writes the first script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
+
 ## Next Recommended Work
 
-1. Start `TASK-006`: build the GIS atlas app shell from `app/public/data/`.
-2. Decide how visible the outlook caveats should be in the layer controls and side panel.
-3. Prepare `TASK-007` source/methodology polish once the app shell exists.
+1. Complete `TASK-010` through `TASK-017` analysis lanes, starting with GIS context enrichment and coverage/data-desert analysis.
+2. Use `TASK-018` to synthesize the story and write `context/CLAUDE_VISUAL_HANDOFF.md`.
+3. Resume `TASK-006` only after the strongest story and layer priorities are evidence-backed.
 
 ## Known Caveats
 
@@ -64,4 +72,5 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 - The gap index is a draft comparative baseline. The app must show indicator counts, trace details, and methodology caveats near the score.
 - The outlook baseline is app-optional. Only include it in the interface with visible caveats and row-level notes.
 - TASK-005 GIS exports use centroid fallback geometry, not island boundaries. Treat layers as centroid/point maps until boundary data is added.
+- TASK-009 rank-sensitivity output shows many fragile rankings under simple weighting stress tests. Avoid definitive ranking language until deeper sensitivity analysis is complete.
 - The copied reference workflow kits are intentionally ignored under `context/`.

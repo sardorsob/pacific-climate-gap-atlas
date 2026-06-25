@@ -13,5 +13,7 @@
 - Completed `TASK-003` by building a draft Adaptation Gap Index baseline with 22 scored geographies and 182 trace rows.
 - Completed `TASK-004` by building an app-optional outlook stress-test baseline with 86 trend series and 88 scenario rows.
 - Completed `TASK-005` by exporting app-ready centroid GeoJSON/JSON layers with 22 geographies, 6 layers, and 18 monitoring features.
+- Paused app implementation to run a deeper script-first EDA/story sprint before visual design.
+- Completed `TASK-009` with an analysis backlog, EDA helper modules, and first-pass coverage, driver, sensitivity, trend, and monitoring-gap tables.
 
 AI tools used: Codex.
