@@ -70,6 +70,7 @@
 - `artifacts/tables/eda_data_coverage.csv`: geography-level EDA coverage tiers and data-desert flags.
 - `artifacts/tables/eda_country_drivers.csv`: country-level descriptive driver labels and evidence density.
 - `artifacts/tables/index_sensitivity.csv`: simple pressure-heavy/capacity-heavy rank sensitivity table.
+- `artifacts/tables/eda_rank_volatility.csv`: rank-volatility table combining weight shifts and leave-one-indicator stress tests.
 - `artifacts/tables/eda_trend_profiles.csv`: trend diagnostic summaries by geography.
 - `artifacts/tables/eda_monitoring_gap.csv`: monitoring coverage compared with adaptation-gap scores.
 - `artifacts/provenance/dataset_pipeline_summary.json`: processed pipeline provenance, row counts, and source hashes.

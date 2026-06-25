@@ -341,11 +341,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Every geography has baseline rank, scenario ranks, rank range, and robustness label.
 - Verification commands: `python scripts/run_eda.py --config configs/eda.yml`
 - Manual QA: Investigate geographies with large rank swings.
-- QA notes:
-- Attempts: 0
+- QA notes: Added leave-one-indicator rank-volatility helpers, generated `artifacts/tables/eda_rank_volatility.csv`, and wired the EDA runner and summary to include the new uncertainty table. Output labels 19 geographies fragile and 3 sensitive, with a maximum rank range of 15. Most volatile geographies include MH, SB, GU, KI, PG, and TK; AS, WF, and MP become insufficient in one leave-one scenario when the fisheries capacity indicator is removed.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented after TASK-009 showed rank fragility under weight-only stress tests.
+- Status: done
 
 ## TASK-015
 - Phase: analysis

@@ -55,7 +55,7 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This writes the first script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
+This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
 
 ## Next Recommended Work
 
@@ -72,5 +72,5 @@ This writes the first script-first EDA tables under `artifacts/tables/` and reco
 - The gap index is a draft comparative baseline. The app must show indicator counts, trace details, and methodology caveats near the score.
 - The outlook baseline is app-optional. Only include it in the interface with visible caveats and row-level notes.
 - TASK-005 GIS exports use centroid fallback geometry, not island boundaries. Treat layers as centroid/point maps until boundary data is added.
-- TASK-009 rank-sensitivity output shows many fragile rankings under simple weighting stress tests. Avoid definitive ranking language until deeper sensitivity analysis is complete.
+- TASK-014 leave-one-indicator sensitivity shows rank volatility is widespread. Avoid definitive rank-order language; use rankings as exploratory context with visible uncertainty.
 - The copied reference workflow kits are intentionally ignored under `context/`.

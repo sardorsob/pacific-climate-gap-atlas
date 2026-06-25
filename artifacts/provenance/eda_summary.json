@@ -2,11 +2,16 @@
   "schema_version": 1,
   "pipeline_task": "TASK-009",
   "status": "eda_foundation_ready",
+  "pipeline_tasks": [
+    "TASK-009",
+    "TASK-014"
+  ],
   "config": "configs/eda.yml",
   "inputs": {
     "geography_lookup": "data/processed/geography_lookup.csv",
     "observations": "data/processed/official_observations.csv",
     "gap_index": "artifacts/tables/adaptation_gap_index.csv",
+    "indicator_trace": "artifacts/tables/adaptation_gap_indicator_trace.csv",
     "trend_diagnostics": "artifacts/tables/climate_trend_diagnostics.csv",
     "outlook": "artifacts/tables/adaptation_gap_outlook.csv"
   },
@@ -14,6 +19,7 @@
     "eda_country_drivers.csv": "artifacts/tables/eda_country_drivers.csv",
     "eda_data_coverage.csv": "artifacts/tables/eda_data_coverage.csv",
     "eda_monitoring_gap.csv": "artifacts/tables/eda_monitoring_gap.csv",
+    "eda_rank_volatility.csv": "artifacts/tables/eda_rank_volatility.csv",
     "eda_trend_profiles.csv": "artifacts/tables/eda_trend_profiles.csv",
     "index_sensitivity.csv": "artifacts/tables/index_sensitivity.csv",
     "summary": "artifacts/provenance/eda_summary.json"
@@ -22,6 +28,7 @@
     "eda_country_drivers.csv": 22,
     "eda_data_coverage.csv": 22,
     "eda_monitoring_gap.csv": 22,
+    "eda_rank_volatility.csv": 22,
     "eda_trend_profiles.csv": 22,
     "index_sensitivity.csv": 22
   },
@@ -42,10 +49,16 @@
     "sensitive": 7,
     "stable": 3
   },
+  "rank_volatility": {
+    "fragile": 19,
+    "sensitive": 3
+  },
+  "rank_volatility_max_range": 15,
   "caveats": [
     "This is descriptive EDA, not causal inference.",
     "Current GIS geometry is centroid fallback until a boundary source is added.",
     "Monitoring counts are proxy coverage and are not normalized by population or area yet.",
-    "Sensitivity scenarios are simple stress tests for narrative confidence."
+    "Sensitivity scenarios are simple stress tests for narrative confidence.",
+    "Leave-one-indicator rank volatility frames uncertainty, not a new ranking."
   ]
 }

@@ -15,7 +15,7 @@ if str(ROOT) not in sys.path:
 
 from analysis.eda.coverage import build_data_coverage, build_monitoring_gap  # noqa: E402
 from analysis.eda.drivers import build_country_drivers  # noqa: E402
-from analysis.eda.sensitivity import build_weight_sensitivity  # noqa: E402
+from analysis.eda.sensitivity import build_rank_volatility, build_weight_sensitivity  # noqa: E402
 from analysis.eda.trends import build_trend_profiles  # noqa: E402
 
 
@@ -23,6 +23,7 @@ DEFAULT_CONFIG = ROOT / "configs" / "eda.yml"
 DEFAULT_LOOKUP = ROOT / "data" / "processed" / "geography_lookup.csv"
 DEFAULT_OBSERVATIONS = ROOT / "data" / "processed" / "official_observations.csv"
 DEFAULT_INDEX = ROOT / "artifacts" / "tables" / "adaptation_gap_index.csv"
+DEFAULT_INDICATOR_TRACE = ROOT / "artifacts" / "tables" / "adaptation_gap_indicator_trace.csv"
 DEFAULT_TREND_DIAGNOSTICS = ROOT / "artifacts" / "tables" / "climate_trend_diagnostics.csv"
 DEFAULT_OUTLOOK = ROOT / "artifacts" / "tables" / "adaptation_gap_outlook.csv"
 DEFAULT_TABLE_DIR = ROOT / "artifacts" / "tables"
@@ -35,6 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--geography-lookup", type=Path, default=DEFAULT_LOOKUP)
     parser.add_argument("--observations", type=Path, default=DEFAULT_OBSERVATIONS)
     parser.add_argument("--index", type=Path, default=DEFAULT_INDEX)
+    parser.add_argument("--indicator-trace", type=Path, default=DEFAULT_INDICATOR_TRACE)
     parser.add_argument("--trend-diagnostics", type=Path, default=DEFAULT_TREND_DIAGNOSTICS)
     parser.add_argument("--outlook", type=Path, default=DEFAULT_OUTLOOK)
     parser.add_argument("--table-dir", type=Path, default=DEFAULT_TABLE_DIR)
@@ -48,6 +50,7 @@ def run_eda(
     lookup_path: Path,
     observations_path: Path,
     index_path: Path,
+    indicator_trace_path: Path,
     trend_diagnostics_path: Path,
     outlook_path: Path,
     table_dir: Path,
@@ -59,6 +62,7 @@ def run_eda(
     lookup = pd.read_csv(lookup_path)
     observations = pd.read_csv(observations_path)
     index = pd.read_csv(index_path)
+    indicator_trace = pd.read_csv(indicator_trace_path)
     trend_diagnostics = pd.read_csv(trend_diagnostics_path)
     outlook = pd.read_csv(outlook_path)
 
@@ -66,6 +70,7 @@ def run_eda(
         "eda_data_coverage.csv": build_data_coverage(lookup),
         "eda_country_drivers.csv": build_country_drivers(index),
         "index_sensitivity.csv": build_weight_sensitivity(index),
+        "eda_rank_volatility.csv": build_rank_volatility(index, indicator_trace),
         "eda_trend_profiles.csv": build_trend_profiles(trend_diagnostics, outlook),
         "eda_monitoring_gap.csv": build_monitoring_gap(index, observations),
     }
@@ -79,6 +84,7 @@ def run_eda(
         lookup_path=lookup_path,
         observations_path=observations_path,
         index_path=index_path,
+        indicator_trace_path=indicator_trace_path,
         trend_diagnostics_path=trend_diagnostics_path,
         outlook_path=outlook_path,
         table_dir=table_dir,
@@ -99,6 +105,7 @@ def build_summary(
     lookup_path: Path,
     observations_path: Path,
     index_path: Path,
+    indicator_trace_path: Path,
     trend_diagnostics_path: Path,
     outlook_path: Path,
     table_dir: Path,
@@ -109,16 +116,19 @@ def build_summary(
     drivers = tables["eda_country_drivers.csv"]
     monitoring = tables["eda_monitoring_gap.csv"]
     sensitivity = tables["index_sensitivity.csv"]
+    rank_volatility = tables["eda_rank_volatility.csv"]
 
     return {
         "schema_version": 1,
         "pipeline_task": "TASK-009",
         "status": "eda_foundation_ready",
+        "pipeline_tasks": ["TASK-009", "TASK-014"],
         "config": relative_path(config_path),
         "inputs": {
             "geography_lookup": relative_path(lookup_path),
             "observations": relative_path(observations_path),
             "gap_index": relative_path(index_path),
+            "indicator_trace": relative_path(indicator_trace_path),
             "trend_diagnostics": relative_path(trend_diagnostics_path),
             "outlook": relative_path(outlook_path),
         },
@@ -135,6 +145,10 @@ def build_summary(
         "driver_labels": drivers["driver_label"].value_counts().sort_index().to_dict(),
         "monitoring_story_count": int(monitoring["monitoring_story_flag"].sum()),
         "rank_fragility": sensitivity["robustness_label"].value_counts().sort_index().to_dict(),
+        "rank_volatility": (
+            rank_volatility["robustness_label"].value_counts().sort_index().to_dict()
+        ),
+        "rank_volatility_max_range": int(rank_volatility["rank_range"].max()),
         "caveats": [
             "This is descriptive EDA, not causal inference.",
             "Current GIS geometry is centroid fallback until a boundary source is added.",
@@ -143,6 +157,7 @@ def build_summary(
                 "or area yet."
             ),
             "Sensitivity scenarios are simple stress tests for narrative confidence.",
+            "Leave-one-indicator rank volatility frames uncertainty, not a new ranking.",
         ],
     }
 
@@ -165,6 +180,7 @@ def main() -> int:
         lookup_path=resolve_path(args.geography_lookup),
         observations_path=resolve_path(args.observations),
         index_path=resolve_path(args.index),
+        indicator_trace_path=resolve_path(args.indicator_trace),
         trend_diagnostics_path=resolve_path(args.trend_diagnostics),
         outlook_path=resolve_path(args.outlook),
         table_dir=resolve_path(args.table_dir),

@@ -11,6 +11,7 @@ outputs:
   data_coverage: artifacts/tables/eda_data_coverage.csv
   country_drivers: artifacts/tables/eda_country_drivers.csv
   index_sensitivity: artifacts/tables/index_sensitivity.csv
+  rank_volatility: artifacts/tables/eda_rank_volatility.csv
   trend_profiles: artifacts/tables/eda_trend_profiles.csv
   monitoring_gap: artifacts/tables/eda_monitoring_gap.csv
   summary: artifacts/provenance/eda_summary.json
@@ -18,3 +19,4 @@ caveats:
   - Descriptive EDA only; no causal claims.
   - Current geometry is centroid fallback, not polygon boundaries.
   - Monitoring counts are proxy coverage until normalized with external context.
+  - Rank volatility is uncertainty framing, not a replacement ranking.

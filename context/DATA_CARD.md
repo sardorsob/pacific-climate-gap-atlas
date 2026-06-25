@@ -130,6 +130,7 @@ The script-first EDA foundation now writes:
 - `artifacts/tables/eda_data_coverage.csv`: geography-level coverage tiers, year spans, row counts, and data-desert flags.
 - `artifacts/tables/eda_country_drivers.csv`: descriptive country driver labels, score ranks, and evidence-density labels.
 - `artifacts/tables/index_sensitivity.csv`: baseline, pressure-heavy, and capacity-heavy rank comparisons.
+- `artifacts/tables/eda_rank_volatility.csv`: weight-shift and leave-one-indicator rank-volatility summary for uncertainty framing.
 - `artifacts/tables/eda_trend_profiles.csv`: trend diagnostic summaries by geography.
 - `artifacts/tables/eda_monitoring_gap.csv`: monitoring coverage compared with adaptation-gap and pressure/capacity scores.
 - `artifacts/provenance/eda_summary.json`: input/output paths, row counts, early signal counts, and caveats.
@@ -140,7 +141,7 @@ Run command:
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This is descriptive EDA only. It is designed to guide deeper analysis and story selection, not to make causal claims or finalize the atlas narrative.
+This is descriptive EDA only. It is designed to guide deeper analysis and story selection, not to make causal claims or finalize the atlas narrative. Rank-volatility outputs should be used to caveat or de-emphasize rank order, not to create a new definitive ranking.
 
 ## Raw Data Policy
 
