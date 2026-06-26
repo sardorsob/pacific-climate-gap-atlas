@@ -23,6 +23,9 @@
 - `context/TASKS.md`: executable task blocks.
 - `context/ANALYSIS_BACKLOG.md`: deeper GIS/data-science analysis lanes before visual design.
 - `context/ANALYSIS_BRIEF.md`: living summary of EDA outputs, early signals, and caveats.
+- `context/storyboardbrainstorm.md`: archived Claude/Codex storyboard brainstorm and review notes for TASK-018.
+- `context/STORY_BRIEF.md`: final TASK-018 narrative contract, storyboard beats, exemplars, and caveats.
+- `context/DESIGN_BRIEF.md`: final TASK-018 map-first visual and interaction contract for design/build.
 - `context/DATA_CARD.md`: dataset provenance, coverage, and caveats.
 - `context/MODEL_CARD.md`: outlook model purpose and limits.
 - `context/ASSUMPTIONS.md`: modeling/index assumptions.

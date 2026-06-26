@@ -59,13 +59,13 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, and monitoring-gap GIS story priorities. Read `context/ANALYSIS_BRIEF.md` before resuming app or design work.
+This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, and monitoring-gap GIS story priorities. Read `context/ANALYSIS_BRIEF.md`, `context/STORY_BRIEF.md`, and `context/DESIGN_BRIEF.md` before resuming app or design work.
 
 ## Next Recommended Work
 
-1. Use `TASK-018` to synthesize the story and write `context/STORY_BRIEF.md` plus `context/CLAUDE_VISUAL_HANDOFF.md`.
-2. Resume `TASK-006` only after the strongest story, layer priorities, and caveat placements are evidence-backed.
-3. Keep Claude visual design work downstream of the evidence-backed story brief, not ahead of it.
+1. Use `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md` to run the large-screen/mobile visual concept approval pass.
+2. Resume `TASK-006` after the visual concept is approved and the implementation plan is scoped.
+3. Keep Claude visual design work bound to the evidence-backed story, caveat, and data-binding contracts.
 
 ## Known Caveats
 

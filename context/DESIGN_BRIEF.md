@@ -1,0 +1,594 @@
+# Design Brief
+
+## Status
+
+Task: `TASK-018`
+
+Status: final semantic design brief for the first atlas build. This is not a polished mockup. It is the contract Claude, Codex, or any designer should use before creating visual concepts or implementation plans.
+
+Design skill basis:
+
+- `build-web-data-visualization:data-visualization`
+- meaning-preserving visual design workflow
+- mobile-first responsive visualization
+- perception, color, and encoding
+- layout hierarchy and self-explanatory UX
+- sensitive geopolitical and humanitarian story guardrails
+
+Concept approval status:
+
+- Text contract: ready for review.
+- Large-screen visual concept: pending.
+- Mobile portrait concept: pending.
+- Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
+
+Before app implementation, Claude should create at least one large-screen and one mobile portrait concept from this brief. Those concepts should be reviewed and approved before build work treats the visual direction as locked.
+
+## Design Objective
+
+Build a map-first exploratory atlas that lets readers inspect where current official climate-pressure, observed-stress, adaptation-capacity, monitoring, and missingness signals appear most out of balance across 22 Pacific geographies.
+
+The app should feel like a careful GIS tool with a guided story path. It should not feel like a landing page, generic dashboard, leaderboard, or decorative scrollytelling essay.
+
+## Analytical Job
+
+Primary analytical job:
+
+- Geography and comparison: show where gap, pressure, capacity, monitoring visibility, and uncertainty differ across Pacific geographies.
+
+Secondary analytical jobs:
+
+- Uncertainty: show rank fragility and evidence density.
+- Missingness: distinguish visible monitoring, reported zero, and missing monitoring rows.
+- Decomposition: show why a selected geography scores the way it does.
+- Guided explanation: walk users through the story without hiding exploration.
+
+Data shape:
+
+- Geospatial point features with tabular properties.
+- Country/detail JSON records.
+- EDA CSV tables for monitoring, rank volatility, spatial typology, and outlook interpretation.
+- Optional time-scenario fields for outlook.
+
+Artifact family:
+
+- Interactive web atlas with guided tour, layer controls, side panel, source/method drawer, and mobile bottom sheet.
+
+Primary route:
+
+- MapLibre point map plus React/TypeScript UI.
+
+Fallback route:
+
+- Static centroid map plus country cards if map interactivity becomes unstable late in the sprint.
+
+## Evidence Lock
+
+Every visible score, label, and caveat should trace to one of these sources:
+
+| Visual Surface | Primary Source | Evidence Status |
+| --- | --- | --- |
+| Gap score | `data/processed/app/atlas_geographies.geojson`, `artifacts/tables/adaptation_gap_index.csv` | modeled comparative screen |
+| Pressure/capacity scores | same | modeled comparative screen |
+| Indicator detail | `data/processed/app/country_details.json` | measured/latest official rows plus derived scores |
+| Monitoring status | `artifacts/tables/eda_monitoring_gap.csv` | measured reporting status / proxy count |
+| Rank uncertainty | `artifacts/tables/eda_rank_volatility.csv` | sensitivity stress test |
+| Spatial typology | `artifacts/tables/eda_spatial_typologies.csv` | rule-based descriptor |
+| Subregion caption | `artifacts/tables/eda_subregion_comparisons.csv` | small-sample descriptive summary |
+| Outlook | `artifacts/tables/eda_outlook_interpretation.csv`, `adaptation_gap_outlook.csv` | stress-test display guidance |
+| Responsibility context | indicator trace rows with responsibility role | context-only, not score driver |
+
+No visual element may imply:
+
+- precise boundaries,
+- causal attribution,
+- a definitive vulnerability ranking,
+- infrastructure absence from missing rows,
+- future prediction from outlook,
+- moral blame from responsibility context.
+
+## First View
+
+The first screen should be the atlas itself.
+
+Large screen first load:
+
+- Full-bleed Pacific map.
+- Adaptation gap layer active.
+- Small top-left title block with one-line thesis.
+- Layer control visible but restrained.
+- Legend visible and useful.
+- Source/method access visible.
+- Detail panel collapsed until selection or tour step.
+- Caveat visible under active layer title: "Comparative screen, not a ranking of need. Most ranks are fragile."
+
+Mobile first load:
+
+- Map visible in the top portion of the viewport.
+- Active layer title and caveat visible above or over the map.
+- Bottom sheet collapsed to a compact handle with layer state.
+- Legend accessible through a chip, not occupying the whole first screen.
+- Main map appears before deep controls.
+
+## Information Architecture
+
+### Global Regions
+
+1. Map canvas
+2. Layer and overlay controls
+3. Legend / encoding key
+4. Guided tour controls
+5. Country detail panel
+6. Methodology and source drawer
+
+### Reading Order
+
+Default reading order:
+
+1. Where am I? Pacific map frame.
+2. What am I seeing? Active layer title and caveat.
+3. What differs? Point fill, size, and ring encodings.
+4. Why should I trust or question it? Legend, rank fragility, source drawer.
+5. What is behind a place? Country detail panel and indicator trace.
+
+The design should not require users to read a paragraph before understanding the default state.
+
+## Map Grammar
+
+### Geometry
+
+V1 uses centroid point features only.
+
+Required cue:
+
+- Include "centroid fallback, not boundary" in the legend or source drawer.
+
+Do not use polygon choropleths until a boundary source is chosen, license-checked, and documented.
+
+### Point Encoding
+
+Each point can carry three simultaneous meanings:
+
+1. Fill color: active score layer.
+2. Radius: evidence density through `included_indicator_count`.
+3. Ring or pattern: monitoring/reporting status.
+
+Initial size guidance:
+
+- Test a restrained range before locking size. Start around 8px to 18px on desktop and 9px to 20px on mobile.
+- Avoid the 7px to 24px range unless visual QA shows it does not overpower color or make low-evidence places look unimportant.
+
+Selection state:
+
+- Do not use another data-like ring for selection because rings already encode reporting status.
+- Use a bracket, halo offset, label callout, or short leader line for selection.
+
+Hover/focus state:
+
+- Desktop hover may preview name and active score.
+- Mobile must use tap/selection, not hover.
+- Keyboard focus must reach points through list or step-through controls if direct map keyboard navigation is impractical.
+
+## Layer Hierarchy
+
+### Default Layer
+
+Adaptation gap score:
+
+- Field: `adaptation_gap_score`.
+- Purpose: thesis entry point.
+- Caveat: comparative screen, not rank of need.
+
+### Primary Comparison Layers
+
+Climate pressure:
+
+- Field: `climate_pressure_score`.
+- Purpose: expose one side of the gap.
+
+Visible capacity:
+
+- Field: `capacity_score`.
+- Purpose: expose the other side of the gap.
+- Caveat: capacity is a proxy from official datasets, not full readiness.
+
+### Signature Overlay
+
+Monitoring/data visibility:
+
+- Source: `eda_monitoring_gap.csv`.
+- Key fields: `monitoring_reporting_status`, `monitoring_coverage_tier`, `monitoring_quadrant`, `story_priority`, `missing_reporting_caveat`, `proxy_caveat`.
+- Purpose: show where high apparent gaps intersect reported-zero or missing monitoring records.
+
+### Secondary Layers
+
+Uncertainty:
+
+- Source: `eda_rank_volatility.csv`.
+- Key fields: `rank_range`, `scenario_rank_min`, `scenario_rank_max`, `robustness_label`.
+- Purpose: prevent leaderboard reading.
+
+Subregion / spatial typology:
+
+- Source: `eda_spatial_typologies.csv`, `eda_subregion_comparisons.csv`.
+- Purpose: let users inspect regional texture.
+- Caveat: statistical grouping, not cultural or political boundary.
+
+### Optional Layer
+
+Outlook:
+
+- Source: `eda_outlook_interpretation.csv` and app outlook fields.
+- Default: off.
+- Rule: `show` rows may render normally; `show_with_strong_caveat` rows render only with visible caveat styling; `withhold` rows do not render as map marks and are explained as withheld.
+- Caveat: stress-test interpretation, not forecast.
+
+### Do Not Build As Map Layers In V1
+
+- Global rank leaderboard.
+- Responsibility/emissions map ramp.
+- Boundary choropleths without reviewed boundaries.
+- Withheld outlook rows as normal map marks.
+
+## Missingness And Monitoring Grammar
+
+Monitoring states should be visually and verbally distinct.
+
+| `monitoring_reporting_status` Value | Example Geographies | Visual Treatment | Required Copy |
+| --- | --- | --- | --- |
+| `reported_positive_latest_count` | TV and other visible-monitoring cases | filled or standard ring | "Latest official monitoring row is present; count may still omit station quality, continuity, siting, and reporting completeness." |
+| `reported_zero_latest_count` | PN, NR, NU | hollow or dashed ring | "Latest official monitoring row reports 0; verify source semantics before interpreting this as no monitoring infrastructure." |
+| `missing_monitoring_dataset_row` | AS, WF, MP, GU | dotted ring plus hatch or broken outline | "No monitoring rows in processed official data; treat as a reporting gap, not confirmed absence." |
+
+The signature overlay can dim score color to grayscale and emphasize reporting rings, but the everyday score map should still carry subtle evidence-density and reporting-status cues.
+
+## Country Detail Panel
+
+Field order:
+
+1. Geography name and status/context note.
+2. Active story label or selected layer title.
+3. Adaptation gap score with rank-range chip.
+4. Pressure versus capacity mini comparison.
+5. Evidence density: included indicators, dataset count, row count.
+6. Monitoring/reporting status with caveat.
+7. Top pressure signals and capacity signals.
+8. Indicator trace drawer.
+9. Responsibility context, if relevant, labeled context-only.
+10. Outlook snippet, only when selected and allowed.
+11. Source links and method caveats.
+
+Panel rules:
+
+- Caveats sit beside the number or label they qualify.
+- No bare rank appears without rank range or robustness label.
+- Missingness is a visible state, not only a footnote.
+- Detail panel copy should use "visible capacity," "proxy," "reporting gap," and "stress test" consistently.
+
+## Guided Tour
+
+The tour should be optional and always leave the map visible.
+
+Recommended tour steps:
+
+1. Open on the gap.
+2. Pull pressure and capacity apart.
+3. Inspect NR as a broad-evidence high-gap and reported-zero monitoring case.
+4. Inspect TV as a high-gap case with visible monitoring so high gap is not conflated with data silence.
+5. Open "Where the Data Goes Quiet" and surface PN, NR, AS, WF.
+6. Show rank fragility with MH or another high-movement example.
+7. Show regional texture.
+8. Optional: turn on outlook and immediately show the stress-test caveat.
+
+Tour controls:
+
+- Stepper with next/back and skip.
+- Each step names the active layer and evidence source.
+- Reduced-motion mode should use immediate state changes, not animated transitions.
+
+## Color Role Ledger
+
+These are roles, not final locked colors. Claude should make this beautiful, but not by breaking the roles.
+
+| Role | Purpose | Draft Direction | Notes |
+| --- | --- | --- | --- |
+| Ocean / map context | orientation | deep muted blue-green or charcoal ocean | quiet enough for points and labels |
+| Land / context geometry | orientation | low-contrast neutral | do not compete with points |
+| Gap magnitude | ordered score | warm sequential ramp | avoid alarm-red dominance |
+| Pressure magnitude | ordered score | cool blue sequential ramp | distinct from gap |
+| Capacity magnitude | ordered score | green or teal sequential ramp | do not imply "safe" without caveat |
+| Missing/reporting status | data quality state | stroke, dash, hatch, shape | separate from score color |
+| Uncertainty | rank movement | neutral to purple or neutral to amber | test for colorblind accessibility |
+| Selection | interaction state | callout, bracket, halo, label | not another data ring |
+| Caveat/warning | interpretive caution | muted amber or icon+text | never only color |
+| Disabled/withheld | unavailable/withheld layer | low-opacity gray plus text | explain why |
+
+Color QA:
+
+- WCAG AA for text.
+- At least 3:1 contrast for meaningful non-text marks.
+- Grayscale check.
+- Color-deficiency check.
+- No rainbow ramps.
+- No decorative glow unless mapped to focus/selection.
+
+## Typography And Tone
+
+Typography direction:
+
+- Body and UI: highly legible sans-serif with tabular numerals.
+- Display: optional characterful serif or restrained display face for tour claims, used sparingly.
+
+Tone:
+
+- careful,
+- clear,
+- Pacific-specific,
+- not fatalistic,
+- not bureaucratic,
+- not blame-driven.
+
+Avoid:
+
+- "worst,"
+- "most vulnerable,"
+- "definitive,"
+- "prediction,"
+- "absence of infrastructure" when describing missing rows,
+- moral ranking language.
+
+## Desktop Layout Contract
+
+Desktop target:
+
+- Primary design around 1280px to 1440px wide.
+
+Layout:
+
+- Full-bleed map.
+- Top-left title and active layer chip.
+- Left or top-left layer controls, compact.
+- Right side detail panel around 360px to 420px when open.
+- Bottom-left legend, compact and adjacent to map marks.
+- Bottom-right method/source and tour buttons.
+
+Panel behavior:
+
+- Closed by default.
+- Opens on selection or tour step.
+- Does not cover the selected point if avoidable.
+- Dims non-selected points during country inspection.
+
+Legend behavior:
+
+- Always explains fill, size, and ring.
+- Adapts to active layer.
+- Keeps missingness key visible or one tap away.
+
+## Mobile Layout Contract
+
+Mobile portrait target:
+
+- 360px to 430px wide.
+
+First view:
+
+- Map remains visible before deep controls.
+- Active layer and caveat visible.
+- Bottom sheet collapsed but discoverable.
+
+Mobile structure:
+
+- Map top around 50vh to 60vh.
+- Bottom sheet for layer controls and country details.
+- Legend collapses into a chip or short expandable key.
+- Tour stepper docks above bottom sheet or inside sheet header.
+
+Mobile interaction:
+
+- Tap selects points.
+- Previous/next selected geography control helps users avoid tiny tap targets.
+- Layer switches use segmented controls or concise menus.
+- Search can exist later, but keyboard must not hide the only apply/close action.
+
+Mobile QA:
+
+- No hover-only values.
+- Touch targets should be at least 44px where practical.
+- Text and caveats remain legible without horizontal scrolling.
+- Opening controls should not permanently hide the map.
+- Reduced-motion mode must preserve every tour step.
+
+## URL And State
+
+Minimum shareable state:
+
+- active layer,
+- selected geography,
+- tour step,
+- subregion filter,
+- outlook on/off and horizon if implemented.
+
+The back button should not trap users inside panels or tour states.
+
+If URL-state implementation is deferred, record it as a known V1 limitation.
+
+## Accessibility Contract
+
+Essential information must not depend on:
+
+- hover,
+- color alone,
+- animation,
+- exact point tapping,
+- a hidden source drawer.
+
+Required accessibility surfaces:
+
+- keyboard-reachable layer controls,
+- keyboard-reachable country list or selected-geography stepper,
+- visible focus states,
+- reduced-motion behavior,
+- text alternative for the active map state,
+- source and caveat text in HTML, not baked into images,
+- mobile hit target review.
+
+Map alt summary pattern:
+
+> Map of 22 Pacific geographies shown as centroid points. Active layer: [layer]. The map is a comparative screen, not a definitive ranking. Selected geography: [name], [short score/caveat summary].
+
+## Source And Method Drawer
+
+The drawer should contain:
+
+- project thesis,
+- score method summary,
+- dataset list,
+- geometry policy,
+- monitoring proxy caveat,
+- rank-fragility explanation,
+- outlook explanation,
+- responsibility-context explanation,
+- source and license notes,
+- claims the app will not make.
+
+The drawer is not allowed to be the only place where load-bearing caveats appear.
+
+## Data Binding Contract
+
+| UI Surface | Data File | Required Fields |
+| --- | --- | --- |
+| Gap map | `app/public/data/atlas_geographies.geojson` | `geo_code`, `name`, `adaptation_gap_score`, `included_indicator_count`, `score_status` |
+| Pressure/capacity map | same | `climate_pressure_score`, `capacity_score` |
+| Centroid geometry | same | `geometry.coordinates`, `geometry_status` |
+| Country panel | `app/public/data/country_details.json` | geography fields, scores, `indicators[]`, source refs |
+| Layer manifest | `app/public/data/layers.json` | layer ids, labels, fields, caveats |
+| Monitoring overlay | `artifacts/tables/eda_monitoring_gap.csv` or derived app JSON | `monitoring_reporting_status`, `monitoring_quadrant`, `story_priority`, caveats |
+| Rank chip | `artifacts/tables/eda_rank_volatility.csv` or derived app JSON | `rank_range`, `scenario_rank_min`, `scenario_rank_max`, `robustness_label` |
+| Subregion filter | `eda_spatial_typologies.csv`, `eda_subregion_comparisons.csv` | `subregion`, typology, counts, caveats |
+| Outlook | `eda_outlook_interpretation.csv`, nested `outlook` in app data | `display_recommendation`, `target_year`, `scenario`, projected scores, caveats |
+
+Implementation should eventually package EDA-derived story tables into app-ready JSON rather than fetching CSVs directly from `artifacts/`.
+
+## Component Inventory
+
+Likely React components:
+
+- `AtlasMap`
+- `LayerControls`
+- `Legend`
+- `CountryPanel`
+- `IndicatorTrace`
+- `RankChip`
+- `MissingnessKey`
+- `MethodDrawer`
+- `TourStepper`
+- `SubregionFilter`
+- `OutlookToggle`
+- `SourceNote`
+
+Renderer ownership:
+
+- MapLibre owns base map and point layers.
+- React owns controls, panel, legend, drawer, tour, and source/caveat copy.
+- Labels and caveats should remain editable HTML/SVG overlays, not raster text.
+
+## Motion Contract
+
+Allowed motion:
+
+- short layer cross-fades,
+- selected-point emphasis,
+- tour step transitions,
+- optional uncertainty re-encoding transition.
+
+Motion verb:
+
+- reveal,
+- compare,
+- focus,
+- re-encode.
+
+Do not use:
+
+- decorative particle motion,
+- wave/ribbon atmospherics,
+- pulsing alarm effects,
+- cinematic intro animation that delays the map.
+
+Reduced motion:
+
+- replace transitions with immediate state changes,
+- preserve all labels and caveats.
+
+## Visual Concept Prompts For Claude
+
+Claude should create visual concepts after reading `STORY_BRIEF.md`, this design brief, and `storyboardbrainstorm.md`.
+
+### Large-Screen Concept Prompt
+
+Design a large-screen concept for the Pacific Adaptation Gap Atlas, a map-first interactive GIS web visualization. The first viewport is the actual atlas, not a landing page. Show a full-bleed Pacific map with centroid points. The active layer is adaptation gap. Fill color encodes the active score, point size subtly encodes included indicator count, and ring/dash/hatch styling encodes monitoring/reporting status. Include a compact layer control, useful legend, method/source drawer button, guided tour button, and a right-side country detail panel state. The concept must preserve caveats near the claims they qualify: comparative screen, not a ranking of need; centroid fallback, not boundary geometry; reported zero and missing rows are not infrastructure absence. Make it visually polished and competition-ready, but restrained and evidence-bearing. Avoid generic dashboards, decorative gradients, bokeh, cinematic wallpaper, flags as decoration, and any choropleth boundary styling.
+
+### Mobile Portrait Concept Prompt
+
+Design a mobile portrait concept for the same atlas at 390px width. The map must remain visible on first load, with active layer title and caveat visible. Use a bottom sheet for layer controls and country details. Show how a user taps a centroid, opens a concise country panel, sees the rank-fragility chip, and can access the missingness legend. Essential information must not depend on hover. Preserve the same story as desktop: adaptation gap plus official-data visibility, with caveats adjacent to claims. Avoid squeezing the desktop layout into a tiny dashboard.
+
+### Optional Mobile Landscape Prompt
+
+Design a mobile landscape concept only if the map controls or guided tour need more horizontal room. Preserve the map as the dominant surface, keep the bottom or side sheet compact, and show how touch targets remain usable without hiding caveats.
+
+## Claude Visual Review Criteria
+
+Approve a visual concept only if:
+
+- the first screenshot explains the atlas without hover,
+- the map is the main surface,
+- caveats are visible near active claims,
+- the legend teaches fill, size, and reporting status,
+- missingness is distinguishable from low score,
+- mobile is a sibling design, not a squeezed desktop crop,
+- no decorative atmosphere competes with evidence,
+- color roles remain distinct,
+- source/method access is visible,
+- selected geography detail is readable.
+
+Reject or revise a concept if:
+
+- it looks like a generic dashboard,
+- it hides the map behind cards,
+- it treats missing data as merely gray or empty without explanation,
+- it creates leaderboard vibes,
+- it implies boundaries we do not have,
+- it makes outlook feel predictive,
+- it uses one saturated palette for everything,
+- it makes caveats feel like legal fine print.
+
+## Build QA Checklist
+
+Before claiming the app design is implemented:
+
+- desktop screenshot preserves the story and caveats,
+- mobile portrait screenshot preserves the story and caveats,
+- color contrast passes text and meaningful-mark checks,
+- color-deficiency check preserves score/missingness distinction,
+- all ranks show rank range or uncertainty,
+- every score has trace/source access,
+- monitoring missingness copy uses the correct reporting-gap language,
+- source drawer is reachable by keyboard,
+- controls are usable at 360px width,
+- reduced-motion mode keeps all tour beats,
+- static screenshot of default view still communicates the thesis.
+
+## Out Of Scope For V1 Design
+
+- Boundary polygon choropleth.
+- Expanded non-official overlays.
+- New index methodology.
+- Live data fetching.
+- Bilingual interface unless explicitly requested.
+- Automated funding, readiness, or vulnerability recommendations.
+- A full country leaderboard.
+
+## Final Design Principle
+
+The design should make uncertainty useful. The atlas wins if readers understand not only where the adaptation gap appears wide, but also where the official record is strong, thin, missing, fragile, or caveated.

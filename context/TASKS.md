@@ -418,7 +418,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 
 ## TASK-018
 - Phase: analysis
-- Title: Synthesize story and Claude visual handoff
+- Title: Synthesize story and design brief
 - Depends on: TASK-011, TASK-012, TASK-013, TASK-014, TASK-015, TASK-016, TASK-017
 - Assigned agent: unassigned
 - Contract refs: context/ANALYSIS_BACKLOG.md, context/SCOPE.md
@@ -428,13 +428,13 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Functional notes: Pick story arcs, layer priorities, country exemplars, and caveat placements.
 - Statistical notes: Label story confidence and unresolved uncertainty.
 - Edge cases: If no robust story emerges, revise analysis scope before visual design.
-- Files to create/modify: `context/STORY_BRIEF.md`, `context/CLAUDE_VISUAL_HANDOFF.md`, `context/TASKS.md`
-- Artifacts to produce: story brief and visual-design handoff
-- Acceptance criteria: Claude receives a concrete, evidence-backed visual brief rather than abstract layout instructions.
+- Files to create/modify: `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, `context/TASKS.md`
+- Artifacts to produce: story brief and design brief
+- Acceptance criteria: Claude receives a concrete, evidence-backed design brief rather than abstract layout instructions.
 - Verification commands: `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
 - Manual QA: Read story brief against EDA outputs and confirm claims are source-backed.
-- QA notes:
-- Attempts: 0
+- QA notes: Finalized the two-axis story spine, storyboard beats, caveat register, exemplar geographies, layer hierarchy, and a map-first design contract grounded in the data-visualization design references. The design brief records a pending large-screen/mobile visual concept approval gate before app implementation.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Distilled the Claude/Codex storyboard brainstorm into `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md`, replacing the old Claude-specific handoff name with a reusable design brief.
+- Status: done

@@ -54,10 +54,10 @@ The runner writes:
 - Outlook interpretation is stress-test display guidance. It should not be framed as a prediction or operational forecast.
 - Driver labels are useful for exploration and app copy drafts, not final scientific claims.
 
-## Next Analysis Priorities
+## Next Priorities
 
-1. Use `TASK-018` to synthesize the story, layer priority, country exemplars, and caveat placements.
-2. Decide whether subregion filters should appear as a major atlas interaction using spatial typologies.
+1. Use `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md` as the source of truth for visual concepting and app planning.
+2. Run a large-screen and mobile visual concept approval pass before implementation.
 3. Treat outlook layers as optional stress-test context, with display controlled by `eda_outlook_interpretation.csv`.
-4. Review primary and secondary country story labels against indicator forensics before choosing atlas exemplar geographies.
-5. Decide whether the monitoring-gap lane should be the main atlas story or one diagnostic layer inside a broader adaptation-gap narrative.
+4. Keep monitoring/data visibility as the signature diagnostic interaction inside the broader adaptation-gap frame.
+5. Keep rank uncertainty visible wherever ranks or score order appear.

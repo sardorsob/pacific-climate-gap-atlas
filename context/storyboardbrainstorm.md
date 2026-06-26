@@ -4,7 +4,7 @@
 
 You are Claude, joining the Pacific Adaptation Gap Atlas project to help plan the narrative and visual storyboard for `TASK-018`.
 
-Read this prompt first, then review the source files listed below. Your job is not to build the app yet. Your job is to help turn the completed EDA into an evidence-backed storyboard and visual handoff that a later design/build pass can use.
+Read this prompt first, then review the source files listed below. Your job is not to build the app yet. Your job is to help turn the completed EDA into an evidence-backed storyboard and design brief that a later design/build pass can use.
 
 When you respond, write in a way that another agent and the project owner can critique. Prefer concrete narrative options, specific screen beats, and explicit caveats over generic dashboard advice.
 
@@ -26,7 +26,7 @@ The desired product is not a marketing website. It should be a map-first explora
 
 ## Current Task
 
-We are starting `TASK-018`: story synthesis and Claude visual handoff.
+We are starting `TASK-018`: story synthesis and design brief.
 
 Relevant task definition:
 
@@ -34,7 +34,7 @@ Relevant task definition:
 - Pick story arcs, layer priorities, country exemplars, and caveat placements.
 - Label story confidence and unresolved uncertainty.
 - Produce `context/STORY_BRIEF.md`.
-- Produce `context/CLAUDE_VISUAL_HANDOFF.md`.
+- Produce `context/DESIGN_BRIEF.md`.
 - Acceptance criterion: Claude receives a concrete, evidence-backed visual brief rather than abstract layout instructions.
 
 This file is the first collaboration prompt for that process. Treat your output as a draft to be reviewed, challenged, and refined before anything becomes final.
@@ -323,7 +323,7 @@ Include:
 Draft outlines for:
 
 - `context/STORY_BRIEF.md`
-- `context/CLAUDE_VISUAL_HANDOFF.md`
+- `context/DESIGN_BRIEF.md`
 
 These outlines should be specific enough that another agent can turn them into final files after review.
 
@@ -346,7 +346,7 @@ After your first response:
 1. Codex will review your draft against the local artifacts.
 2. Codex may mark which claims are supported, uncertain, or unsupported.
 3. The project owner will give preferences about narrative tone and visual direction.
-4. We will converge on final `STORY_BRIEF.md` and `CLAUDE_VISUAL_HANDOFF.md`.
+4. We will converge on final `STORY_BRIEF.md` and `DESIGN_BRIEF.md`.
 
 Do not treat your first response as final. Treat it as the first serious storyboard proposal.
 
@@ -547,7 +547,7 @@ Decisions for the project owner
 7. Explicit "claims we will NOT make" list
 8. Open decisions for owner (section 8)
 
-`context/CLAUDE_VISUAL_HANDOFF.md` outline
+`context/DESIGN_BRIEF.md` outline
 1. Layout skeleton (map-first, panel, layer switcher, drawer)
 2. Layer hierarchy (section 4) with default states and gating rules (incl. outlook row gating)
 3. Encoding spec: score ramp vs missingness channel; centroid styling; quadrant legend
@@ -710,7 +710,7 @@ Post-story scope options (each needs its own source + license review; mostly doe
 
 ## 10. Final-File Outlines (kept here; deferred as separate files)
 - STORY_BRIEF.md outline: thesis + two-axis reframe; confidence statement (strong: pattern/missingness; weak: ranks); chosen arc + B/C/D as layers; 7 beats w/ takeaway+caveat; exemplar table w/ confidence; guardrail register (11 rules -> enforcing beat); "claims we will NOT make"; open owner decisions.
-- CLAUDE_VISUAL_HANDOFF.md outline: layout skeleton; layer hierarchy + gating; encoding spec (ramps, size, ring/hatch, quadrant); panel field order + caveat adjacency; uncertainty components; data bindings (sec 8); microcopy starter set (verbatim caveats); "do not build yet" list; acceptance check (every score surface shows trace + uncertainty + coverage).
+- DESIGN_BRIEF.md outline: layout skeleton; layer hierarchy + gating; encoding spec (ramps, size, ring/hatch, quadrant); panel field order + caveat adjacency; uncertainty components; data bindings (sec 8); microcopy starter set (verbatim caveats); "do not build yet" list; acceptance check (every score surface shows trace + uncertainty + coverage).
 
 ## 11. Verification
 1. Claims source-backed (TASK-018 manual QA): read this section against the `eda_*` tables; every geography/number traces to a table (the Codex supported/uncertain/unsupported pass).
@@ -739,7 +739,7 @@ Open item for owner/Codex: confirm whether gated outlook stays in V1 or is defer
 
 # Codex Review Pass v1
 
-Status: strong direction with a few required corrections before this becomes `STORY_BRIEF.md` or `CLAUDE_VISUAL_HANDOFF.md`.
+Status: strong direction with a few required corrections before this becomes `STORY_BRIEF.md` or `DESIGN_BRIEF.md`.
 
 Overall verdict: the two-axis spine is the right move. "Uneven adaptation gap plus uneven official visibility" is more honest and more competition-distinctive than a simple gap ranking. It lets the atlas be exploratory without becoming mushy, and it turns uncertainty/missingness into a first-class visual feature instead of a disclaimer.
 
@@ -784,4 +784,4 @@ Ask Claude to revise v2 into a cleaner `TASK-018` storyboard draft with:
 6. V1 scope tightened to the actual storyboard,
 7. post-V1 ideas separated from the final handoff.
 
-After that revision, Codex can turn the accepted version into `context/STORY_BRIEF.md` and `context/CLAUDE_VISUAL_HANDOFF.md`.
+After that revision, Codex can turn the accepted version into `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md`.

@@ -2,11 +2,11 @@
 
 ## Immediate Next Step
 
-Start `TASK-018` story synthesis and Claude visual handoff. The analysis lanes through `TASK-017` are now complete.
+Use the completed `TASK-018` story and design briefs. The analysis lanes through `TASK-018` are now complete.
 
 ## Next Build Step
 
-Write `context/STORY_BRIEF.md` and `context/CLAUDE_VISUAL_HANDOFF.md`, then resume the GIS atlas app only after the story, layer priorities, and caveat placements are evidence-backed.
+Use `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md` to run the visual concept approval pass, then resume the GIS atlas app only after the large-screen/mobile design direction is approved.
 
 ## Current Evidence Snapshot
 

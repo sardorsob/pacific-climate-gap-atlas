@@ -4,7 +4,7 @@
 
 **Goal:** Build a script-first exploratory analysis sprint that turns the existing data spine into evidence, story candidates, and app-design requirements.
 
-**Status:** Executed through the EDA foundation and follow-on analysis lanes for GIS context, coverage, indicator forensics, country story labels, rank volatility, and monitoring-gap priorities. Remaining analysis implementation lives in `TASK-015` and `TASK-016`; synthesis and Claude handoff live in `TASK-018`.
+**Status:** Executed through the EDA foundation and follow-on analysis lanes for GIS context, coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap priorities, and TASK-018 story/design synthesis.
 
 **Architecture:** Keep notebooks optional and non-authoritative. Put reusable logic in `analysis/eda/`, run it through `scripts/run_eda.py`, and save reportable outputs under `artifacts/tables/`, `artifacts/figures/`, and `artifacts/provenance/`. Keep durable interpretation and task status under `context/`.
 

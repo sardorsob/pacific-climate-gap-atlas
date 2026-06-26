@@ -6,7 +6,7 @@ The project is pausing visual design work until the atlas has a stronger evidenc
 
 ## Current Status
 
-Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, and monitoring-gap GIS priorities. Story synthesis and Claude visual handoff are next in `TASK-018`.
+Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap GIS priorities, and story/design synthesis. The next step is visual concept approval and app build planning.
 
 ## Principles
 
@@ -165,9 +165,9 @@ Outputs:
 - `artifacts/tables/eda_monitoring_gap.csv`
 - `artifacts/figures/eda_monitoring_gap_quadrants.png`
 
-### TASK-018: Responsibility Context And Story Synthesis
+### TASK-018: Story And Design Synthesis
 
-Question: What is the strongest responsible, careful story the data can support?
+Question: What is the strongest responsible, careful story the data can support, and what design contract should govern the atlas build?
 
 Analyses:
 - emissions context versus climate pressure
@@ -177,9 +177,8 @@ Analyses:
 - final app layer priority list
 
 Outputs:
-- `artifacts/tables/eda_responsibility_context.csv`
 - `context/STORY_BRIEF.md`
-- `context/CLAUDE_VISUAL_HANDOFF.md`
+- `context/DESIGN_BRIEF.md`
 
 ## Parallelization Plan
 

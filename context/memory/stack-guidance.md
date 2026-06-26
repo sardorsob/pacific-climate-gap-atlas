@@ -13,6 +13,7 @@
 - Use MapLibre GL unless a simpler map library becomes clearly better.
 - Keep the first screen map-first.
 - Show missingness and caveats in the same interaction path as scores.
+- Treat `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md` as the app design source of truth before building components.
 
 ## GIS/Data
 

@@ -22,6 +22,7 @@
 - Completed `TASK-015` with rule-based spatial typologies and subregion comparisons for regional story review.
 - Completed `TASK-016` with outlook interpretation fields and display/withhold guidance for stress-test layers.
 - Completed `TASK-017` with monitoring-gap GIS story priorities and caveats distinguishing missing rows from reported-zero monitoring counts.
+- Completed `TASK-018` with final `STORY_BRIEF.md` and `DESIGN_BRIEF.md`, including the two-axis narrative spine, caveat register, visual design contract, mobile contract, and Claude concept prompts.
 - Refreshed context and Markdown docs so handoff, backlog, methodology, design, decisions, assumptions, memory notes, and submission notes reflect the current EDA state.
 
 AI tools used: Codex.
