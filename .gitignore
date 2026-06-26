@@ -1,4 +1,5 @@
 .superpowers/
+.claude/
 
 # Local reference workflow kits copied for agent context only.
 context/agentic-workflow-kit/
@@ -21,6 +22,9 @@ node_modules/
 app/node_modules/
 dist/
 app/dist/
+*.tsbuildinfo
+app/vite.config.js
+app/vite.config.d.ts
 
 # Data tiers: keep manifests/contracts, not bulky generated inputs.
 data/raw/*

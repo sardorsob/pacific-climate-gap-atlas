@@ -157,11 +157,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: `npm --prefix app run build` succeeds after dependencies are installed.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Desktop and mobile viewport smoke checks.
-- QA notes:
-- Attempts: 0
+- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It uses mock fixture data derived from current EDA/app artifacts and centroid fallback composition; final public-data wiring and visual approval are still required.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, and responsive detail panel.
+- Status: in-progress
 
 ## TASK-007
 - Phase: polish

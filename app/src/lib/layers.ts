@@ -1,28 +1,31 @@
+import type { ScoreKey } from "./encoding";
+
 export type AtlasLayer = {
-  id: string;
+  id: ScoreKey;
   label: string;
   description: string;
+  caveat: string;
 };
 
+// V1 score layers. The signature "Where the data goes quiet" coverage view and
+// the uncertainty view are overlay MODES handled separately, not score layers.
 export const atlasLayers: AtlasLayer[] = [
   {
-    id: "adaptation_gap_score",
+    id: "gap",
     label: "Adaptation gap",
-    description: "Pressure minus visible capacity, shown with missingness caveats.",
+    description: "Climate pressure minus visible capacity, ranked within the Pacific.",
+    caveat: "Comparative screen, not a ranking of need. Most ranks are fragile.",
   },
   {
-    id: "climate_signal",
-    label: "Climate signal",
-    description: "Observed changes in temperature, rainfall, and sea level indicators.",
+    id: "pressure",
+    label: "Climate pressure",
+    description: "Climate-signal and observed-stress indicators combined.",
+    caveat: "One side of the gap; combines several official indicators.",
   },
   {
-    id: "observed_stress",
-    label: "Observed stress",
-    description: "Disaster-affected people and other stress indicators where available.",
-  },
-  {
-    id: "adaptation_capacity",
-    label: "Adaptation capacity",
-    description: "Monitoring, infrastructure, and governance proxies.",
+    id: "capacity",
+    label: "Visible capacity",
+    description: "Monitoring, power, and fisheries-governance proxies.",
+    caveat: "Capacity here is a proxy from official datasets, not a full measure of readiness.",
   },
 ];

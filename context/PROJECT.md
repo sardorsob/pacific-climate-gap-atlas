@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-Analysis sprint before app shell. Competition deadline: August 31, 2026.
+Visual mockup review before data-wired app implementation. Competition deadline: August 31, 2026.
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, and script-first EDA outputs for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, script-first EDA outputs, story/design briefs, and a reviewable React/Vite mockup for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
 
 ## Working Title
 
@@ -28,7 +28,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Outlook model | done | trend stress-test baseline is methodology-ready and app-optional |
 | Static app data | done | `scripts/build_app_data.py` produces public JSON/GeoJSON layer inputs |
 | EDA sprint | done | GIS context, coverage/data-desert, indicator-forensics, country-story, spatial-typology, trend/outlook, monitoring-gap, and story/design synthesis are complete |
-| GIS atlas app | planned | React/Vite/MapLibre scaffold will consume static app-ready data after visual concept approval |
+| GIS atlas app | in-progress mockup | Reviewable React/Vite concept includes centroid map composition, story tour, layer controls, source drawer, and responsive detail panel; still needs visual approval and final public-data wiring |
 
 ## Last Session Notes
 
@@ -50,3 +50,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Completed `TASK-016` trend/outlook interpretation with display/withhold recommendations for stress-test layers.
 - Completed `TASK-017` monitoring-gap GIS story analysis with priority quadrants and reporting-gap caveats.
 - Completed `TASK-018` story and design synthesis with `STORY_BRIEF.md` and `DESIGN_BRIEF.md`.
+- Started `TASK-006` visual mockup pass with a buildable React/Vite atlas concept for owner review; final app wiring remains open.
