@@ -54,6 +54,7 @@ Supporting evidence layers:
 - indicator trace rows
 - monitoring reporting status
 - rank volatility
+- evidence fingerprint divergence, pending `TASK-019`
 - spatial typologies and subregion comparisons
 - optional outlook interpretation
 - responsibility-context indicators in panel text only
@@ -68,6 +69,7 @@ What is known directly:
 What is estimated or modeled:
 
 - The Adaptation Gap Index is a comparative screen using percentile scoring and pressure-minus-capacity logic.
+- Evidence-profile similarity/divergence will be an information-theory diagnostic if `TASK-019` passes QA, not a new ground-truth grouping.
 - The outlook is a transparent stress test based on simple trend and capacity scenarios.
 - Spatial typologies are rule-based descriptors, not statistical clusters.
 
@@ -83,6 +85,7 @@ What the visual will deliberately not imply:
 - It will not claim outlook rows are forecasts.
 - It will not rank emissions responsibility as blame.
 - It will not treat subregions as cultural or political boundaries.
+- It will not claim that similar evidence fingerprints mean the same vulnerability, lived experience, or policy need.
 
 ## Why This Story Wins
 
@@ -104,6 +107,7 @@ Medium confidence:
 - The project can use spatial typologies and subregion filters as descriptive exploration aids.
 - The project can use selected country exemplars to teach the score, missingness, and uncertainty logic.
 - The project can show responsibility context in country panels without turning it into blame scoring.
+- The project can likely use JSD-based evidence fingerprints to explain similarity and difference between official-data profiles, pending real `TASK-019` artifacts.
 
 Low confidence or optional:
 
@@ -125,6 +129,7 @@ Supporting context:
 
 - Responsibility indicators: explain responsibility mismatch in panel copy only.
 - Rank uncertainty: stop the map from becoming a leaderboard.
+- Evidence fingerprint divergence: compare the shape of official-data profiles without claiming causal similarity.
 - Spatial typologies: help readers compare regional patterns without claiming clusters or adjacency.
 - Outlook: optional stress-test context, off by default, never forecast language.
 
@@ -180,7 +185,17 @@ Supporting context:
 - Required copy: "This view exists so the gap map cannot be read as a fixed scoreboard."
 - Takeaway: the atlas earns trust by showing uncertainty.
 
-### Beat 6: Regional Texture
+### Beat 6: Compare Evidence Fingerprints
+
+- User action: selects a geography and opens "similar evidence profiles."
+- Layer: other points re-encode by JSD distance from the selected geography, if `TASK-019` artifacts pass QA.
+- Panel state: nearest evidence-profile neighbors and a compact fingerprint summary.
+- Evidence: planned `eda_evidence_fingerprints.csv`, `eda_pairwise_jsd.csv`, `eda_similarity_neighbors.csv`.
+- Caveat placement: inside the comparison panel and method drawer.
+- Required copy: "Similarity means official-data profiles look alike under this method; it does not mean the places face the same risks or need the same actions."
+- Takeaway: the atlas can compare what kind of gap a place has, not just how high the score is.
+
+### Beat 7: Regional Texture
 
 - User action: filters by Pacific subregion.
 - Layer: subregion grouping with typology summaries.
@@ -190,7 +205,7 @@ Supporting context:
 - Required copy: "UN M49 statistical groupings, not cultural or political boundaries. Small samples."
 - Takeaway: there is regional texture, but it should be described carefully.
 
-### Beat 7: Optional Outlook Stress Test
+### Beat 8: Optional Outlook Stress Test
 
 - User action: opts into outlook.
 - Layer: future-facing map rows gated by display recommendation.
@@ -218,6 +233,7 @@ Signature diagnostic layer:
 Secondary diagnostic layers:
 
 - Rank fragility / uncertainty.
+- Evidence fingerprint divergence, pending `TASK-019`; compare profiles from a selected geography, not a global leaderboard.
 - Subregion / spatial typology.
 - Indicator trace inside the side panel.
 
@@ -232,6 +248,7 @@ Do not show in V1:
 - A global 1-22 leaderboard as a primary surface.
 - Responsibility/emissions as a map ramp.
 - Withheld outlook rows as normal marks.
+- JSD/KL as causal clusters, natural regions, or policy-need groups.
 
 ## Exemplar Geographies
 
@@ -276,10 +293,11 @@ WF, Wallis and Futuna, should remain available as a second reporting-gap example
 ## Open Decisions Before App Build
 
 1. Should outlook ship in V1, or wait until the core map, missingness, and uncertainty layers are polished?
-2. Should subregion filtering be a major tour beat or a secondary filter?
-3. Should the first selected exemplar be NR, or should the tour first show NR and then quickly contrast with TV?
-4. Should boundary source selection happen before launch, or is centroid-first acceptable for the competition entry?
-5. Who reviews political-status wording before publication?
+2. Should Evidence Fingerprint Divergence ship in V1, or wait until after core app data wiring and visual approval?
+3. Should subregion filtering be a major tour beat or a secondary filter?
+4. Should the first selected exemplar be NR, or should the tour first show NR and then quickly contrast with TV?
+5. Should boundary source selection happen before launch, or is centroid-first acceptable for the competition entry?
+6. Who reviews political-status wording before publication?
 
 ## Handoff To Design
 
@@ -288,7 +306,8 @@ The design brief should preserve this story hierarchy:
 1. Gap map first.
 2. Missingness/monitoring as the signature interaction.
 3. Rank uncertainty always visible where ranks appear.
-4. Caveats beside the claims they qualify.
-5. Outlook optional and gated.
+4. Evidence-profile divergence only as selected-geography comparison, pending real `TASK-019` artifacts.
+5. Caveats beside the claims they qualify.
+6. Outlook optional and gated.
 
 The brainstorm archive remains in `context/storyboardbrainstorm.md`.

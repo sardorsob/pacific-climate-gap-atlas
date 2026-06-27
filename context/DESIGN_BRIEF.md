@@ -39,6 +39,7 @@ Primary analytical job:
 Secondary analytical jobs:
 
 - Uncertainty: show rank fragility and evidence density.
+- Similarity: show which official-data evidence profiles resemble a selected geography, pending `TASK-019`.
 - Missingness: distinguish visible monitoring, reported zero, and missing monitoring rows.
 - Decomposition: show why a selected geography scores the way it does.
 - Guided explanation: walk users through the story without hiding exploration.
@@ -48,6 +49,7 @@ Data shape:
 - Geospatial point features with tabular properties.
 - Country/detail JSON records.
 - EDA CSV tables for monitoring, rank volatility, spatial typology, and outlook interpretation.
+- Planned divergence tables for evidence fingerprints and pairwise JSD if `TASK-019` is implemented.
 - Optional time-scenario fields for outlook.
 
 Artifact family:
@@ -73,6 +75,7 @@ Every visible score, label, and caveat should trace to one of these sources:
 | Indicator detail | `data/processed/app/country_details.json` | measured/latest official rows plus derived scores |
 | Monitoring status | `artifacts/tables/eda_monitoring_gap.csv` | measured reporting status / proxy count |
 | Rank uncertainty | `artifacts/tables/eda_rank_volatility.csv` | sensitivity stress test |
+| Evidence fingerprint divergence | planned `artifacts/tables/eda_pairwise_jsd.csv`, `eda_similarity_neighbors.csv` | information-theory diagnostic over official-data-derived profiles |
 | Spatial typology | `artifacts/tables/eda_spatial_typologies.csv` | rule-based descriptor |
 | Subregion caption | `artifacts/tables/eda_subregion_comparisons.csv` | small-sample descriptive summary |
 | Outlook | `artifacts/tables/eda_outlook_interpretation.csv`, `adaptation_gap_outlook.csv` | stress-test display guidance |
@@ -85,7 +88,8 @@ No visual element may imply:
 - a definitive vulnerability ranking,
 - infrastructure absence from missing rows,
 - future prediction from outlook,
-- moral blame from responsibility context.
+- moral blame from responsibility context,
+- causal or policy-need equivalence from evidence-profile similarity.
 
 ## First View
 
@@ -214,6 +218,15 @@ Subregion / spatial typology:
 - Purpose: let users inspect regional texture.
 - Caveat: statistical grouping, not cultural or political boundary.
 
+Evidence fingerprint divergence:
+
+- Source: planned `eda_evidence_fingerprints.csv`, `eda_pairwise_jsd.csv`, `eda_similarity_neighbors.csv`.
+- Default: off until a geography is selected.
+- Primary metric: Jensen-Shannon divergence.
+- Purpose: show which geographies have similar official-data evidence profiles and where similar gap scores hide different profiles.
+- Interaction rule: anchor the view on a selected geography; do not show a global similarity leaderboard.
+- Caveat: evidence-profile similarity is not shared vulnerability, lived experience, or policy need.
+
 ### Optional Layer
 
 Outlook:
@@ -229,6 +242,7 @@ Outlook:
 - Responsibility/emissions map ramp.
 - Boundary choropleths without reviewed boundaries.
 - Withheld outlook rows as normal map marks.
+- JSD/KL clusters as natural regions or causal groups.
 
 ## Missingness And Monitoring Grammar
 
@@ -252,11 +266,12 @@ Field order:
 4. Pressure versus capacity mini comparison.
 5. Evidence density: included indicators, dataset count, row count.
 6. Monitoring/reporting status with caveat.
-7. Top pressure signals and capacity signals.
-8. Indicator trace drawer.
-9. Responsibility context, if relevant, labeled context-only.
-10. Outlook snippet, only when selected and allowed.
-11. Source links and method caveats.
+7. Evidence fingerprint summary and nearest neighbors, if `TASK-019` ships.
+8. Top pressure signals and capacity signals.
+9. Indicator trace drawer.
+10. Responsibility context, if relevant, labeled context-only.
+11. Outlook snippet, only when selected and allowed.
+12. Source links and method caveats.
 
 Panel rules:
 
@@ -277,8 +292,9 @@ Recommended tour steps:
 4. Inspect TV as a high-gap case with visible monitoring so high gap is not conflated with data silence.
 5. Open "Where the Data Goes Quiet" and surface PN, NR, AS, WF.
 6. Show rank fragility with MH or another high-movement example.
-7. Show regional texture.
-8. Optional: turn on outlook and immediately show the stress-test caveat.
+7. Compare evidence fingerprints, if `TASK-019` artifacts exist: similar score, different profile.
+8. Show regional texture.
+9. Optional: turn on outlook and immediately show the stress-test caveat.
 
 Tour controls:
 
@@ -299,6 +315,7 @@ These are roles, not final locked colors. Claude should make this beautiful, but
 | Capacity magnitude | ordered score | green or teal sequential ramp | do not imply "safe" without caveat |
 | Missing/reporting status | data quality state | stroke, dash, hatch, shape | separate from score color |
 | Uncertainty | rank movement | neutral to purple or neutral to amber | test for colorblind accessibility |
+| Similarity/divergence | selected-geography comparison | restrained sequential ramp or stroke intensity | never a global rank ramp |
 | Selection | interaction state | callout, bracket, halo, label | not another data ring |
 | Caveat/warning | interpretive caution | muted amber or icon+text | never only color |
 | Disabled/withheld | unavailable/withheld layer | low-opacity gray plus text | explain why |
@@ -405,6 +422,7 @@ Minimum shareable state:
 
 - active layer,
 - selected geography,
+- divergence comparison mode and anchor geography, if implemented,
 - tour step,
 - subregion filter,
 - outlook on/off and horizon if implemented.
@@ -447,6 +465,7 @@ The drawer should contain:
 - geometry policy,
 - monitoring proxy caveat,
 - rank-fragility explanation,
+- evidence-fingerprint/JSD explanation if the layer ships,
 - outlook explanation,
 - responsibility-context explanation,
 - source and license notes,
@@ -465,6 +484,7 @@ The drawer is not allowed to be the only place where load-bearing caveats appear
 | Layer manifest | `app/public/data/layers.json` | layer ids, labels, fields, caveats |
 | Monitoring overlay | `artifacts/tables/eda_monitoring_gap.csv` or derived app JSON | `monitoring_reporting_status`, `monitoring_quadrant`, `story_priority`, caveats |
 | Rank chip | `artifacts/tables/eda_rank_volatility.csv` or derived app JSON | `rank_range`, `scenario_rank_min`, `scenario_rank_max`, `robustness_label` |
+| Evidence fingerprint similarity | planned `eda_similarity_neighbors.csv`, `eda_pairwise_jsd.csv` or derived app JSON | selected `geo_code`, neighbor `geo_code`, `jsd_distance`, profile family, caveat |
 | Subregion filter | `eda_spatial_typologies.csv`, `eda_subregion_comparisons.csv` | `subregion`, typology, counts, caveats |
 | Outlook | `eda_outlook_interpretation.csv`, nested `outlook` in app data | `display_recommendation`, `target_year`, `scenario`, projected scores, caveats |
 
@@ -480,6 +500,7 @@ Likely React components:
 - `CountryPanel`
 - `IndicatorTrace`
 - `RankChip`
+- `FingerprintSimilarityPanel`
 - `MissingnessKey`
 - `MethodDrawer`
 - `TourStepper`
@@ -501,6 +522,7 @@ Allowed motion:
 - selected-point emphasis,
 - tour step transitions,
 - optional uncertainty re-encoding transition.
+- optional selected-anchor similarity re-encoding transition.
 
 Motion verb:
 
@@ -573,6 +595,7 @@ Before claiming the app design is implemented:
 - color-deficiency check preserves score/missingness distinction,
 - all ranks show rank range or uncertainty,
 - every score has trace/source access,
+- evidence-fingerprint similarity, if enabled, has a visible anchor geography and caveat,
 - monitoring missingness copy uses the correct reporting-gap language,
 - source drawer is reachable by keyboard,
 - controls are usable at 360px width,
@@ -584,6 +607,7 @@ Before claiming the app design is implemented:
 - Boundary polygon choropleth.
 - Expanded non-official overlays.
 - New index methodology.
+- Unreviewed JSD/KL implementation as a primary story layer.
 - Live data fetching.
 - Bilingual interface unless explicitly requested.
 - Automated funding, readiness, or vulnerability recommendations.

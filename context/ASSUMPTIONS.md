@@ -29,3 +29,11 @@
 - Rank order is fragile for many geographies and should be shown as context, not a definitive leaderboard.
 - Indicator outliers should be compared within the same dataset and unit only.
 - Missing monitoring rows are reporting gaps unless a reviewed external source confirms infrastructure absence.
+
+## Evidence Fingerprint Assumptions
+
+- Evidence-profile similarity compares official-data-derived vectors, not full lived climate risk or adaptation readiness.
+- Jensen-Shannon divergence is the preferred public metric because it is symmetric and bounded.
+- KL divergence is optional internal diagnostics only unless smoothing, zeros, and caveats are simple enough to explain publicly.
+- Missingness must remain a profile feature or caveat; it should not be hidden by smoothing.
+- Similar profiles should be shown as selected-geography comparisons, not as natural clusters or a new leaderboard.

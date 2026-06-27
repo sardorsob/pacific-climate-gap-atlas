@@ -6,7 +6,7 @@ Visual mockup review before data-wired app implementation. Competition deadline:
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, script-first EDA outputs, story/design briefs, and a reviewable React/Vite mockup for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, script-first EDA outputs, story/design briefs, a reviewable React/Vite mockup, and a planned Evidence Fingerprint Divergence layer for the Pacific Dataviz Challenge 2026 interactive GIS atlas.
 
 ## Working Title
 
@@ -26,6 +26,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Data science pipeline | done | `scripts/make_dataset.py` produces normalized observations, geography lookup, app summary, and provenance |
 | Adaptation Gap Index | done | `scripts/build_gap_index.py` produces geography scores plus indicator trace |
 | Outlook model | done | trend stress-test baseline is methodology-ready and app-optional |
+| Evidence fingerprint divergence | planned | JSD-based similarity layer over official-data-derived evidence profiles; KL only as internal diagnostic if needed |
 | Static app data | done | `scripts/build_app_data.py` produces public JSON/GeoJSON layer inputs |
 | EDA sprint | done | GIS context, coverage/data-desert, indicator-forensics, country-story, spatial-typology, trend/outlook, monitoring-gap, and story/design synthesis are complete |
 | GIS atlas app | in-progress mockup | Reviewable React/Vite concept includes centroid map composition, story tour, layer controls, source drawer, and responsive detail panel; still needs visual approval and final public-data wiring |
@@ -51,3 +52,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Completed `TASK-017` monitoring-gap GIS story analysis with priority quadrants and reporting-gap caveats.
 - Completed `TASK-018` story and design synthesis with `STORY_BRIEF.md` and `DESIGN_BRIEF.md`.
 - Started `TASK-006` visual mockup pass with a buildable React/Vite atlas concept for owner review; final app wiring remains open.
+- Added `TASK-019` as a planned Evidence Fingerprint Divergence lane so JSD/KL ideas fit the official-data story without becoming a new leaderboard or overclaimed model.

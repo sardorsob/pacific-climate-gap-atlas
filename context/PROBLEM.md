@@ -23,6 +23,7 @@ A public, map-first interactive atlas that lets a user select a Pacific geograph
 - observed stress
 - adaptation capacity
 - source coverage and missingness
+- evidence-profile similarity, if the planned JSD layer passes QA
 
 ## Success Evidence
 
@@ -31,6 +32,7 @@ A public, map-first interactive atlas that lets a user select a Pacific geograph
 - Makes methodology, caveats, and sources visible.
 - Produces a reproducible app-ready dataset from documented scripts.
 - Avoids unsupported claims about future outcomes.
+- Avoids treating evidence-profile similarity as shared vulnerability, shared policy need, or causal explanation.
 
 ## Misleading Failure Modes
 
@@ -38,4 +40,5 @@ A public, map-first interactive atlas that lets a user select a Pacific geograph
 - Comparing geographies without showing missingness and coverage.
 - Presenting projection bands as operational forecasts.
 - Hiding normalization and weighting choices.
+- Turning JSD/KL divergence into a black-box cluster story or leaderboard.
 - Overfitting an index to look dramatic rather than defensible.

@@ -438,3 +438,26 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Max attempts: 3
 - Attempt log: Distilled the Claude/Codex storyboard brainstorm into `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md`, replacing the old Claude-specific handoff name with a reusable design brief.
 - Status: done
+
+## TASK-019
+- Phase: analysis
+- Title: Add evidence fingerprint divergence analysis
+- Depends on: TASK-012, TASK-013, TASK-014, TASK-018
+- Assigned agent: unassigned
+- Contract refs: context/INFORMATION_DIVERGENCE_PLAN.md, context/ANALYSIS_BACKLOG.md, context/plans/evidence-fingerprint-divergence-plan.md
+- Data refs: artifacts/tables/adaptation_gap_indicator_trace.csv, artifacts/tables/eda_country_drivers.csv, artifacts/tables/eda_rank_volatility.csv, artifacts/tables/eda_monitoring_gap.csv
+- Scientific refs: context/DATA_CARD.md, context/ASSUMPTIONS.md, context/STORY_BRIEF.md
+- User value / decision value: Lets the atlas compare the shape of official-data evidence profiles, not only gap-score magnitude.
+- Functional notes: Build normalized pressure, capacity, data-visibility, and combined evidence vectors; compute pairwise Jensen-Shannon divergence; optionally compute KL only for internal diagnostics after smoothing review.
+- Statistical notes: Treat JSD as an exploratory similarity metric over official-data profiles. Do not present it as causal clustering, shared vulnerability, shared policy need, or a replacement score.
+- Edge cases: Sparse/missing profile components can create artificial similarity; missingness must be encoded and caveated rather than silently smoothed away.
+- Files to create/modify: `analysis/eda/divergence.py`, `scripts/run_eda.py`, `tests/analysis/test_divergence.py`, `artifacts/tables/eda_evidence_fingerprints.csv`, `artifacts/tables/eda_pairwise_jsd.csv`, `artifacts/tables/eda_similarity_neighbors.csv`, `artifacts/provenance/divergence_summary.json`, `context/ANALYSIS_BRIEF.md`, `context/DESIGN_BRIEF.md`
+- Artifacts to produce: evidence-fingerprint table, pairwise JSD matrix/table, nearest-neighbor table, provenance summary, app-layer recommendation.
+- Acceptance criteria: Pairwise JSD is symmetric and bounded; vector components are documented and traceable; missingness treatment is explicit; nearest-neighbor outputs include caveat fields; no public-facing output requires interpreting KL.
+- Verification commands: `python scripts/run_eda.py --config configs/eda.yml`; `python -m unittest tests.analysis.test_divergence -v`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
+- Manual QA: Inspect nearest-neighbor pairs for primary exemplars such as NR, TV, PN, AS, WF, and MH; verify the layer explains "similar score, different profile" without creating a leaderboard.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending

@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. App implementation is intentionally paused while the project finishes the deeper EDA/story sprint before visual design.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, and `TASK-019` is planned for Evidence Fingerprint Divergence if the team wants a JSD-based similarity layer.
 
 ## How To Validate The Scaffold
 
@@ -59,13 +59,14 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, and monitoring-gap GIS story priorities. Read `context/ANALYSIS_BRIEF.md`, `context/STORY_BRIEF.md`, and `context/DESIGN_BRIEF.md` before resuming app or design work.
+This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, and monitoring-gap GIS story priorities. Planned `TASK-019` will add evidence fingerprint divergence outputs if implemented. Read `context/ANALYSIS_BRIEF.md`, `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, and `context/INFORMATION_DIVERGENCE_PLAN.md` before resuming app or design work around the similarity layer.
 
 ## Next Recommended Work
 
 1. Use `context/STORY_BRIEF.md` and `context/DESIGN_BRIEF.md` to run the large-screen/mobile visual concept approval pass.
 2. Resume `TASK-006` after the visual concept is approved and the implementation plan is scoped.
-3. Keep Claude visual design work bound to the evidence-backed story, caveat, and data-binding contracts.
+3. Decide whether `TASK-019` should run before final app-data wiring, or whether Evidence Fingerprint Divergence should remain a post-V1 enhancement.
+4. Keep Claude visual design work bound to the evidence-backed story, caveat, and data-binding contracts.
 
 ## Known Caveats
 
@@ -84,4 +85,5 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - TASK-014 leave-one-indicator sensitivity shows rank volatility is widespread. Avoid definitive rank-order language; use rankings as exploratory context with visible uncertainty.
 - TASK-016 outlook interpretation is stress-test display guidance, not forecasting. Weak or sparse diagnostics should be withheld from outlook layers.
 - TASK-017 monitoring-gap outputs identify PN, NR, AS, and WF as high-gap low-monitoring candidates. AS and WF have missing monitoring rows, so describe them as reporting gaps unless externally verified.
+- TASK-019 is planned only. JSD/KL outputs do not exist yet; do not design the similarity layer as shipped until real artifacts and caveats are generated.
 - The copied reference workflow kits are intentionally ignored under `context/`.

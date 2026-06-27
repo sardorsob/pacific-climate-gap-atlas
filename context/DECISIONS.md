@@ -97,3 +97,13 @@ TASK-016 adds `eda_outlook_interpretation.csv` as display guidance for future-fa
 Supported diagnostics can appear as stress-test context. Mixed diagnostics require strong visible caveats. Weak or sparse diagnostics should be withheld from outlook layers.
 
 Reason: the outlook is useful for exploratory contrast, but the diagnostics are too uneven for forecast language or automatic display across every geography.
+
+## 2026-06-27: Add Evidence Fingerprint Divergence As A Planned Secondary Layer
+
+The project will explore Jensen-Shannon divergence as a way to compare official-data evidence profiles across Pacific geographies. The public-facing idea is "evidence fingerprint similarity": which places have similar pressure, capacity, and data-visibility profiles behind their adaptation-gap scores.
+
+JSD is preferred for the interface because it is symmetric, bounded, and easier to explain. KL divergence may be used only as an internal diagnostic after smoothing and missingness review.
+
+The layer must be anchored on a selected geography and must not become a global leaderboard, causal cluster, vulnerability score, or policy-need grouping.
+
+Reason: the idea strengthens the atlas by moving beyond "who ranks high" toward "what kind of gap profile is this," while staying inside the official-data evidence base and avoiding overclaimed modeling.

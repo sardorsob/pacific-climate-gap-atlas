@@ -36,6 +36,8 @@ Do not frame outlook as a forecast.
 
 Do not use responsibility/emissions context as a blame map.
 
+Do not present Evidence Fingerprint Divergence or JSD/KL similarity as a shipped layer unless Codex has generated and reviewed `TASK-019` artifacts. If mocked, label it as planned/pending and keep it anchored on a selected geography, not a global leaderboard.
+
 Do not use generic decorative atmosphere such as bokeh, glowing orbs, cinematic wallpaper, wispy ribbons, broad decorative gradients, or stock-like haze that does not carry evidence.
 
 ## Collaboration Contract
@@ -64,8 +66,9 @@ Read these files in this order before designing:
 5. `context/docs/design.md`
 6. `context/DATA_CARD.md`
 7. `context/MODEL_CARD.md`
-8. `context/TASKS.md`, especially `TASK-018`
-9. `README.md`
+8. `context/INFORMATION_DIVERGENCE_PLAN.md`
+9. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, and `TASK-019`
+10. `README.md`
 
 Then inspect the current app scaffold:
 

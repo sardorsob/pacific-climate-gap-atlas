@@ -10,9 +10,9 @@ The project investigates where Pacific island countries may face the largest mis
 - `context/` contains the project workflow, scope, task list, data card, assumptions, decisions, and handoff notes.
 - `analysis/` contains Python modules for dataset ingestion, profiling, feature building, gap-index logic, outlook modeling, and script-first EDA.
 - `scripts/` contains command-line entry points for reproducible data and validation work.
-- `app/` contains the planned GIS atlas web app scaffold.
+- `app/` contains the GIS atlas web app scaffold and current visual mockup.
 
-Current analysis outputs include indicator forensics, country story labels, spatial typologies, trend/outlook display guidance, rank-volatility checks, monitoring-gap GIS priorities, and the final TASK-018 story/design briefs. App implementation should resume after visual concept approval.
+Current analysis outputs include indicator forensics, country story labels, spatial typologies, trend/outlook display guidance, rank-volatility checks, monitoring-gap GIS priorities, and the final TASK-018 story/design briefs. A reviewable visual mockup is committed. `TASK-019` is planned for Evidence Fingerprint Divergence, a possible JSD-based similarity layer over official-data-derived profiles.
 
 ## Working Rule
 

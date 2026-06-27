@@ -26,11 +26,13 @@
 - `context/storyboardbrainstorm.md`: archived Claude/Codex storyboard brainstorm and review notes for TASK-018.
 - `context/STORY_BRIEF.md`: final TASK-018 narrative contract, storyboard beats, exemplars, and caveats.
 - `context/DESIGN_BRIEF.md`: final TASK-018 map-first visual and interaction contract for design/build.
+- `context/INFORMATION_DIVERGENCE_PLAN.md`: planned JSD/KL evidence-fingerprint layer scope and interface notes.
 - `context/DATA_CARD.md`: dataset provenance, coverage, and caveats.
 - `context/MODEL_CARD.md`: outlook model purpose and limits.
 - `context/ASSUMPTIONS.md`: modeling/index assumptions.
 - `context/DECISIONS.md`: durable decision log.
 - `context/HANDOVER.md`: run and continuation notes.
+- `context/plans/`: implementation plans for multi-step work, including EDA and planned divergence analysis.
 
 ## Analysis
 

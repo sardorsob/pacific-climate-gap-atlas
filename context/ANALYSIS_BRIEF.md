@@ -2,7 +2,7 @@
 
 ## Status
 
-The project has shifted into an analysis sprint before visual design resumes. `TASK-009` creates the first script-first EDA foundation. It does not finish the story, but it gives us reproducible tables that start separating strong signals from fragile ones.
+The project completed the core analysis sprint and now has a reviewable visual mockup. `TASK-019` is planned as an additional analytical layer for Evidence Fingerprint Divergence. It should test whether Jensen-Shannon divergence can explain profile similarity without replacing the main adaptation-gap story.
 
 ## Current EDA Outputs
 
@@ -30,6 +30,13 @@ The runner writes:
 - `artifacts/tables/eda_monitoring_gap.csv`
 - `artifacts/provenance/eda_summary.json`
 
+Planned `TASK-019` outputs:
+
+- `artifacts/tables/eda_evidence_fingerprints.csv`
+- `artifacts/tables/eda_pairwise_jsd.csv`
+- `artifacts/tables/eda_similarity_neighbors.csv`
+- `artifacts/provenance/divergence_summary.json`
+
 ## Early Signals
 
 - The coverage deep dive includes 22 geographies and 9 datasets. PN is the only data-desert geography under the current stricter flag; the more important issue is partial geography coverage by dataset, especially GHG per capita, power generation, monitoring network, directly affected persons, sea-level anomalies, and sea-surface temperature anomalies.
@@ -39,6 +46,7 @@ The runner writes:
 - Rank robustness is a major story risk. The first weight-sensitivity table labeled 12 of 22 geographies fragile, 7 sensitive, and only 3 stable. The deeper leave-one-indicator volatility table labels 19 geographies fragile and 3 sensitive, with a maximum rank range of 15. The atlas should avoid presenting rank order as definitive.
 - The monitoring-gap table now ranks GIS story priorities and flags 4 high-gap plus low-monitoring candidates: PN, NR, AS, and WF. PN and NR have latest monitoring rows reporting 0; AS and WF have no monitoring rows in processed observations, so they should be described as reporting gaps unless independently verified.
 - Trend/outlook interpretation is now conservative display guidance, not forecasting. Supported diagnostics can be shown as stress-test context; mixed diagnostics require strong visible caveats; weak or sparse rows should be withheld from outlook layers.
+- Evidence Fingerprint Divergence is promising but not yet run. The intended public metric is Jensen-Shannon divergence over normalized official-data-derived profiles. Its value is explanatory: "similar gap, different evidence mix" and "different gap, similar evidence profile." It must not become a new global rank or a claim that similar places share the same vulnerability or policy needs.
 
 ## Caveats
 
@@ -53,6 +61,7 @@ The runner writes:
 - Sensitivity scenarios are simple stress tests. Weight shifts and leave-one-indicator tests frame uncertainty; they are not a replacement ranking or a claim about true risk order.
 - Outlook interpretation is stress-test display guidance. It should not be framed as a prediction or operational forecast.
 - Driver labels are useful for exploration and app copy drafts, not final scientific claims.
+- JSD/KL divergence, if added, will compare normalized evidence profiles. It will not explain causality, lived experience, or full adaptation readiness. Sparse or missing data can create misleading similarity and must be surfaced.
 
 ## Next Priorities
 
@@ -61,3 +70,4 @@ The runner writes:
 3. Treat outlook layers as optional stress-test context, with display controlled by `eda_outlook_interpretation.csv`.
 4. Keep monitoring/data visibility as the signature diagnostic interaction inside the broader adaptation-gap frame.
 5. Keep rank uncertainty visible wherever ranks or score order appear.
+6. Scope `TASK-019` before implementation: decide whether Evidence Fingerprint Divergence ships in V1, and if so keep it as a selected-geography similarity mode rather than a new leaderboard.

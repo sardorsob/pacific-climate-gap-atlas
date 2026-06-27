@@ -7,6 +7,7 @@
 - Produce a reproducible Python pipeline for dataset profiling, normalization, index construction, and app-ready exports.
 - Create a transparent Adaptation Gap Index with visible missingness and caveats.
 - Add an optional Adaptation Gap Outlook layer if the baseline projection passes data and evaluation gates.
+- Add an optional evidence-profile divergence layer if it uses official-data-derived fields, explains Jensen-Shannon divergence plainly, and avoids causal or policy-need claims.
 - Provide methodology, source notes, and handoff documentation.
 
 ## Out Of Scope For The Initial Sprint
@@ -15,6 +16,7 @@
 - Claims about household-level or community-level risk.
 - Private, proprietary, or non-public datasets.
 - Heavy supervised ML without a defensible target label and split strategy.
+- Claims that divergence or similarity proves shared vulnerability, shared policy need, causal mechanisms, or natural clusters.
 - Real-time data updates unless a simple cached static refresh is enough.
 - User accounts, authentication, comments, or collaborative editing.
 
@@ -41,6 +43,7 @@ The app should open on the map. A short intro can exist, but the first screen mu
 Core interactions:
 
 - layer toggle for adaptation gap and pillar scores
+- optional evidence-fingerprint similarity comparison anchored on a selected geography
 - country/territory selection
 - country detail panel
 - source/methodology drawer

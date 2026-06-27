@@ -6,7 +6,7 @@ The project is pausing visual design work until the atlas has a stronger evidenc
 
 ## Current Status
 
-Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap GIS priorities, and story/design synthesis. The next step is visual concept approval and app build planning.
+Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap GIS priorities, and story/design synthesis. A new planned lane, `TASK-019`, will test evidence-profile divergence with Jensen-Shannon divergence before it earns app space. The next step is visual concept review, app build planning, and deciding whether the divergence layer ships in V1 or stays as an analytical enhancement.
 
 ## Principles
 
@@ -180,9 +180,32 @@ Outputs:
 - `context/STORY_BRIEF.md`
 - `context/DESIGN_BRIEF.md`
 
+### TASK-019: Evidence Fingerprint Divergence
+
+Question: Which geographies have similar or different official-data evidence profiles behind their adaptation-gap scores?
+
+Analyses:
+- build pressure, capacity, data-visibility, and combined evidence vectors from official-data-derived trace fields
+- normalize each vector family with explicit missingness treatment
+- compute pairwise Jensen-Shannon divergence across the 22 geographies
+- optionally compute KL divergence only as an internal diagnostic after smoothing
+- identify nearest evidence-profile neighbors for selected geographies
+- identify cases where similar gap scores hide different evidence profiles
+- identify cases where different scores share similar evidence fingerprints
+
+Outputs:
+- `context/INFORMATION_DIVERGENCE_PLAN.md`
+- `context/plans/evidence-fingerprint-divergence-plan.md`
+- `artifacts/tables/eda_evidence_fingerprints.csv`
+- `artifacts/tables/eda_pairwise_jsd.csv`
+- `artifacts/tables/eda_similarity_neighbors.csv`
+- `artifacts/provenance/divergence_summary.json`
+- optional app-ready `data/processed/app/evidence_fingerprints.json`
+
 ## Parallelization Plan
 
 - Coverage/data desert and GIS enrichment can run in parallel.
 - Indicator forensics and driver decomposition can run in parallel after the current score artifacts are available.
 - Sensitivity analysis can run independently from trend/outlook interpretation.
-- Story synthesis should wait until the other analysis lanes are reviewed.
+- Evidence fingerprint divergence can run after indicator forensics, country drivers, and rank volatility are available. It should not block visual mockup critique, but it should be decided before final app-data wiring if the layer ships in V1.
+- Story synthesis should wait until the other analysis lanes are reviewed. The completed TASK-018 brief remains the current story source of truth until TASK-019 produces real artifacts.
