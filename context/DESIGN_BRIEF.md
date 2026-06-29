@@ -14,6 +14,7 @@ Design skill basis:
 - perception, color, and encoding
 - layout hierarchy and self-explanatory UX
 - sensitive geopolitical and humanitarian story guardrails
+- `context/DATAVIZ_INSPIRATION_AUDIT.md` live reference audit for map, climate, environmental, and selected-geography interaction patterns
 
 Concept approval status:
 
@@ -23,6 +24,27 @@ Concept approval status:
 - Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
 
 Before app implementation, Claude should create at least one large-screen and one mobile portrait concept from this brief. Those concepts should be reviewed and approved before build work treats the visual direction as locked.
+
+## External Inspiration Guardrails
+
+Use the Dataviz Inspiration audit as a principle study, not a moodboard to copy.
+
+Patterns to preserve:
+
+- Shipmap: full-bleed map as the primary surface, compact edge controls, layer/filter menus that match the domain, and motion only when it encodes evidence over time.
+- Dataista internal migration: selected geography becomes the anchor; a second comparison target appears only after selection. This is the right interaction pattern for future Evidence Fingerprint Divergence.
+- Show Your Stripes and Bussed Out: compact evidence strips, timelines, counters, or distributions can support the country panel without replacing the map.
+- The Pudding airports story: open guided explanation with a map-anchored claim, direct labels, and leader lines rather than a detached dashboard grid.
+- Bruxelles Malade: human stakes and guided questions can help, but the atlas must not delay the first evidence read behind a long cinematic intro.
+
+Patterns to avoid:
+
+- copying palettes, layouts, illustrations, publication identity, or iconic stripe treatments;
+- long pre-map intros;
+- hover-only explanation;
+- hidden caveats;
+- inaccessible custom selectors;
+- decorative motion that does not reveal, compare, focus, or re-encode evidence.
 
 ## Design Objective
 
@@ -264,14 +286,15 @@ Field order:
 2. Active story label or selected layer title.
 3. Adaptation gap score with rank-range chip.
 4. Pressure versus capacity mini comparison.
-5. Evidence density: included indicators, dataset count, row count.
-6. Monitoring/reporting status with caveat.
-7. Evidence fingerprint summary and nearest neighbors, if `TASK-019` ships.
-8. Top pressure signals and capacity signals.
-9. Indicator trace drawer.
-10. Responsibility context, if relevant, labeled context-only.
-11. Outlook snippet, only when selected and allowed.
-12. Source links and method caveats.
+5. Compact evidence strips for pressure/capacity balance and rank fragility.
+6. Evidence density: included indicators, dataset count, row count.
+7. Monitoring/reporting status with caveat.
+8. Evidence fingerprint summary and nearest neighbors, if `TASK-019` ships.
+9. Top pressure signals and capacity signals.
+10. Indicator trace drawer.
+11. Responsibility context, if relevant, labeled context-only.
+12. Outlook snippet, only when selected and allowed.
+13. Source links and method caveats.
 
 Panel rules:
 
@@ -531,6 +554,8 @@ Motion verb:
 - focus,
 - re-encode.
 
+Shipmap is the reference for evidence-bearing motion: movement is acceptable only when each moving state represents a unit, time step, transition, or selected comparison that the reader can explain.
+
 Do not use:
 
 - decorative particle motion,
@@ -545,7 +570,7 @@ Reduced motion:
 
 ## Visual Concept Prompts For Claude
 
-Claude should create visual concepts after reading `STORY_BRIEF.md`, this design brief, and `storyboardbrainstorm.md`.
+Claude should create visual concepts after reading `STORY_BRIEF.md`, this design brief, `storyboardbrainstorm.md`, and `DATAVIZ_INSPIRATION_AUDIT.md`.
 
 ### Large-Screen Concept Prompt
 
@@ -563,6 +588,7 @@ Design a mobile landscape concept only if the map controls or guided tour need m
 
 Approve a visual concept only if:
 
+- it uses the inspiration audit as principle guidance without copying a reference project,
 - the first screenshot explains the atlas without hover,
 - the map is the main surface,
 - caveats are visible near active claims,

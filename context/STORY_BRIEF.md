@@ -17,6 +17,7 @@ Source basis:
 - `artifacts/tables/eda_spatial_typologies.csv`
 - `artifacts/tables/eda_subregion_comparisons.csv`
 - `artifacts/tables/eda_outlook_interpretation.csv`
+- `context/DATAVIZ_INSPIRATION_AUDIT.md`
 
 ## Narrative Decision
 
@@ -92,6 +93,16 @@ What the visual will deliberately not imply:
 The story has a clear visual hook: the map shows both the apparent gap and the uneven visibility of the official record. The signature interaction, "Where the Data Goes Quiet," turns missingness and monitoring uncertainty into something readers can inspect instead of something hidden in a footnote.
 
 The story is also honest about the evidence. The rank-volatility table labels 19 of 22 geographies fragile and 3 sensitive under leave-one-indicator stress tests. A leaderboard would overclaim. A guided atlas that exposes rank movement, indicator counts, and reporting status is more defensible and more distinctive.
+
+## Interaction Pattern Update
+
+The Dataviz Inspiration audit reinforces the story direction:
+
+- Default mode stays map-first. The first screen should resemble a working atlas surface, not a hero page or prelude.
+- Guided mode should use a Pudding-style map-anchored claim: direct labels, a few exemplar geographies, and evidence beside the marks.
+- Selected-place comparison should follow the Dataista pattern: choose one geography as an anchor, then reveal a second comparator or nearest-profile list. This is the preferred shape for Evidence Fingerprint Divergence if `TASK-019` ships.
+- Country panels can borrow the compact-supporting-visual idea from climate stripes and Bussed Out: small rank, pressure/capacity, or evidence-density strips that help the map claim without becoming the main visual identity.
+- Human stakes can be introduced through guided questions, but the analytical map must appear immediately.
 
 ## Story Confidence
 

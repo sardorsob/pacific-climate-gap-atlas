@@ -107,3 +107,11 @@ JSD is preferred for the interface because it is symmetric, bounded, and easier 
 The layer must be anchored on a selected geography and must not become a global leaderboard, causal cluster, vulnerability score, or policy-need grouping.
 
 Reason: the idea strengthens the atlas by moving beyond "who ranks high" toward "what kind of gap profile is this," while staying inside the official-data evidence base and avoiding overclaimed modeling.
+
+## 2026-06-29: Use Inspiration References As Principle Studies, Not Visual Copies
+
+The Dataviz Inspiration audit should guide interaction principles, not visual imitation. Reference lessons to preserve include full-bleed map surfaces, compact domain controls, selected-geography anchors, direct map labels, compact evidence strips, and motion only when it encodes evidence.
+
+Reference lessons to avoid include long pre-map intros, inaccessible custom selectors, hover-only explanation, hidden caveats, copied climate-stripe treatments, copied publication identity, and decorative motion.
+
+Reason: the competition entry needs to learn from strong interactive map and climate work while remaining original, evidence-backed, and tightly aligned with the Pacific Adaptation Gap Atlas story.

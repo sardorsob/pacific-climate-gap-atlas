@@ -6,7 +6,7 @@ The project is pausing visual design work until the atlas has a stronger evidenc
 
 ## Current Status
 
-Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap GIS priorities, and story/design synthesis. A new planned lane, `TASK-019`, will test evidence-profile divergence with Jensen-Shannon divergence before it earns app space. The next step is visual concept review, app build planning, and deciding whether the divergence layer ships in V1 or stays as an analytical enhancement.
+Completed analysis lanes now cover the script-first EDA foundation, GIS context, official-data coverage, indicator forensics, country story labels, rank volatility, spatial typologies, trend/outlook interpretation, monitoring-gap GIS priorities, story/design synthesis, and the Dataviz Inspiration audit. A planned lane, `TASK-019`, will test evidence-profile divergence with Jensen-Shannon divergence before it earns app space. The next step is visual concept review, app build planning, and deciding whether the divergence layer ships in V1 or stays as an analytical enhancement.
 
 ## Principles
 
@@ -202,10 +202,27 @@ Outputs:
 - `artifacts/provenance/divergence_summary.json`
 - optional app-ready `data/processed/app/evidence_fingerprints.json`
 
+### TASK-020: Dataviz Inspiration Audit
+
+Question: Which live reference interaction patterns should inform the next atlas mockup without weakening originality or evidence discipline?
+
+Analyses:
+- sample Dataviz Inspiration map, choropleth, connection, bubble map, arc, ridgeline, hexbin, and heatmap routes
+- inspect relevant original projects with live browser interaction
+- extract durable patterns for full-bleed maps, selected-geography anchoring, compact evidence strips, direct labels, guided tours, and evidence-bearing motion
+- identify risky patterns to avoid, including long pre-map intros, hover-only values, hidden caveats, and copied visual identities
+
+Outputs:
+- `context/DATAVIZ_INSPIRATION_AUDIT.md`
+- updates to `context/STORY_BRIEF.md`
+- updates to `context/DESIGN_BRIEF.md`
+- updates to `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`
+
 ## Parallelization Plan
 
 - Coverage/data desert and GIS enrichment can run in parallel.
 - Indicator forensics and driver decomposition can run in parallel after the current score artifacts are available.
 - Sensitivity analysis can run independently from trend/outlook interpretation.
 - Evidence fingerprint divergence can run after indicator forensics, country drivers, and rank volatility are available. It should not block visual mockup critique, but it should be decided before final app-data wiring if the layer ships in V1.
+- The Dataviz Inspiration audit is complete and should inform visual critique immediately. It does not require new data artifacts.
 - Story synthesis should wait until the other analysis lanes are reviewed. The completed TASK-018 brief remains the current story source of truth until TASK-019 produces real artifacts.

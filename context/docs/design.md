@@ -19,6 +19,9 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 - compact trace, rank-volatility, monitoring, and optional trend snippets in the side panel
 - visible missing-data state
 - source/method caveats close to the score
+- full-bleed map-first composition with compact edge controls, following the Dataviz Inspiration audit as principle guidance
+- selected geography as an anchor for any future evidence-fingerprint comparison
+- direct labels and compact evidence strips for guided story moments
 
 ## Current Story Inputs
 
@@ -27,6 +30,7 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 - AS and WF have missing monitoring rows, so the design copy should frame them as reporting gaps unless externally verified.
 - Outlook layers are optional stress-test context and should follow `eda_outlook_interpretation.csv` display recommendations.
 - Rankings are fragile for most geographies; avoid interfaces that imply a definitive leaderboard.
+- The Dataviz Inspiration audit reinforces map-first, selected-anchor, evidence-strip, direct-label, and evidence-bearing-motion patterns. It should not be used to copy any reference project's visual identity.
 
 ## Tone
 

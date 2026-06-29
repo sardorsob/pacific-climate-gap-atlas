@@ -24,5 +24,7 @@
 - Completed `TASK-017` with monitoring-gap GIS story priorities and caveats distinguishing missing rows from reported-zero monitoring counts.
 - Completed `TASK-018` with final `STORY_BRIEF.md` and `DESIGN_BRIEF.md`, including the two-axis narrative spine, caveat register, visual design contract, mobile contract, and Claude concept prompts.
 - Refreshed context and Markdown docs so handoff, backlog, methodology, design, decisions, assumptions, memory notes, and submission notes reflect the current EDA state.
+- Completed `TASK-020` with a Chrome-assisted Dataviz Inspiration audit focused on map, climate, environmental, selected-geography, and evidence-strip references.
+- Updated story, design, Claude mockup, project, handoff, backlog, decision, design-note, and memory context so future mockup critique preserves full-bleed map, selected-anchor, compact evidence-strip, direct-label, and evidence-bearing-motion patterns without copying reference identities.
 
-AI tools used: Codex.
+AI tools used: Codex, Chrome extension.

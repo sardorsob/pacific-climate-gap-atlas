@@ -61,14 +61,15 @@ Read these files in this order before designing:
 
 1. `context/STORY_BRIEF.md`
 2. `context/DESIGN_BRIEF.md`
-3. `context/storyboardbrainstorm.md`
-4. `context/ANALYSIS_BRIEF.md`
-5. `context/docs/design.md`
-6. `context/DATA_CARD.md`
-7. `context/MODEL_CARD.md`
-8. `context/INFORMATION_DIVERGENCE_PLAN.md`
-9. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, and `TASK-019`
-10. `README.md`
+3. `context/DATAVIZ_INSPIRATION_AUDIT.md`
+4. `context/storyboardbrainstorm.md`
+5. `context/ANALYSIS_BRIEF.md`
+6. `context/docs/design.md`
+7. `context/DATA_CARD.md`
+8. `context/MODEL_CARD.md`
+9. `context/INFORMATION_DIVERGENCE_PLAN.md`
+10. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, and `TASK-020`
+11. `README.md`
 
 Then inspect the current app scaffold:
 
@@ -113,6 +114,29 @@ The story hierarchy is:
 3. Rank uncertainty visible wherever ranks appear.
 4. Caveats beside the claims they qualify.
 5. Outlook optional and gated.
+
+## Inspiration Audit To Preserve
+
+Use `context/DATAVIZ_INSPIRATION_AUDIT.md` as principle guidance. Do not copy a reference project's look, palette, illustration style, title, animation, or publication identity.
+
+Patterns worth carrying into the mockup:
+
+- Full-bleed map first, inspired by Shipmap's map-as-interface discipline.
+- Compact edge controls for layers, filters, source/method, and tour actions.
+- Selected geography as an anchor, inspired by Dataista's internal migration workflow. A second comparator or similarity list appears only after a place is selected.
+- Compact evidence strips in the detail panel for pressure/capacity balance, rank fragility, or data visibility.
+- Direct labels and leader lines for the guided story, especially when introducing high-gap/data-quiet exemplars.
+- Motion only when it reveals, compares, focuses, or re-encodes evidence.
+
+Patterns to avoid:
+
+- long cinematic intro before the map,
+- custom selectors that are hard to focus or use with keyboard,
+- hover-only values,
+- copied climate-stripe styling,
+- dark one-note palettes,
+- dashboards where every metric becomes an equal card,
+- decorative animations that do not encode data.
 
 ## Mockup Deliverables
 

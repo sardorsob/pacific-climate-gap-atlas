@@ -461,3 +461,26 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Max attempts: 3
 - Attempt log:
 - Status: pending
+
+## TASK-020
+- Phase: design-research
+- Title: Conduct dataviz inspiration audit
+- Depends on: TASK-018
+- Assigned agent: Codex
+- Contract refs: context/DATAVIZ_INSPIRATION_AUDIT.md, context/DESIGN_BRIEF.md, context/STORY_BRIEF.md
+- Data refs: https://www.dataviz-inspiration.com/, Shipmap, Dataista internal migration in Chile, Show Your Stripes, Bruxelles Malade, Bussed Out, The Pudding airports story
+- Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
+- User value / decision value: Translates relevant winning/reference interaction patterns into concrete atlas design constraints before the next mockup critique.
+- Functional notes: Use live browser interaction and gallery route sampling to identify map-first, climate, environmental, selected-place, and evidence-strip patterns.
+- Statistical notes: Inspiration findings do not change the data method; they only guide visual hierarchy, interaction grammar, and caveat placement.
+- Edge cases: Treat references as principle studies only. Do not copy publication identity, palettes, layouts, illustrations, or iconic climate-stripe treatments.
+- Files to create/modify: `context/DATAVIZ_INSPIRATION_AUDIT.md`, `context/DESIGN_BRIEF.md`, `context/STORY_BRIEF.md`, `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/PROJECT.md`, `context/HANDOVER.md`, `context/ANALYSIS_BACKLOG.md`, `context/DECISIONS.md`, `context/STRUCTURE.md`, `context/docs/design.md`, `context/memory/architecture.md`, `context/memory/patterns.md`, `context/logs/Handoff Notes.md`, `context/logs/Progress Log.md`
+- Artifacts to produce: documented interaction audit and updated design/story/mockup guardrails
+- Acceptance criteria: The audit records gallery route findings, original project studies, common strengths/risks, and concrete implications for the atlas default view, selected geography workflow, data-quiet layer, country panel, guided tour, and mobile layout.
+- Verification commands: `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`; `python scripts/check_required_artifacts.py`; `git diff --check`
+- Manual QA: Review audit findings against current design brief and confirm they sharpen rather than replace the evidence-backed story.
+- QA notes: Used Chrome to inspect Dataviz Inspiration routes and interact with relevant original projects, including Shipmap controls, Dataista selected-commune comparison, Show Your Stripes chart modes, Bruxelles Malade narrative setup, Bussed Out map/timeline references, and The Pudding airports map-anchored claim. Updated context docs so the next mockup pass preserves full-bleed map, selected-anchor, compact evidence-strip, direct-label, and evidence-bearing-motion patterns.
+- Attempts: 1
+- Max attempts: 2
+- Attempt log: Live browser audit plus context integration.
+- Status: done
