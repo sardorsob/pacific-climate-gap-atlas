@@ -26,5 +26,6 @@
 - Refreshed context and Markdown docs so handoff, backlog, methodology, design, decisions, assumptions, memory notes, and submission notes reflect the current EDA state.
 - Completed `TASK-020` with a Chrome-assisted Dataviz Inspiration audit focused on map, climate, environmental, selected-geography, and evidence-strip references.
 - Updated story, design, Claude mockup, project, handoff, backlog, decision, design-note, and memory context so future mockup critique preserves full-bleed map, selected-anchor, compact evidence-strip, direct-label, and evidence-bearing-motion patterns without copying reference identities.
+- Organized the delegated mockup revision sprint with `TASK-021` through `TASK-024`, assigning Codex to critique/QA, Claude to visual revision, Codex data work to divergence analysis, and Codex app-data work to mock-to-public-data wiring inventory.
 
 AI tools used: Codex, Chrome extension.

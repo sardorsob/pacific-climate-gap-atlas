@@ -443,7 +443,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Phase: analysis
 - Title: Add evidence fingerprint divergence analysis
 - Depends on: TASK-012, TASK-013, TASK-014, TASK-018
-- Assigned agent: unassigned
+- Assigned agent: Codex data agent
 - Contract refs: context/INFORMATION_DIVERGENCE_PLAN.md, context/ANALYSIS_BACKLOG.md, context/plans/evidence-fingerprint-divergence-plan.md
 - Data refs: artifacts/tables/adaptation_gap_indicator_trace.csv, artifacts/tables/eda_country_drivers.csv, artifacts/tables/eda_rank_volatility.csv, artifacts/tables/eda_monitoring_gap.csv
 - Scientific refs: context/DATA_CARD.md, context/ASSUMPTIONS.md, context/STORY_BRIEF.md
@@ -484,3 +484,95 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Max attempts: 2
 - Attempt log: Live browser audit plus context integration.
 - Status: done
+
+## TASK-021
+- Phase: design-qa
+- Title: Critique current mockup against story and inspiration audit
+- Depends on: TASK-006, TASK-018, TASK-020
+- Assigned agent: Codex
+- Contract refs: context/STORY_BRIEF.md, context/DESIGN_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md, context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/plans/mockup-revision-delegation-plan.md
+- Data refs: app/public/data, app/src/mock/mockAtlasData.ts
+- Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
+- User value / decision value: Converts the new visual inspiration and story contract into a concrete revision checklist before Claude changes the mockup.
+- Functional notes: Review current desktop and mobile states, identify gaps against the audit, and write precise Claude instructions for the revision pass.
+- Statistical notes: Do not alter scoring, data methodology, or generated artifacts.
+- Edge cases: Critique should preserve what already works; do not request visual changes that weaken caveat placement or evidence traceability.
+- Files to create/modify: `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/plans/mockup-revision-delegation-plan.md`, optional critique note under `context/plans/`
+- Artifacts to produce: mockup critique checklist and Claude revision brief
+- Acceptance criteria: Claude has clear prioritized instructions for desktop default, selected-country, data-quiet, and mobile states.
+- Verification commands: `python scripts/validate_task_statuses.py`; `python scripts/check_secrets.py`
+- Manual QA: Read checklist against the current app and confirm it is actionable, not just aesthetic preference.
+- QA notes:
+- Attempts: 0
+- Max attempts: 2
+- Attempt log:
+- Status: pending
+
+## TASK-022
+- Phase: app-design
+- Title: Claude visual revision pass for atlas mockup
+- Depends on: TASK-021
+- Assigned agent: Claude
+- Contract refs: context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/DESIGN_BRIEF.md, context/STORY_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md
+- Data refs: app/src/mock/mockAtlasData.ts, app/public/data
+- Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
+- User value / decision value: Makes the reviewable mockup more polished, map-first, exploratory, and aligned with the audit before final data wiring.
+- Functional notes: Improve full-bleed map composition, selected-geography anchor state, compact evidence strips, direct labels, data-quiet layer, mobile bottom sheet, and visual hierarchy.
+- Statistical notes: Use existing mock or public app data only for display. Do not change analysis methodology or generated artifacts.
+- Edge cases: Do not copy reference project visual identities; do not hide caveats; do not add dependencies without Codex approval.
+- Files to create/modify: `app/src/App.tsx`, `app/src/styles/base.css`, `app/src/components/**`, `app/src/lib/**`, `app/src/mock/**`
+- Artifacts to produce: revised React/Vite mockup left unstaged for Codex QA
+- Acceptance criteria: Desktop default, selected-country, data-quiet, and mobile portrait states are visibly improved and buildable.
+- Verification commands: `npm --prefix app run build`
+- Manual QA: Claude reports changed files, viewports checked, static/fake states, risks, and owner critique items.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending
+
+## TASK-023
+- Phase: app-data
+- Title: Inventory mock data to public app data wiring
+- Depends on: TASK-005, TASK-006, TASK-018
+- Assigned agent: Codex app-data agent
+- Contract refs: context/DESIGN_BRIEF.md, context/plans/mockup-revision-delegation-plan.md
+- Data refs: app/public/data/atlas_geographies.geojson, app/public/data/geographies.json, app/public/data/country_details.json, app/public/data/layers.json, app/public/data/monitoring_network.geojson, app/src/mock/mockAtlasData.ts
+- Scientific refs: context/DATA_CARD.md, context/docs/methodology.md
+- User value / decision value: Shows what has to change before the mockup can become a real data-wired atlas without surprising redesign work.
+- Functional notes: Map mock fixture fields to public data fields, identify missing app-ready fields, and recommend a wiring order.
+- Statistical notes: Preserve caveats, score provenance, rank uncertainty, and monitoring status when recommending data transformations.
+- Edge cases: Do not edit app visual files during this inventory unless explicitly moved into implementation; avoid conflicts with Claude's visual revision.
+- Files to create/modify: `context/plans/app-data-wiring-inventory.md`, optional updates to `context/DESIGN_BRIEF.md` or `context/HANDOVER.md`
+- Artifacts to produce: mock-to-real data mapping and data-wiring risk list
+- Acceptance criteria: Codex can estimate the app-data wiring implementation from the inventory without rereading every data file.
+- Verification commands: `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
+- Manual QA: Spot-check fixture fields against `app/public/data/*`.
+- QA notes:
+- Attempts: 0
+- Max attempts: 2
+- Attempt log:
+- Status: pending
+
+## TASK-024
+- Phase: design-qa
+- Title: QA Claude visual revision before acceptance
+- Depends on: TASK-022
+- Assigned agent: Codex
+- Contract refs: context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/DESIGN_BRIEF.md, context/STORY_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md
+- Data refs: app/src, app/public/data
+- Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
+- User value / decision value: Ensures visual polish does not break evidence discipline, accessibility, mobile usability, or build stability before commit.
+- Functional notes: Review changed files, run app build, inspect desktop/mobile states, verify caveats and missingness encodings, and request fixes if needed.
+- Statistical notes: Confirm the UI does not overclaim rankings, outlook, monitoring absence, boundaries, responsibility, or JSD similarity.
+- Edge cases: If Claude changes unrelated files, isolate or reject those changes before commit.
+- Files to create/modify: `context/TASKS.md`, `context/logs/Progress Log.md`, accepted app files from `TASK-022`
+- Artifacts to produce: QA notes and accepted visual revision commit if approved
+- Acceptance criteria: Build passes, desktop/mobile review passes, and user-visible claims match the story/design contracts.
+- Verification commands: `npm --prefix app run build`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
+- Manual QA: Browser screenshot review at desktop and mobile widths before acceptance.
+- QA notes:
+- Attempts: 0
+- Max attempts: 3
+- Attempt log:
+- Status: pending

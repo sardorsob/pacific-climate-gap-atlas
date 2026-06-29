@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, `TASK-019` is planned for Evidence Fingerprint Divergence if the team wants a JSD-based similarity layer, and `TASK-020` records a Dataviz Inspiration audit for the next visual critique.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, `TASK-020` records a Dataviz Inspiration audit, and the next delegated sprint is organized in `context/plans/mockup-revision-delegation-plan.md`.
 
 ## How To Validate The Scaffold
 
@@ -63,10 +63,11 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 
 ## Next Recommended Work
 
-1. Use `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, and `context/DATAVIZ_INSPIRATION_AUDIT.md` to run the large-screen/mobile visual concept approval pass.
-2. Resume `TASK-006` after the visual concept is approved and the implementation plan is scoped.
-3. Decide whether `TASK-019` should run before final app-data wiring, or whether Evidence Fingerprint Divergence should remain a post-V1 enhancement.
-4. Keep Claude visual design work bound to the evidence-backed story, caveat, and data-binding contracts.
+1. Run `TASK-021`: Codex critiques the current mockup against the story, design brief, and Dataviz Inspiration audit.
+2. Hand `TASK-022` to Claude using `context/CLAUDE_MOCKUP_INSTRUCTIONS.md` and the `TASK-021` checklist.
+3. Run `TASK-019` in parallel through a Codex data agent if the team wants real Evidence Fingerprint Divergence before final app wiring.
+4. Run `TASK-023` in parallel as a mock-data-to-public-data wiring inventory.
+5. Run `TASK-024` after Claude finishes: Codex QA reviews visuals, build, caveats, accessibility basics, and changed files before any commit.
 
 ## Known Caveats
 
@@ -87,4 +88,6 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - TASK-017 monitoring-gap outputs identify PN, NR, AS, and WF as high-gap low-monitoring candidates. AS and WF have missing monitoring rows, so describe them as reporting gaps unless externally verified.
 - TASK-019 is planned only. JSD/KL outputs do not exist yet; do not design the similarity layer as shipped until real artifacts and caveats are generated.
 - TASK-020 reference examples are principle studies only. Do not copy publication identity, palettes, layouts, illustrations, or iconic stripe treatments from audited projects.
+- TASK-022 belongs to Claude, but Claude must not stage, commit, push, change data methodology, or alter generated artifacts.
+- TASK-024 is required before accepting any Claude visual revision.
 - The copied reference workflow kits are intentionally ignored under `context/`.

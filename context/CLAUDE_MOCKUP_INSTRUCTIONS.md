@@ -2,11 +2,11 @@
 
 ## Purpose
 
-You are Claude, joining the Pacific Adaptation Gap Atlas project for the visual mockup phase after `TASK-018`.
+You are Claude, joining the Pacific Adaptation Gap Atlas project for the visual mockup revision phase after `TASK-018`, `TASK-020`, and the first reviewable mockup.
 
-Your role for this phase is builder/designer of mockups. Codex is the QA reviewer and the only agent that will stage, commit, or push accepted work. The project owner will review the mockups visually and give approval or critique before implementation planning continues.
+Your role for this phase is builder/designer for `TASK-022`. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review the mockups visually and give approval or critique before implementation planning continues.
 
-Your goal is to create polished, reviewable mockups for the atlas experience. The mockups do not need full production functionality. They do need to make the story, layout, interaction states, caveats, and mobile treatment visible enough for critique.
+Your goal is to revise the existing React/Vite mockup into a more polished, reviewable atlas experience. The mockup does not need full production data wiring. It does need to make the story, layout, interaction states, caveats, and mobile treatment visible enough for critique.
 
 ## Hard Rules
 
@@ -40,6 +40,25 @@ Do not present Evidence Fingerprint Divergence or JSD/KL similarity as a shipped
 
 Do not use generic decorative atmosphere such as bokeh, glowing orbs, cinematic wallpaper, wispy ribbons, broad decorative gradients, or stock-like haze that does not carry evidence.
 
+## Current Assignment
+
+You are working on `TASK-022: Claude visual revision pass for atlas mockup`.
+
+Before editing, read `context/plans/mockup-revision-delegation-plan.md` and the `TASK-021` critique checklist if Codex has created one. If the checklist does not exist yet, stop and ask Codex for it.
+
+Your expected revision targets are:
+
+- make the first viewport read as a working atlas, not a dashboard;
+- strengthen the full-bleed Pacific map composition;
+- make layer controls compact and domain-specific;
+- use direct labels or leader lines for key story exemplars;
+- make selected geography feel like an anchor state;
+- add or improve compact evidence strips in the country panel;
+- make "Where the Data Goes Quiet" visibly distinct from low-score states;
+- improve mobile bottom sheet hierarchy while keeping the map visible;
+- preserve caveats next to claims;
+- avoid copying any audited reference project's visual identity.
+
 ## Collaboration Contract
 
 You can create or edit mockup files in the repo, but Codex will review all changes before anything is committed.
@@ -62,14 +81,16 @@ Read these files in this order before designing:
 1. `context/STORY_BRIEF.md`
 2. `context/DESIGN_BRIEF.md`
 3. `context/DATAVIZ_INSPIRATION_AUDIT.md`
-4. `context/storyboardbrainstorm.md`
-5. `context/ANALYSIS_BRIEF.md`
-6. `context/docs/design.md`
-7. `context/DATA_CARD.md`
-8. `context/MODEL_CARD.md`
-9. `context/INFORMATION_DIVERGENCE_PLAN.md`
-10. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, and `TASK-020`
-11. `README.md`
+4. `context/plans/mockup-revision-delegation-plan.md`
+5. the `TASK-021` critique checklist, if Codex has created one
+6. `context/storyboardbrainstorm.md`
+7. `context/ANALYSIS_BRIEF.md`
+8. `context/docs/design.md`
+9. `context/DATA_CARD.md`
+10. `context/MODEL_CARD.md`
+11. `context/INFORMATION_DIVERGENCE_PLAN.md`
+12. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024`
+13. `README.md`
 
 Then inspect the current app scaffold:
 

@@ -2,11 +2,11 @@
 
 ## Immediate Next Step
 
-Use the completed `TASK-018` story/design briefs and the `TASK-020` Dataviz Inspiration audit. The analysis lanes through `TASK-018` are complete, and the inspiration audit is ready to guide mockup critique.
+Use the completed `TASK-018` story/design briefs, the `TASK-020` Dataviz Inspiration audit, and `context/plans/mockup-revision-delegation-plan.md`. The analysis lanes through `TASK-018` are complete, and the next visual sprint is delegated.
 
 ## Next Build Step
 
-Use `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, and `context/DATAVIZ_INSPIRATION_AUDIT.md` to run the visual concept approval pass, then resume the GIS atlas app only after the large-screen/mobile design direction is approved.
+Run `TASK-021` first: Codex critiques the current mockup and produces Claude's revision checklist. Then Claude handles `TASK-022`, while Codex data/app-data tracks can run `TASK-019` and `TASK-023` in parallel. Codex must run `TASK-024` before accepting or committing Claude's visual revision.
 
 ## Current Evidence Snapshot
 
@@ -16,3 +16,4 @@ Use `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, and `context/DATAVIZ_IN
 - Outlook interpretation is display guidance for stress-test layers, not forecasting.
 - Monitoring-gap priorities identify PN, NR, AS, and WF; AS and WF should be framed as reporting gaps unless independently verified.
 - The Dataviz Inspiration audit favors full-bleed map, selected-anchor, compact evidence-strip, direct-label, and evidence-bearing-motion patterns. Treat references as principle studies only.
+- Claude owns visual mockup edits only; Codex owns critique, QA, staging, commits, and any acceptance decision.
