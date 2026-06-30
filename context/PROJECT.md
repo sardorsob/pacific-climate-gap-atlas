@@ -6,7 +6,7 @@ Accepted visual mockup revision; preparing app-data wiring and next analysis lan
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, script-first EDA outputs, TASK-019 evidence-fingerprint divergence artifacts, story/design briefs, a Dataviz Inspiration audit, and an accepted React/Vite atlas mockup revision. Final public-data wiring and owner visual approval remain open.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, static app-ready JSON/GeoJSON, script-first EDA outputs, TASK-019 evidence-fingerprint divergence artifacts, story/design briefs, a Dataviz Inspiration audit, a Pacific winner scroll-tour audit, and an accepted React/Vite atlas mockup revision. Final public-data wiring and owner visual approval remain open.
 
 ## Working Title
 
@@ -30,6 +30,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Static app data | done | `scripts/build_app_data.py` produces public JSON/GeoJSON layer inputs |
 | EDA sprint | done | GIS context, coverage/data-desert, indicator-forensics, country-story, spatial-typology, trend/outlook, monitoring-gap, and story/design synthesis are complete |
 | Dataviz inspiration audit | done | `context/DATAVIZ_INSPIRATION_AUDIT.md` records route sampling and original-project interaction lessons for map-first, climate, environmental, selected-geography, evidence-strip, and guided-tour patterns |
+| Winner scroll-tour audit | done | `context/WINNER_SCROLL_TOUR_AUDIT.md` recommends a scroll-led hybrid: default guided scroll atlas, secondary free explorer, current map/control shell preserved |
 | GIS atlas app | accepted mockup revision | React/Vite concept includes centroid map composition, visible desktop legend, direct story labels, selected-anchor comparison cue, data-quiet map tags, story tour, source drawer, and responsive detail panel; still needs owner visual approval and final public-data wiring |
 | Mockup revision sprint | done | `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024` are complete; next app implementation should use the wiring inventory before replacing mock data |
 
@@ -61,3 +62,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Completed and accepted `TASK-022` / `TASK-024`: Claude revised the visual mockup, Codex reviewed the code and context, applied small QA fixes, and prepared the accepted mockup revision for commit. Next app step is `TASK-023` mock-to-public-data wiring inventory.
 - Completed `TASK-023` app-data wiring inventory in `context/plans/app-data-wiring-inventory.md`. The app can wire base scores and centroids from current public data, but monitoring reporting status, rank uncertainty, story labels, top-signal arrays, political/status context, and outlook display gating need app-ready export/derivation before replacing the mock fixture.
 - Completed `TASK-019` Evidence Fingerprint Divergence with 22 geography fingerprints, 231 unordered pairwise JSD rows, 66 nearest-neighbor rows, and caveated provenance. Treat it as analysis-ready but not app-wired.
+- Completed a Pacific Dataviz winner scroll-tour audit. Recommendation: pivot the next visual direction to a scroll-led hybrid that keeps the atlas map as the sticky evidence surface and preserves free exploration after the guided path.

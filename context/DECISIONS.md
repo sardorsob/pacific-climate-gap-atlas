@@ -118,6 +118,16 @@ Exact JSD values may remain behind the method layer or appear as secondary detai
 
 Reason: the analysis passed the first traceability and caveat bar, but a public similarity layer is easy to overread as clustering, shared vulnerability, or policy need. The product gate should happen during app-data wiring and visual QA.
 
+## 2026-06-30: Explore A Scroll-Led Hybrid As The Next Visual Direction
+
+The Pacific Dataviz winner audit found that recent custom interactive winners often use scroll or long-form visual-essay pacing to introduce the main claim before deeper interaction.
+
+The next atlas design pass should therefore explore a scroll-led hybrid: a sticky full-bleed map, one evidence claim per scroll beat, scroll-driven map/layer state, and a persistent "Explore freely" path into the current atlas controls.
+
+This is a design direction for review, not an implemented product change. The current atlas shell should be preserved unless the owner rejects the hybrid after visual critique.
+
+Reason: the current mockup is strong as a GIS explorer, but it asks first-time judges to parse many controls immediately. A scroll spine can earn attention and teach the map while keeping the exploratory atlas intact.
+
 ## 2026-06-29: Use Inspiration References As Principle Studies, Not Visual Copies
 
 The Dataviz Inspiration audit should guide interaction principles, not visual imitation. Reference lessons to preserve include full-bleed map surfaces, compact domain controls, selected-geography anchors, direct map labels, compact evidence strips, and motion only when it encodes evidence.

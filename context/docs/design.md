@@ -21,7 +21,8 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 - source/method caveats close to the score
 - full-bleed map-first composition with compact edge controls, following the Dataviz Inspiration audit as principle guidance
 - selected geography as an anchor for any future evidence-fingerprint comparison
-- direct labels and compact evidence strips for guided story moments
+- direct labels and compact evidence strips for scroll-guided story moments
+- scroll-led hybrid default path, with free exploration preserved after the guided beats
 
 ## Current Story Inputs
 

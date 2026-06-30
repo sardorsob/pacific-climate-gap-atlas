@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, `TASK-020` records a Dataviz Inspiration audit, and the next delegated sprint is organized in `context/plans/mockup-revision-delegation-plan.md`.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, `TASK-020` records a Dataviz Inspiration audit, TASK-019 evidence-fingerprint divergence artifacts exist, and `context/WINNER_SCROLL_TOUR_AUDIT.md` now recommends a scroll-led hybrid for the next visual direction.
 
 ## How To Validate The Scaffold
 
@@ -59,15 +59,16 @@ This writes app data under `data/processed/app/`, mirrors the website-facing fil
 python scripts/run_eda.py --config configs/eda.yml
 ```
 
-This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, monitoring-gap GIS story priorities, and TASK-019 Evidence Fingerprint Divergence outputs. Read `context/ANALYSIS_BRIEF.md`, `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, `context/DATAVIZ_INSPIRATION_AUDIT.md`, and `context/INFORMATION_DIVERGENCE_PLAN.md` before resuming app or design work around the similarity layer.
+This writes the script-first EDA tables under `artifacts/tables/` and records `artifacts/provenance/eda_summary.json`. It now includes coverage deep dives, indicator forensics, country story labels, rank volatility, trend profiles, monitoring-gap GIS story priorities, and TASK-019 Evidence Fingerprint Divergence outputs. Read `context/ANALYSIS_BRIEF.md`, `context/STORY_BRIEF.md`, `context/DESIGN_BRIEF.md`, `context/DATAVIZ_INSPIRATION_AUDIT.md`, `context/WINNER_SCROLL_TOUR_AUDIT.md`, and `context/INFORMATION_DIVERGENCE_PLAN.md` before resuming app or design work around the similarity layer.
 
 ## Next Recommended Work
 
-1. Hand `TASK-022` to Claude using `context/CLAUDE_MOCKUP_INSTRUCTIONS.md` and `context/plans/task-021-mockup-critique.md`.
-2. Ask Claude to fix the hidden desktop legend first, then strengthen map-first hierarchy, selected-anchor comparison, data-quiet map callouts, compact evidence strips, and mobile states.
-3. Decide whether TASK-019 Evidence Fingerprint Divergence ships in V1; if yes, export app-ready similarity data and keep it selected-geography anchored.
-4. Use the completed `TASK-023` mock-data-to-public-data wiring inventory before replacing mock fixtures.
-5. Keep Codex QA as the gate for any Claude visual/app changes before committing.
+1. Decide whether to approve the scroll-led hybrid direction from `context/WINNER_SCROLL_TOUR_AUDIT.md`.
+2. If approved, hand a new scroll-tour mockup task to Claude using `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/DESIGN_BRIEF.md`, `context/STORY_BRIEF.md`, and the winner audit.
+3. Keep the current atlas shell as the reusable map/control core; do not ask for a full visual rebuild unless the owner rejects the hybrid.
+4. Decide whether TASK-019 Evidence Fingerprint Divergence ships in V1; if yes, export app-ready similarity data and keep it selected-geography anchored.
+5. Use the completed `TASK-023` mock-data-to-public-data wiring inventory before replacing mock fixtures.
+6. Keep Codex QA as the gate for any Claude visual/app changes before committing.
 
 ## Known Caveats
 
@@ -88,6 +89,7 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - TASK-017 monitoring-gap outputs identify PN, NR, AS, and WF as high-gap low-monitoring candidates. AS and WF have missing monitoring rows, so describe them as reporting gaps unless externally verified.
 - TASK-019 outputs exist as analysis artifacts: `eda_evidence_fingerprints.csv`, `eda_pairwise_jsd.csv`, `eda_similarity_neighbors.csv`, and `divergence_summary.json`. They are not app-wired; do not present similarity as shipped until app-ready export, caveats, and visual QA are complete.
 - TASK-020 reference examples are principle studies only. Do not copy publication identity, palettes, layouts, illustrations, or iconic stripe treatments from audited projects.
+- The winner scroll-tour audit recommends a guided scroll atlas, not a long cinematic landing page. The first viewport must still show the map and evidence.
 - TASK-022 belonged to Claude, but Claude did not stage, commit, push, change data methodology, or alter generated artifacts.
 - TASK-024 QA is complete for the accepted TASK-022 revision. Future Claude visual changes should go through the same Codex QA gate before commit.
 - TASK-021 found a concrete first-fix issue: the desktop legend is hidden inside a closed `<details>` disclosure whose summary is hidden.

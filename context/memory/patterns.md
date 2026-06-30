@@ -14,7 +14,7 @@ Use Python modules under `analysis/eda/` and `scripts/run_eda.py` for explorator
 
 ## Dataviz Inspiration Audit
 
-Use `context/DATAVIZ_INSPIRATION_AUDIT.md` before visual critique or mockup iteration.
+Use `context/DATAVIZ_INSPIRATION_AUDIT.md` and `context/WINNER_SCROLL_TOUR_AUDIT.md` before visual critique or mockup iteration.
 
 Reusable patterns:
 
@@ -23,6 +23,8 @@ Reusable patterns:
 - selected geography as the anchor for comparison,
 - compact evidence strips in country panels,
 - direct labels and leader lines for guided claims,
+- scroll-led default path with the map as sticky evidence surface,
+- "Explore freely" escape hatch into the current atlas controls,
 - motion only when it reveals, compares, focuses, or re-encodes evidence.
 
 Avoid copying reference identities, palettes, layouts, or iconic stripe treatments.

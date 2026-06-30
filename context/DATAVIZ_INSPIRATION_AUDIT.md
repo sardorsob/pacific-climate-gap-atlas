@@ -6,6 +6,8 @@ Date: 2026-06-29
 
 Purpose: capture live visual and interaction lessons from Dataviz Inspiration and selected original projects before the next atlas design pass.
 
+Update: `context/WINNER_SCROLL_TOUR_AUDIT.md` adds a 2026-06-30 pass over curated Pacific Dataviz winners from `research/past_winners_links.csv`. That pass recommends a scroll-led hybrid: default guided scroll atlas, secondary free explorer, and no discard of the current map/control implementation.
+
 Method:
 
 - Used the Codex Chrome extension to open and interact with `https://www.dataviz-inspiration.com/`.
@@ -207,6 +209,7 @@ Strong projects repeatedly did these things:
 - They kept sources and methods discoverable without forcing the reader to start there.
 - They used compact visual summaries beside maps: counters, strips, timelines, or small distributions.
 - They avoided turning every metric into an equal dashboard tile.
+- Recent custom Pacific Dataviz winners use scroll or long-form pacing to reduce first-load cognitive burden before deeper interaction.
 
 Weak or risky patterns for this project:
 
@@ -220,9 +223,26 @@ Weak or risky patterns for this project:
 
 ## Concrete Atlas Design Implications
 
+### Winner-Informed Scroll Pivot
+
+The project should test a scroll-led hybrid rather than a pure dashboard/explorer first impression.
+
+Recommended default:
+
+- sticky full-bleed atlas map,
+- narrative scroll rail with one claim per beat,
+- map/layer state changes driven by scroll,
+- current free-explore controls preserved as the escape hatch and final destination.
+
+Why:
+
+- The 2025 Open Interactive winner, 2025 Pacific Interactive winner, 2025 Pacific Youth Interactive winner, and 2024 first/second interactive winners all behave like custom scroll stories or long-form visual essays.
+- Embedded Tableau/Power BI winners show that dashboards can place, but they feel less distinctive and more control-heavy for a first-time judge.
+- Our current mockup is strong as a GIS surface, but it exposes many controls at once. A guided scroll spine can earn attention first, then hand readers into exploration.
+
 ### Default Atlas View
 
-Keep the map full-bleed and immediately useful. Borrow Shipmap's edge-control discipline, not its density.
+Keep the map full-bleed and immediately useful. Borrow Shipmap's edge-control discipline, not its density. In the scroll-led hybrid, the first viewport is still the atlas map; the scroll rail guides attention without becoming a separate landing page.
 
 Required first-screen elements:
 
@@ -231,7 +251,7 @@ Required first-screen elements:
 - legend for fill, size, and reporting ring,
 - source/method button,
 - layer controls,
-- optional tour button.
+- visible scroll progress or tour control, plus an "Explore freely" escape hatch.
 
 ### Selected Geography View
 
@@ -266,7 +286,7 @@ These should be small panel elements, not the main visual identity.
 
 ### Guided Tour
 
-The tour should use Pudding's map-anchored claim style:
+The tour should use Pudding's map-anchored claim style and the winner-audit scroll lesson:
 
 1. Show the gap map.
 2. Label two or three exemplar geographies directly.
@@ -276,6 +296,8 @@ The tour should use Pudding's map-anchored claim style:
 6. Optionally compare evidence fingerprints.
 
 Avoid Bruxelles-style long prelude before evidence.
+
+If implemented as scrollytelling, every beat should update the same atlas state model used by free exploration rather than duplicating the visualization in a separate story page.
 
 ### Mobile
 
@@ -300,6 +322,7 @@ Mobile lessons:
 ## Follow-Up Tasks
 
 - Use this audit during the next visual critique of the current mockup.
+- Use `context/WINNER_SCROLL_TOUR_AUDIT.md` when deciding whether the next mockup should become a scroll-led hybrid.
 - Feed the "selected anchor" and "micro evidence strip" patterns into the next Claude prompt.
 - If `TASK-019` ships in the app, explicitly design it around the Dataista selected-commune workflow.
 - Do not add a new app dependency from these examples without a separate technical design note.

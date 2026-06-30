@@ -8,6 +8,8 @@ Your role for this phase is builder/designer for `TASK-022`. Codex is the orches
 
 Your goal is to revise the existing React/Vite mockup into a more polished, reviewable atlas experience. The mockup does not need full production data wiring. It does need to make the story, layout, interaction states, caveats, and mobile treatment visible enough for critique.
 
+Update after the 2026-06-30 winner audit: the next visual direction should explore a scroll-led hybrid. Keep the existing atlas implementation as the map/control core, but make guided scroll the default reading path and preserve free exploration as an escape hatch and final mode. Read `context/WINNER_SCROLL_TOUR_AUDIT.md` before proposing or editing any scroll-tour mockup.
+
 ## Hard Rules
 
 Do not push code.
@@ -24,7 +26,7 @@ Do not present the mockup as final or approved. It is a concept for review.
 
 Do not hide caveats in a source drawer only. Load-bearing caveats must appear next to the claims they qualify.
 
-Do not create a landing page. The first screen is the atlas experience.
+Do not create a separate landing page. The first screen is the atlas experience, even if guided scroll is the default reading path.
 
 Do not build a global country leaderboard.
 
@@ -81,16 +83,17 @@ Read these files in this order before designing:
 1. `context/STORY_BRIEF.md`
 2. `context/DESIGN_BRIEF.md`
 3. `context/DATAVIZ_INSPIRATION_AUDIT.md`
-4. `context/plans/mockup-revision-delegation-plan.md`
-5. `context/plans/task-021-mockup-critique.md`
-6. `context/storyboardbrainstorm.md`
-7. `context/ANALYSIS_BRIEF.md`
-8. `context/docs/design.md`
-9. `context/DATA_CARD.md`
-10. `context/MODEL_CARD.md`
-11. `context/INFORMATION_DIVERGENCE_PLAN.md`
-12. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024`
-13. `README.md`
+4. `context/WINNER_SCROLL_TOUR_AUDIT.md`
+5. `context/plans/mockup-revision-delegation-plan.md`
+6. `context/plans/task-021-mockup-critique.md`
+7. `context/storyboardbrainstorm.md`
+8. `context/ANALYSIS_BRIEF.md`
+9. `context/docs/design.md`
+10. `context/DATA_CARD.md`
+11. `context/MODEL_CARD.md`
+12. `context/INFORMATION_DIVERGENCE_PLAN.md`
+13. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024`
+14. `README.md`
 
 Then inspect the current app scaffold:
 
@@ -143,6 +146,7 @@ Use `context/DATAVIZ_INSPIRATION_AUDIT.md` as principle guidance. Do not copy a 
 Patterns worth carrying into the mockup:
 
 - Full-bleed map first, inspired by Shipmap's map-as-interface discipline.
+- Scroll-led hybrid pacing from recent Pacific Dataviz custom winners: one claim per beat, sticky map, map state changes on scroll, and free exploration preserved.
 - Compact edge controls for layers, filters, source/method, and tour actions.
 - Selected geography as an anchor, inspired by Dataista's internal migration workflow. A second comparator or similarity list appears only after a place is selected.
 - Compact evidence strips in the detail panel for pressure/capacity balance, rank fragility, or data visibility.
@@ -255,7 +259,7 @@ The first viewport must show:
 - source/method access,
 - layer controls.
 
-Do not make a hero intro before the map.
+Do not make a hero intro before the map. If using scroll, the map is the sticky hero and evidence surface.
 
 Do not put the map inside a decorative card. The map is the main surface.
 
@@ -297,7 +301,7 @@ The layout should include:
 - useful legend,
 - right-side detail panel when selected,
 - source/method drawer button,
-- guided tour button or stepper.
+- scroll-tour rail, progress control, or stepper.
 
 The country panel should not cover too much of the map. Around 360px to 420px width is the starting target.
 

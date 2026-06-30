@@ -35,6 +35,7 @@ data/interim/*
 !data/interim/README.md
 
 # Generated artifacts and run bundles.
+artifacts/logs/*.log
 artifacts/logs/runs/*
 !artifacts/logs/runs/.gitkeep
 artifacts/models/*

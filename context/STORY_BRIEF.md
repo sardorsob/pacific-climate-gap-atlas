@@ -98,11 +98,13 @@ The story is also honest about the evidence. The rank-volatility table labels 19
 
 The Dataviz Inspiration audit reinforces the story direction:
 
-- Default mode stays map-first. The first screen should resemble a working atlas surface, not a hero page or prelude.
-- Guided mode should use a Pudding-style map-anchored claim: direct labels, a few exemplar geographies, and evidence beside the marks.
+- Default mode should become a map-first guided scroll atlas. The first screen should resemble a working atlas surface, not a hero page or prelude.
+- Guided mode should use a Pudding-style map-anchored claim and the Pacific Dataviz winner audit pattern: direct labels, a few exemplar geographies, evidence beside the marks, and scroll beats that update the same atlas map.
 - Selected-place comparison should follow the Dataista pattern: choose one geography as an anchor, then reveal a second comparator or nearest-profile list. This is the preferred shape for Evidence Fingerprint Divergence if it ships in the app.
 - Country panels can borrow the compact-supporting-visual idea from climate stripes and Bussed Out: small rank, pressure/capacity, or evidence-density strips that help the map claim without becoming the main visual identity.
 - Human stakes can be introduced through guided questions, but the analytical map must appear immediately.
+
+The 2026-06-30 winner audit in `context/WINNER_SCROLL_TOUR_AUDIT.md` changes the interaction recommendation: keep the explorer, but lead with scroll. Recent custom winners use vertical pacing to earn attention before deeper interaction. The atlas should do the same without becoming a decorative article.
 
 ## Story Confidence
 
@@ -148,7 +150,7 @@ Supporting context:
 
 ### Beat 1: Open On The Gap
 
-- User action: lands directly on the Pacific map.
+- User action: lands directly on the Pacific map and starts the guided scroll path.
 - Layer: adaptation-gap centroid points.
 - Panel state: compact intro or collapsed detail panel.
 - Evidence: `adaptation_gap_index.csv`, `eda_country_story_labels.csv`.
@@ -225,6 +227,15 @@ Supporting context:
 - Caveat placement: always visible while the layer is active.
 - Required copy: "Stress-test interpretation, not a forecast."
 - Takeaway: outlook is a curiosity layer, not the story spine.
+
+### Beat 9: Explore Freely
+
+- User action: exits guided scroll into the atlas controls.
+- Layer: preserve the current selected layer and geography, rather than resetting.
+- Panel state: user can keep the selected place open or collapse into map-only mode.
+- Evidence: all app-wired public data layers.
+- Caveat placement: active layer caveat remains visible.
+- Takeaway: the scroll story teaches the map; the atlas then lets readers ask their own follow-up questions.
 
 ## Layer Priority
 
@@ -305,16 +316,17 @@ WF, Wallis and Futuna, should remain available as a second reporting-gap example
 
 1. Should outlook ship in V1, or wait until the core map, missingness, and uncertainty layers are polished?
 2. Should Evidence Fingerprint Divergence ship in V1, or wait until after core app data wiring and visual approval?
-3. Should subregion filtering be a major tour beat or a secondary filter?
+3. Should subregion filtering be a major scroll-tour beat or a secondary filter?
 4. Should the first selected exemplar be NR, or should the tour first show NR and then quickly contrast with TV?
 5. Should boundary source selection happen before launch, or is centroid-first acceptable for the competition entry?
 6. Who reviews political-status wording before publication?
+7. How quickly should the guided scroll hand control to free exploration: after the data-quiet beat, after rank fragility, or after the optional similarity/outlook beats?
 
 ## Handoff To Design
 
 The design brief should preserve this story hierarchy:
 
-1. Gap map first.
+1. Gap map first through a guided scroll path.
 2. Missingness/monitoring as the signature interaction.
 3. Rank uncertainty always visible where ranks appear.
 4. Evidence-profile divergence only as selected-geography comparison; app wiring and V1 inclusion are still pending.

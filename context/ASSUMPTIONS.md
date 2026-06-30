@@ -46,3 +46,4 @@
 - Direct map labels are limited to the story exemplars to avoid clutter. Subregion labels are descriptive UN M49 orientation, not cultural, political, or boundary claims.
 - Mobile uses a top control toolbar plus a bottom-sheet detail panel, with the legend collapsed to a chip. These are mockup interaction stand-ins, not a locked production interaction model.
 - The visual revision remains a concept for owner review. It does not change data methodology, scores, generated artifacts, or the story. Codex accepted the scoped app changes after `TASK-024` QA and kept data wiring as a separate `TASK-023` concern.
+- The scroll-led hybrid is a recommended next visual direction from `context/WINNER_SCROLL_TOUR_AUDIT.md`, not an implemented app behavior yet. Preserve the current atlas shell unless the owner rejects the hybrid after review.

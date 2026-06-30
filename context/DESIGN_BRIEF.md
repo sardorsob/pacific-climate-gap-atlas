@@ -15,6 +15,7 @@ Design skill basis:
 - layout hierarchy and self-explanatory UX
 - sensitive geopolitical and humanitarian story guardrails
 - `context/DATAVIZ_INSPIRATION_AUDIT.md` live reference audit for map, climate, environmental, and selected-geography interaction patterns
+- `context/WINNER_SCROLL_TOUR_AUDIT.md` Pacific Dataviz winner audit recommending a scroll-led hybrid
 
 Concept approval status:
 
@@ -36,6 +37,7 @@ Patterns to preserve:
 - Show Your Stripes and Bussed Out: compact evidence strips, timelines, counters, or distributions can support the country panel without replacing the map.
 - The Pudding airports story: open guided explanation with a map-anchored claim, direct labels, and leader lines rather than a detached dashboard grid.
 - Bruxelles Malade: human stakes and guided questions can help, but the atlas must not delay the first evidence read behind a long cinematic intro.
+- Pacific Dataviz winner audit: recent custom winners lean toward scroll stories or long-form visual essays; use guided scroll to earn attention, then hand readers into the atlas explorer.
 
 Patterns to avoid:
 
@@ -48,9 +50,9 @@ Patterns to avoid:
 
 ## Design Objective
 
-Build a map-first exploratory atlas that lets readers inspect where current official climate-pressure, observed-stress, adaptation-capacity, monitoring, and missingness signals appear most out of balance across 22 Pacific geographies.
+Build a map-first guided atlas that lets readers inspect where current official climate-pressure, observed-stress, adaptation-capacity, monitoring, and missingness signals appear most out of balance across 22 Pacific geographies.
 
-The app should feel like a careful GIS tool with a guided story path. It should not feel like a landing page, generic dashboard, leaderboard, or decorative scrollytelling essay.
+The app should feel like a careful GIS tool with a guided scroll story path. It should not feel like a landing page, generic dashboard, leaderboard, or decorative scrollytelling essay.
 
 ## Analytical Job
 
@@ -64,7 +66,7 @@ Secondary analytical jobs:
 - Similarity: show which official-data evidence profiles resemble a selected geography, using `TASK-019` artifacts.
 - Missingness: distinguish visible monitoring, reported zero, and missing monitoring rows.
 - Decomposition: show why a selected geography scores the way it does.
-- Guided explanation: walk users through the story without hiding exploration.
+- Guided explanation: use scroll-driven story beats to walk users through the story without hiding exploration.
 
 Data shape:
 
@@ -76,7 +78,7 @@ Data shape:
 
 Artifact family:
 
-- Interactive web atlas with guided tour, layer controls, side panel, source/method drawer, and mobile bottom sheet.
+- Interactive web atlas with guided scroll tour, layer controls, side panel, source/method drawer, and mobile bottom sheet.
 
 Primary route:
 
@@ -115,7 +117,7 @@ No visual element may imply:
 
 ## First View
 
-The first screen should be the atlas itself.
+The first screen should be the atlas itself, with the guided scroll rail acting as the default reading path.
 
 Large screen first load:
 
@@ -125,7 +127,7 @@ Large screen first load:
 - Layer control visible but restrained.
 - Legend visible and useful.
 - Source/method access visible.
-- Detail panel collapsed until selection or tour step.
+- Detail panel collapsed until selection or scroll-tour step.
 - Caveat visible under active layer title: "Comparative screen, not a ranking of need. Most ranks are fragile."
 
 Mobile first load:
@@ -157,7 +159,7 @@ Default reading order:
 4. Why should I trust or question it? Legend, rank fragility, source drawer.
 5. What is behind a place? Country detail panel and indicator trace.
 
-The design should not require users to read a paragraph before understanding the default state.
+The design should not require users to parse all controls before understanding the default state. The first scroll beat should name one claim and one caveat while the map remains visible.
 
 ## Map Grammar
 
@@ -307,9 +309,11 @@ Panel rules:
 
 ## Guided Tour
 
-The tour should be optional and always leave the map visible.
+The tour should become the default first-reading path and always leave the map visible. It should behave like a scroll-led atlas mode, not a separate article above the atlas.
 
-Recommended tour steps:
+The free-explore atlas remains available through a persistent "Explore freely" control and as the final state after the guided path.
+
+Recommended scroll-tour steps:
 
 1. Open on the gap.
 2. Pull pressure and capacity apart.
@@ -323,9 +327,11 @@ Recommended tour steps:
 
 Tour controls:
 
-- Stepper with next/back and skip.
+- Scroll rail plus stepper with next/back and skip.
+- Persistent "Explore freely" escape hatch.
 - Each step names the active layer and evidence source.
 - Reduced-motion mode should use immediate state changes, not animated transitions.
+- Keyboard navigation should advance/reverse beats without requiring scroll wheel precision.
 
 ## Color Role Ledger
 
@@ -392,7 +398,7 @@ Layout:
 - Left or top-left layer controls, compact.
 - Right side detail panel around 360px to 420px when open.
 - Bottom-left legend, compact and adjacent to map marks.
-- Bottom-right method/source and tour buttons.
+- Bottom-right method/source controls and compact scroll-tour progress/escape controls.
 
 Panel behavior:
 
@@ -528,6 +534,7 @@ Likely React components:
 - `FingerprintSimilarityPanel`
 - `MissingnessKey`
 - `MethodDrawer`
+- `ScrollTour`
 - `TourStepper`
 - `SubregionFilter`
 - `OutlookToggle`
@@ -576,7 +583,7 @@ Claude should create visual concepts after reading `STORY_BRIEF.md`, this design
 
 ### Large-Screen Concept Prompt
 
-Design a large-screen concept for the Pacific Adaptation Gap Atlas, a map-first interactive GIS web visualization. The first viewport is the actual atlas, not a landing page. Show a full-bleed Pacific map with centroid points. The active layer is adaptation gap. Fill color encodes the active score, point size subtly encodes included indicator count, and ring/dash/hatch styling encodes monitoring/reporting status. Include a compact layer control, useful legend, method/source drawer button, guided tour button, and a right-side country detail panel state. The concept must preserve caveats near the claims they qualify: comparative screen, not a ranking of need; centroid fallback, not boundary geometry; reported zero and missing rows are not infrastructure absence. Make it visually polished and competition-ready, but restrained and evidence-bearing. Avoid generic dashboards, decorative gradients, bokeh, cinematic wallpaper, flags as decoration, and any choropleth boundary styling.
+Design a large-screen concept for the Pacific Adaptation Gap Atlas, a map-first interactive GIS web visualization with a scroll-led default reading path. The first viewport is the actual atlas, not a landing page. Show a full-bleed Pacific map with centroid points and a narrative scroll rail that advances one evidence claim at a time. The active opening layer is adaptation gap. Fill color encodes the active score, point size subtly encodes included indicator count, and ring/dash/hatch styling encodes monitoring/reporting status. Include compact layer controls, a useful legend, method/source drawer access, scroll-tour progress, an "Explore freely" escape hatch, and a right-side country detail panel state that appears on selection or scroll beat. The concept must preserve caveats near the claims they qualify: comparative screen, not a ranking of need; centroid fallback, not boundary geometry; reported zero and missing rows are not infrastructure absence. Make it visually polished and competition-ready, but restrained and evidence-bearing. Avoid generic dashboards, decorative gradients, bokeh, cinematic wallpaper, flags as decoration, and any choropleth boundary styling.
 
 ### Mobile Portrait Concept Prompt
 
@@ -584,7 +591,7 @@ Design a mobile portrait concept for the same atlas at 390px width. The map must
 
 ### Optional Mobile Landscape Prompt
 
-Design a mobile landscape concept only if the map controls or guided tour need more horizontal room. Preserve the map as the dominant surface, keep the bottom or side sheet compact, and show how touch targets remain usable without hiding caveats.
+Design a mobile landscape concept only if the map controls or scroll-tour rail need more horizontal room. Preserve the map as the dominant surface, keep the bottom or side sheet compact, and show how touch targets remain usable without hiding caveats.
 
 ## Claude Visual Review Criteria
 
