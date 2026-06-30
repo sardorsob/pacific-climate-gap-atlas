@@ -1,24 +1,106 @@
 # Pacific Adaptation Gap Atlas
 
-An exploratory GIS-first data visualization project for the Pacific Dataviz Challenge 2026 climate-change theme.
+An exploratory, map-first data visualization project for the **Pacific Dataviz Challenge 2026** climate-change theme.
 
-The project investigates where Pacific island countries may face the largest mismatch between intensifying climate signals and the systems available to monitor, absorb, or respond to those changes.
+Competition deadline: **August 31, 2026**
 
-## Current Shape
+## What This Project Is
 
-- `research/` contains the competition brief, official dataset inventory, and past-entry research.
-- `context/` contains the project workflow, scope, task list, data card, assumptions, decisions, and handoff notes.
-- `analysis/` contains Python modules for dataset ingestion, profiling, feature building, gap-index logic, outlook modeling, and script-first EDA.
-- `scripts/` contains command-line entry points for reproducible data and validation work.
-- `app/` contains the GIS atlas web app scaffold and current visual mockup.
+The Pacific Adaptation Gap Atlas is an interactive web atlas about climate adaptation signals across Pacific geographies. It combines official climate, stress, monitoring, and capacity datasets into a careful exploratory view of where climate pressure and visible adaptation capacity appear out of balance.
 
-Current analysis outputs include indicator forensics, country story labels, spatial typologies, trend/outlook display guidance, rank-volatility checks, monitoring-gap GIS priorities, and the final TASK-018 story/design briefs. A reviewable visual mockup is committed. `TASK-019` is planned for Evidence Fingerprint Divergence, a possible JSD-based similarity layer over official-data-derived profiles.
+The project is being built as a web visualization because the strongest competition entries are interactive, visual, and story-driven. The intended final artifact is not a generic dashboard. It is a GIS-flavored atlas with a guided story path and exploratory map controls.
 
-## Working Rule
+## Core Question
 
-Durable project context lives under `context/`. Root files should be runnable project entry points, package metadata, or repository-level configuration.
+> Where do official climate-pressure, observed-stress, adaptation-capacity, monitoring, and missingness signals appear most out of balance across Pacific geographies?
 
-## First Commands
+The atlas is designed to help readers inspect:
+
+- where the adaptation gap appears wide,
+- what is driving the gap,
+- where official evidence is strong or thin,
+- where monitoring rows report zero,
+- where monitoring rows are missing,
+- why rank order should be treated cautiously.
+
+The central story is not "who is worst." It is:
+
+> Across Pacific geographies, climate pressure and visible adaptation capacity are unevenly matched, and so is the official data behind the comparison.
+
+## Data
+
+The project uses official Pacific Dataviz Challenge 2026 datasets listed in:
+
+```text
+research/official_datasets_2026.csv
+```
+
+Current priority dataset families include:
+
+- sea-surface temperature anomalies,
+- surface temperature anomalies,
+- rainfall anomalies,
+- sea-level anomalies,
+- directly affected persons attributed to disasters,
+- meteorological monitoring network,
+- power generation,
+- fisheries management measures,
+- greenhouse gas emissions per capita as context only.
+
+Generated analysis and app-ready outputs live under:
+
+```text
+artifacts/
+data/processed/
+app/public/data/
+```
+
+Important caveats:
+
+- The Adaptation Gap Index is a comparative screen, not a definitive rank of need or vulnerability.
+- Current map geometry uses centroid fallback, not official boundaries.
+- Missing monitoring rows mean a reporting gap in the processed official data, not confirmed absence of infrastructure.
+- Outlook outputs are stress-test context, not forecasts.
+
+## Repository Structure
+
+```text
+research/      Challenge brief, dataset inventory, and prior-entry research
+context/       Project memory, story/design briefs, data cards, decisions, and handoff notes
+analysis/      Python analysis package for processing, scoring, modeling, and EDA
+scripts/       Reproducible command-line entry points
+configs/       Dataset, index, outlook, EDA, and app-layer configuration
+data/          Raw cache, processed data, contracts, and app-ready exports
+artifacts/     Tables, provenance, figures, and run outputs
+app/           Vite/React/TypeScript atlas mockup
+tests/         Python tests for analysis helpers
+```
+
+The most important project context files are:
+
+```text
+context/STORY_BRIEF.md
+context/DESIGN_BRIEF.md
+context/DATA_CARD.md
+context/MODEL_CARD.md
+context/HANDOVER.md
+```
+
+## Install
+
+Python requirements are declared in `pyproject.toml`.
+
+```powershell
+python -m pip install -e .
+```
+
+JavaScript dependencies are declared in the root workspace and app package files.
+
+```powershell
+npm install
+```
+
+## Validate The Repo
 
 ```powershell
 python scripts/check_required_artifacts.py
@@ -26,4 +108,81 @@ python scripts/validate_task_statuses.py
 python scripts/check_secrets.py
 ```
 
-The app and analysis dependencies are declared but may need local installation before full app or analysis runs.
+Equivalent npm shortcuts:
+
+```powershell
+npm run validate:artifacts
+npm run validate:tasks
+npm run check:secrets
+```
+
+## Rebuild Data Products
+
+Profile official datasets:
+
+```powershell
+python scripts/profile_datasets.py --config configs/datasets.yml
+```
+
+Build processed observations:
+
+```powershell
+python scripts/make_dataset.py --config configs/datasets.yml
+```
+
+Build the baseline adaptation gap index:
+
+```powershell
+python scripts/build_gap_index.py --config configs/gap_index.yml
+```
+
+Build the outlook stress test:
+
+```powershell
+python scripts/run_outlook.py --config configs/outlook.yml
+```
+
+Build app-ready data:
+
+```powershell
+python scripts/build_app_data.py --config configs/app_layers.yml
+python scripts/validate_data_contracts.py
+```
+
+Run EDA:
+
+```powershell
+python scripts/run_eda.py --config configs/eda.yml
+```
+
+## Run The App
+
+Start the atlas mockup:
+
+```powershell
+npm run app:dev
+```
+
+Build the app:
+
+```powershell
+npm run app:build
+```
+
+The current app is still a mockup and not the final competition submission.
+
+## Current Frame
+
+Working title: **The Pacific Adaptation Gap Atlas**
+
+Target artifact: an interactive GIS-style web atlas for the Pacific Dataviz Challenge 2026.
+
+Primary experience:
+
+- full-bleed Pacific map,
+- adaptation gap layer,
+- monitoring/data visibility layer,
+- selected geography detail panel,
+- uncertainty and caveat cues,
+- source and methodology drawer,
+- mobile-friendly bottom-sheet interaction.
