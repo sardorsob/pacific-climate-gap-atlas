@@ -44,20 +44,19 @@ Do not use generic decorative atmosphere such as bokeh, glowing orbs, cinematic 
 
 ## Current Assignment
 
-You are working on `TASK-022: Claude visual revision pass for atlas mockup`.
-
-Before editing, read `context/plans/mockup-revision-delegation-plan.md` and `context/plans/task-021-mockup-critique.md`.
+The current accepted mockup direction is a scroll-led hybrid atlas. Future Claude passes should refine that implementation unless the project owner explicitly asks for a different direction.
 
 Your expected revision targets are:
 
-- make the first viewport read as a working atlas, not a dashboard;
-- strengthen the full-bleed Pacific map composition;
-- make layer controls compact and domain-specific;
+- preserve the first viewport as a working atlas, not a dashboard or landing page;
+- keep the full-bleed Pacific map as the evidence surface;
+- preserve the seven-beat guided story and "Explore freely" handoff;
+- keep layer controls compact and available in explore mode;
 - use direct labels or leader lines for key story exemplars;
 - make selected geography feel like an anchor state;
-- add or improve compact evidence strips in the country panel;
-- make "Where the Data Goes Quiet" visibly distinct from low-score states;
-- improve mobile bottom sheet hierarchy while keeping the map visible;
+- preserve compact evidence strips in the country panel and guided beats;
+- keep "Where the Data Goes Quiet" visibly distinct from low-score states;
+- preserve mobile bottom-sheet hierarchy while keeping the map visible;
 - preserve caveats next to claims;
 - avoid copying any audited reference project's visual identity.
 
@@ -84,16 +83,13 @@ Read these files in this order before designing:
 2. `context/DESIGN_BRIEF.md`
 3. `context/DATAVIZ_INSPIRATION_AUDIT.md`
 4. `context/WINNER_SCROLL_TOUR_AUDIT.md`
-5. `context/plans/mockup-revision-delegation-plan.md`
-6. `context/plans/task-021-mockup-critique.md`
-7. `context/storyboardbrainstorm.md`
-8. `context/ANALYSIS_BRIEF.md`
-9. `context/docs/design.md`
-10. `context/DATA_CARD.md`
-11. `context/MODEL_CARD.md`
-12. `context/INFORMATION_DIVERGENCE_PLAN.md`
-13. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024`
-14. `README.md`
+5. `context/ANALYSIS_BRIEF.md`
+6. `context/docs/design.md`
+7. `context/DATA_CARD.md`
+8. `context/MODEL_CARD.md`
+9. `context/INFORMATION_DIVERGENCE_PLAN.md`
+10. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024`
+11. `README.md`
 
 Then inspect the current app scaffold:
 
@@ -104,7 +100,11 @@ Then inspect the current app scaffold:
 5. `app/src/components/map/AtlasMap.tsx`
 6. `app/src/components/controls/LayerControls.tsx`
 7. `app/src/components/panels/CountryPanel.tsx`
-8. `app/src/lib/layers.ts`
+8. `app/src/components/story/StoryRail.tsx`
+9. `app/src/components/story/StoryBeat.tsx`
+10. `app/src/components/story/BeatProgress.tsx`
+11. `app/src/lib/tour.ts`
+12. `app/src/lib/layers.ts`
 
 Then inspect available app data:
 

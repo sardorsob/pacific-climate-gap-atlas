@@ -1,0 +1,32 @@
+import { FlaskConical } from "lucide-react";
+import { FINGERPRINT_PREVIEW, getGeo } from "../../mock/mockAtlasData";
+
+// Small, static, clearly-labelled preview of the Evidence Fingerprint Divergence
+// idea (TASK-019). It is analysis-ready but NOT app-wired: no live similarity
+// ramp, no global explorer, no leaderboard.
+export function FingerprintPreview() {
+  const anchor = getGeo(FINGERPRINT_PREVIEW.anchor);
+  if (!anchor) return null;
+
+  return (
+    <section className="fingerprint" aria-label="Evidence fingerprint preview">
+      <p className="fingerprint__flag">
+        <FlaskConical aria-hidden="true" size={13} /> Analysis-ready, not app-wired
+      </p>
+      <p className="fingerprint__lede">
+        Nauru's evidence profile leans toward <strong>{FINGERPRINT_PREVIEW.anchorLeans}</strong>.
+        Its nearest official-data profiles:
+      </p>
+      <ul className="fingerprint__list">
+        {FINGERPRINT_PREVIEW.neighbors.map((n) => (
+          <li key={n.code} className="fingerprint__row">
+            <span className="fingerprint__name">{n.name}</span>
+            <span className="fingerprint__band">{n.band}</span>
+            <span className="fingerprint__reason">{n.reason}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="fingerprint__caveat">{FINGERPRINT_PREVIEW.caveat}</p>
+    </section>
+  );
+}

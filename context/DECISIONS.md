@@ -155,3 +155,13 @@ The country panel gains a compact at-a-glance evidence strip (pressure, capacity
 Mobile controls moved to a top toolbar so they no longer fight the bottom sheet for the same screen edge. Card radii were reduced from 12px to 8px with cartographic linework and typography polish and no decorative atmosphere.
 
 Reason: the TASK-021 critique asked for a stronger map-first hierarchy, a visible legend, a selected-anchor workflow, a map-led data-quiet state, compact evidence strips, and a cleaner mobile layout, while preserving the evidence contract (caveats beside claims, centroid-fallback note, reported-zero versus missing distinction, rank fragility, no leaderboard, no polygon choropleth, no shipped JSD layer).
+
+## 2026-06-30: Accept Scroll-Led Hybrid Mockup Direction
+
+The next app mockup direction is accepted as a seven-beat guided atlas layered over the existing explorer shell.
+
+The default experience is guided scroll with the map as the sticky evidence surface. Scroll, progress ticks, buttons, and keyboard controls all drive the same beat state. "Explore freely" hands off to the full atlas controls while preserving the current layer, view, and selected geography.
+
+Evidence Fingerprint Divergence appears only as a small static preview labelled "analysis-ready, not app-wired." It is not a shipped similarity layer, global ramp, cluster view, or leaderboard.
+
+Reason: the winner audit showed that recent custom interactive winners use guided pacing to earn attention, while the project still needs the credibility of a GIS-style exploratory atlas. The hybrid path preserves both.

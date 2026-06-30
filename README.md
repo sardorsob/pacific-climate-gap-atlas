@@ -179,10 +179,10 @@ Target artifact: an interactive GIS-style web atlas for the Pacific Dataviz Chal
 
 Primary experience:
 
-- full-bleed Pacific map,
-- adaptation gap layer,
-- monitoring/data visibility layer,
+- guided 7-beat scroll atlas over a full-bleed Pacific map,
+- persistent "Explore freely" handoff into the full atlas controls,
+- adaptation gap, pressure, capacity, monitoring/data visibility, and rank-fragility views,
 - selected geography detail panel,
-- uncertainty and caveat cues,
+- static labelled Evidence Fingerprint preview that is analysis-ready but not app-wired,
 - source and methodology drawer,
-- mobile-friendly bottom-sheet interaction.
+- mobile-friendly bottom-sheet story and detail interaction.

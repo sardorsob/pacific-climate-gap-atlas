@@ -4,7 +4,7 @@
 
 Task: `TASK-018`
 
-Status: final semantic design brief for the first atlas build. This is not a polished mockup. It is the contract Claude, Codex, or any designer should use before creating visual concepts or implementation plans.
+Status: semantic design brief plus accepted mockup direction. The current app mockup implements the scroll-led hybrid as a reviewable concept, but final public-data wiring and owner visual approval remain open.
 
 Design skill basis:
 
@@ -19,12 +19,12 @@ Design skill basis:
 
 Concept approval status:
 
-- Text contract: ready for review.
-- Large-screen visual concept: pending.
-- Mobile portrait concept: pending.
+- Text contract: accepted as working design context.
+- Large-screen mockup concept: implemented for review.
+- Mobile portrait mockup concept: implemented for review.
 - Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
 
-Before app implementation, Claude should create at least one large-screen and one mobile portrait concept from this brief. Those concepts should be reviewed and approved before build work treats the visual direction as locked.
+Future visual changes should preserve the accepted scroll-led mockup unless the project owner explicitly rejects that direction.
 
 ## External Inspiration Guardrails
 
@@ -313,17 +313,15 @@ The tour should become the default first-reading path and always leave the map v
 
 The free-explore atlas remains available through a persistent "Explore freely" control and as the final state after the guided path.
 
-Recommended scroll-tour steps:
+Accepted scroll-tour steps:
 
 1. Open on the gap.
 2. Pull pressure and capacity apart.
-3. Inspect NR as a broad-evidence high-gap and reported-zero monitoring case.
-4. Inspect TV as a high-gap case with visible monitoring so high gap is not conflated with data silence.
-5. Open "Where the Data Goes Quiet" and surface PN, NR, AS, WF.
-6. Show rank fragility with MH or another high-movement example.
-7. Compare evidence fingerprints: similar score, different official-data profile.
-8. Show regional texture.
-9. Optional: turn on outlook and immediately show the stress-test caveat.
+3. Anchor NR and contrast TV so high gap is not conflated with data silence.
+4. Open "Where the Data Goes Quiet" and surface PN, NR, AS, WF.
+5. Show rank fragility with MH or another high-movement example.
+6. Preview evidence fingerprints as a static labelled analysis-ready idea, not a shipped app layer.
+7. Explore freely with current map state carried into the full controls.
 
 Tour controls:
 
@@ -531,19 +529,20 @@ Likely React components:
 - `CountryPanel`
 - `IndicatorTrace`
 - `RankChip`
-- `FingerprintSimilarityPanel`
+- `FingerprintPreview`
 - `MissingnessKey`
 - `MethodDrawer`
-- `ScrollTour`
-- `TourStepper`
+- `StoryRail`
+- `StoryBeat`
+- `BeatProgress`
 - `SubregionFilter`
 - `OutlookToggle`
 - `SourceNote`
 
 Renderer ownership:
 
-- MapLibre owns base map and point layers.
-- React owns controls, panel, legend, drawer, tour, and source/caveat copy.
+- The current mockup uses a React/SVG schematic centroid map. Future production may move to MapLibre only after boundary/source choices are made.
+- React owns controls, panel, legend, drawer, story rail, beat state, and source/caveat copy.
 - Labels and caveats should remain editable HTML/SVG overlays, not raster text.
 
 ## Motion Contract
@@ -579,7 +578,7 @@ Reduced motion:
 
 ## Visual Concept Prompts For Claude
 
-Claude should create visual concepts after reading `STORY_BRIEF.md`, this design brief, `storyboardbrainstorm.md`, and `DATAVIZ_INSPIRATION_AUDIT.md`.
+Claude should create or revise visual concepts after reading `STORY_BRIEF.md`, this design brief, `DATAVIZ_INSPIRATION_AUDIT.md`, and `WINNER_SCROLL_TOUR_AUDIT.md`.
 
 ### Large-Screen Concept Prompt
 

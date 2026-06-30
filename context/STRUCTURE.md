@@ -23,7 +23,6 @@
 - `context/TASKS.md`: executable task blocks.
 - `context/ANALYSIS_BACKLOG.md`: deeper GIS/data-science analysis lanes before visual design.
 - `context/ANALYSIS_BRIEF.md`: living summary of EDA outputs, early signals, and caveats.
-- `context/storyboardbrainstorm.md`: archived Claude/Codex storyboard brainstorm and review notes for TASK-018.
 - `context/STORY_BRIEF.md`: final TASK-018 narrative contract, storyboard beats, exemplars, and caveats.
 - `context/DESIGN_BRIEF.md`: final TASK-018 map-first visual and interaction contract for design/build.
 - `context/DATAVIZ_INSPIRATION_AUDIT.md`: live reference audit for map, climate, environmental, selected-geography, evidence-strip, and guided-tour interaction patterns.
@@ -34,7 +33,7 @@
 - `context/ASSUMPTIONS.md`: modeling/index assumptions.
 - `context/DECISIONS.md`: durable decision log.
 - `context/HANDOVER.md`: run and continuation notes.
-- `context/plans/`: implementation and delegation plans for multi-step work, including EDA, divergence analysis, app-data wiring inventory, the mockup revision sprint, and the pending scroll-led hybrid mockup plan.
+- `context/plans/`: active implementation and analysis plans. Completed one-off mockup critique/delegation plans are consolidated back into living context and may be pruned.
 
 ## Analysis
 

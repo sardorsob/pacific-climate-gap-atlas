@@ -6,11 +6,11 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 
 ## Main User Flow
 
-1. User lands on the atlas map.
-2. User selects an adaptation-gap, pillar, monitoring-gap, or story-priority layer.
-3. User clicks a country/territory centroid.
-4. Side panel explains climate signal, observed stress, capacity, missingness, rank uncertainty, and sources.
-5. User opens methodology/source drawer for details.
+1. User lands in the guided scroll atlas with the map already visible.
+2. User advances through seven evidence beats or chooses "Explore freely."
+3. Guided mode changes the same map state used by the explorer.
+4. Explore mode reveals layer controls, detail panel, metrics, and source/method access.
+5. User clicks a geography centroid to inspect climate signal, observed stress, capacity, missingness, rank uncertainty, and sources.
 
 ## Main Visual Pattern
 
@@ -23,6 +23,7 @@ The Pacific Adaptation Gap Atlas is a map-first exploratory tool. It should feel
 - selected geography as an anchor for any future evidence-fingerprint comparison
 - direct labels and compact evidence strips for scroll-guided story moments
 - scroll-led hybrid default path, with free exploration preserved after the guided beats
+- static labelled fingerprint preview only; full similarity wiring remains a later data/app task
 
 ## Current Story Inputs
 

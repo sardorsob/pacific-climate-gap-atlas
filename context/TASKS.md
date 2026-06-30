@@ -157,10 +157,10 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: `npm --prefix app run build` succeeds after dependencies are installed.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Desktop and mobile viewport smoke checks.
-- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It uses mock fixture data derived from current EDA/app artifacts and centroid fallback composition; final public-data wiring and visual approval are still required.
+- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. It uses mock fixture data derived from current EDA/app artifacts and centroid fallback composition; final public-data wiring and visual approval are still required.
 - Attempts: 1
 - Max attempts: 3
-- Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, and responsive detail panel.
+- Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, responsive detail panel, then upgraded it to a scroll-led guided atlas with a free-explore handoff.
 - Status: in-progress
 
 ## TASK-007
@@ -490,14 +490,14 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Title: Critique current mockup against story and inspiration audit
 - Depends on: TASK-006, TASK-018, TASK-020
 - Assigned agent: Codex
-- Contract refs: context/STORY_BRIEF.md, context/DESIGN_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md, context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/plans/mockup-revision-delegation-plan.md
+- Contract refs: context/STORY_BRIEF.md, context/DESIGN_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md, context/CLAUDE_MOCKUP_INSTRUCTIONS.md
 - Data refs: app/public/data, app/src/mock/mockAtlasData.ts
 - Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
 - User value / decision value: Converts the new visual inspiration and story contract into a concrete revision checklist before Claude changes the mockup.
 - Functional notes: Review current desktop and mobile states, identify gaps against the audit, and write precise Claude instructions for the revision pass.
 - Statistical notes: Do not alter scoring, data methodology, or generated artifacts.
 - Edge cases: Critique should preserve what already works; do not request visual changes that weaken caveat placement or evidence traceability.
-- Files to create/modify: `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/plans/task-021-mockup-critique.md`, `context/plans/mockup-revision-delegation-plan.md`, `context/TASKS.md`, `context/PROJECT.md`, `context/HANDOVER.md`, `context/logs/Progress Log.md`
+- Files to create/modify: `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/TASKS.md`, `context/PROJECT.md`, `context/HANDOVER.md`, `context/logs/Progress Log.md`
 - Artifacts to produce: mockup critique checklist and Claude revision brief
 - Acceptance criteria: Claude has clear prioritized instructions for desktop default, selected-country, data-quiet, and mobile states.
 - Verification commands: `npm --prefix app run build`; `python scripts/validate_task_statuses.py`; `python scripts/check_secrets.py`; `python scripts/check_required_artifacts.py`; `git diff --check`
@@ -505,7 +505,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - QA notes: Reviewed current app source and browser-rendered desktop default, selected Nauru, and data-quiet states. Build passed after rerunning outside the filesystem sandbox. Key finding: the desktop legend is hidden because it sits inside a closed `<details>` element with hidden summary, so Claude must fix first-load legend visibility. Checklist also directs Claude to strengthen map-first hierarchy, selected-anchor comparison, data-quiet map callouts, compact evidence strips, and mobile screenshot QA.
 - Attempts: 1
 - Max attempts: 2
-- Attempt log: Created `context/plans/task-021-mockup-critique.md` and updated Claude instructions with the critique checklist path.
+- Attempt log: Created a critique checklist, updated Claude instructions, and later consolidated the one-off checklist into living context docs.
 - Status: done
 
 ## TASK-022
@@ -536,7 +536,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Title: Inventory mock data to public app data wiring
 - Depends on: TASK-005, TASK-006, TASK-018
 - Assigned agent: Codex app-data agent
-- Contract refs: context/DESIGN_BRIEF.md, context/plans/mockup-revision-delegation-plan.md
+- Contract refs: context/DESIGN_BRIEF.md
 - Data refs: app/public/data/atlas_geographies.geojson, app/public/data/geographies.json, app/public/data/country_details.json, app/public/data/layers.json, app/public/data/monitoring_network.geojson, app/src/mock/mockAtlasData.ts
 - Scientific refs: context/DATA_CARD.md, context/docs/methodology.md
 - User value / decision value: Shows what has to change before the mockup can become a real data-wired atlas without surprising redesign work.

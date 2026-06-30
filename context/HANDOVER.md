@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, a reviewable React/Vite mockup exists, `TASK-020` records a Dataviz Inspiration audit, TASK-019 evidence-fingerprint divergence artifacts exist, and `context/WINNER_SCROLL_TOUR_AUDIT.md` now recommends a scroll-led hybrid for the next visual direction.
+The repository is initialized as a context-first GIS/data-science project. `TASK-001` through `TASK-005` are complete: nine priority official datasets have been profiled, contracted, cached, normalized, scored into a baseline Adaptation Gap Index, stress-tested with an app-optional outlook baseline, and exported into static app-ready JSON/GeoJSON. The core EDA/story sprint is complete, `TASK-020` records a Dataviz Inspiration audit, TASK-019 evidence-fingerprint divergence artifacts exist, and the React/Vite mockup now opens as a scroll-led guided atlas with a free-explore handoff.
 
 ## How To Validate The Scaffold
 
@@ -63,13 +63,11 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 
 ## Next Recommended Work
 
-1. Decide whether to approve the scroll-led hybrid direction from `context/WINNER_SCROLL_TOUR_AUDIT.md`.
-2. Review `context/plans/scroll-led-hybrid-mockup-plan.md`, which records Claude's scroll-led hybrid brainstorm and Codex's QA recommendation. The two open calls are the Evidence Fingerprint Divergence preview and whether the guided spine stays at seven beats.
-3. If approved, hand a new scroll-tour mockup implementation task to Claude using `context/CLAUDE_MOCKUP_INSTRUCTIONS.md`, `context/DESIGN_BRIEF.md`, `context/STORY_BRIEF.md`, the winner audit, and `context/plans/scroll-led-hybrid-mockup-plan.md`.
+1. Owner visual review of the scroll-led mockup at desktop and mobile sizes.
+2. Use the completed `TASK-023` mock-data-to-public-data wiring inventory before replacing mock fixtures.
+3. Decide whether TASK-019 Evidence Fingerprint Divergence ships in V1 beyond the current static preview; if yes, export app-ready similarity data and keep it selected-geography anchored.
 4. Keep the current atlas shell as the reusable map/control core; do not ask for a full visual rebuild unless the owner rejects the hybrid.
-5. Decide whether TASK-019 Evidence Fingerprint Divergence ships in V1; if yes, export app-ready similarity data and keep it selected-geography anchored.
-6. Use the completed `TASK-023` mock-data-to-public-data wiring inventory before replacing mock fixtures.
-7. Keep Codex QA as the gate for any Claude visual/app changes before committing.
+5. Keep Codex QA as the gate for any Claude visual/app changes before committing.
 
 ## Known Caveats
 
@@ -90,10 +88,10 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - TASK-017 monitoring-gap outputs identify PN, NR, AS, and WF as high-gap low-monitoring candidates. AS and WF have missing monitoring rows, so describe them as reporting gaps unless externally verified.
 - TASK-019 outputs exist as analysis artifacts: `eda_evidence_fingerprints.csv`, `eda_pairwise_jsd.csv`, `eda_similarity_neighbors.csv`, and `divergence_summary.json`. They are not app-wired; do not present similarity as shipped until app-ready export, caveats, and visual QA are complete.
 - TASK-020 reference examples are principle studies only. Do not copy publication identity, palettes, layouts, illustrations, or iconic stripe treatments from audited projects.
-- The winner scroll-tour audit recommends a guided scroll atlas, not a long cinematic landing page. The first viewport must still show the map and evidence.
+- The implemented winner-audit response is a guided scroll atlas, not a long cinematic landing page. The first viewport must still show the map and evidence.
 - TASK-022 belonged to Claude, but Claude did not stage, commit, push, change data methodology, or alter generated artifacts.
 - TASK-024 QA is complete for the accepted TASK-022 revision. Future Claude visual changes should go through the same Codex QA gate before commit.
-- TASK-021 found a concrete first-fix issue: the desktop legend is hidden inside a closed `<details>` disclosure whose summary is hidden.
+- TASK-021 found a concrete first-fix issue: the desktop legend was hidden inside a closed `<details>` disclosure whose summary was hidden. That issue was fixed in the accepted mockup revision.
 - The copied reference workflow kits are intentionally ignored under `context/`.
 - TASK-022 (Claude visual revision) is accepted after Codex `TASK-024` QA. Only scoped app mockup files changed: `App.tsx`, `components/map/AtlasMap.tsx`, `components/panels/CountryPanel.tsx`, `mock/mockAtlasData.ts`, and `styles/base.css`, plus context status notes. No package files, context methodology, generated artifacts, raw data, or git history were touched by Claude.
 - After TASK-022, the desktop default no longer shows a detail panel; the panel is a right-side overlay (bottom sheet on mobile) that opens on selection or the data-quiet view, and the thesis lives in the map header. The desktop legend is now visible by default (the closed-`<details>` P0 bug is fixed).
@@ -101,3 +99,4 @@ This writes the script-first EDA tables under `artifacts/tables/` and records `a
 - Remaining owner-review notes: the mobile top toolbar is horizontally scrollable by design; confirm visual taste and discoverability in the next browser review. Codex did not capture fresh screenshots during QA because local Playwright import was blocked by filesystem permissions, so the acceptance is based on source review, app build, validation checks, and Claude's reported viewport review. The "vs Tuvalu" comparator is a label-only suggestion, not the TASK-019 JSD layer.
 - The mockup still relies on the static `app/src/mock/` fixture; it is not wired to `app/public/data/*` yet. Future wiring should follow the TASK-023 inventory.
 - TASK-023 is complete. Use `context/plans/app-data-wiring-inventory.md` before wiring the app to public data. The immediate warning is that a naive GeoJSON swap would drop monitoring status, rank uncertainty, story labels, top signals, status/subregion context, and outlook display gating.
+- Completed transient mockup plan/checklist files were pruned from `context/plans/`; their durable outcomes now live in `TASKS.md`, `PROJECT.md`, `HANDOVER.md`, `DESIGN_BRIEF.md`, and the progress log.

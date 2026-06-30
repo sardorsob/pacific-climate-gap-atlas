@@ -303,3 +303,33 @@ export const SUBREGION_ANCHORS = [
 export function getGeo(code: string): Geo | undefined {
   return ATLAS_GEOS.find((g) => g.code === code);
 }
+
+// Beat-6 preview only. Real nearest-neighbour rows for Nauru, copied from
+// artifacts/tables/eda_similarity_neighbors.csv (TASK-019 Evidence Fingerprint
+// Divergence). This is a STATIC, labelled preview: the divergence layer is
+// analysis-ready but NOT app-wired. Do not present it as a shipped interactive
+// public layer, a global ramp, or a leaderboard.
+export type FingerprintNeighbor = {
+  code: string;
+  name: string;
+  jsd: number;
+  band: string;
+  reason: string;
+};
+
+export const FINGERPRINT_PREVIEW: {
+  anchor: string;
+  anchorLeans: string;
+  neighbors: FingerprintNeighbor[];
+  caveat: string;
+} = {
+  anchor: "NR",
+  anchorLeans: "data visibility",
+  neighbors: [
+    { code: "MP", name: "Northern Mariana Is.", jsd: 0.08, band: "similar", reason: "leans toward a monitoring reporting gap" },
+    { code: "GU", name: "Guam", jsd: 0.081, band: "similar", reason: "leans toward a monitoring reporting gap" },
+    { code: "NU", name: "Niue", jsd: 0.089, band: "similar", reason: "also leans toward data visibility" },
+  ],
+  caveat:
+    "Similarity means the official-data profiles look alike under this method; it does not mean the places share the same vulnerability, lived experience, or policy need.",
+};

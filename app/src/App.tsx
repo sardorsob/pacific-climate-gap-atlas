@@ -5,87 +5,57 @@ import { MapLegend } from "./components/map/MapLegend";
 import { LayerControls } from "./components/controls/LayerControls";
 import { CountryPanel } from "./components/panels/CountryPanel";
 import { DataQuietCallout } from "./components/panels/DataQuietCallout";
+import { FingerprintPreview } from "./components/panels/FingerprintPreview";
 import { MethodDrawer } from "./components/MethodDrawer";
-import { TourStepper, type TourStep } from "./components/TourStepper";
+import { StoryRail } from "./components/story/StoryRail";
+import { BEATS, type Beat } from "./lib/tour";
 import { atlasLayers } from "./lib/layers";
 import type { ScoreKey } from "./lib/encoding";
 import type { ViewMode } from "./lib/types";
-import { ATLAS_GEOS, COMPARE_SUGGESTION, getGeo } from "./mock/mockAtlasData";
-
-type StepState = {
-  score?: ScoreKey;
-  view?: ViewMode;
-  outlook?: boolean;
-  selected?: string | null;
-};
-
-const TOUR: (TourStep & { state: StepState })[] = [
-  {
-    title: "Open on the gap",
-    body: "The atlas opens on the adaptation-gap map: climate pressure minus visible capacity, ranked within the Pacific. It is an invitation to inspect mismatches, not a verdict.",
-    source: "adaptation_gap_index.csv",
-    state: { score: "gap", view: "default", outlook: false, selected: null },
-  },
-  {
-    title: "Pull pressure and capacity apart",
-    body: "Switch the score layer to see each side of the gap. Some places carry high pressure with high visible capacity; others show little visible capacity. Capacity is a proxy, not full readiness.",
-    source: "eda_country_drivers.csv",
-    state: { score: "pressure", view: "default", outlook: false, selected: null },
-  },
-  {
-    title: "Inspect Nauru",
-    body: "Nauru is a broad-evidence high-gap case whose latest monitoring row reports zero. The rank chip shows how far the rank moves under stress tests.",
-    source: "country_details.json, eda_rank_volatility.csv",
-    state: { score: "gap", view: "default", outlook: false, selected: "NR" },
-  },
-  {
-    title: "Contrast with Tuvalu",
-    body: "Tuvalu is also high-gap but has visible monitoring - so high gap is not the same as data silence.",
-    source: "eda_monitoring_gap.csv",
-    state: { score: "gap", view: "default", outlook: false, selected: "TV" },
-  },
-  {
-    title: "Where the data goes quiet",
-    body: "Surface the high-gap / low-monitoring group: PN, NR, AS, WF. Reported-zero and missing rows look different on the map. A reporting gap is not confirmed absence of infrastructure.",
-    source: "eda_monitoring_gap.csv",
-    state: { view: "coverage", outlook: false, selected: null },
-  },
-  {
-    title: "Show rank fragility",
-    body: "Re-encode points by rank movement. Marshall Islands alone can move 15 places. This view exists so the gap map cannot be read as a fixed scoreboard.",
-    source: "eda_rank_volatility.csv",
-    state: { view: "uncertainty", outlook: false, selected: "MH" },
-  },
-  {
-    title: "Regional texture",
-    body: "Polynesia has the highest mean gap and most low-capacity cases; Melanesia reads high-pressure with higher visible capacity; Micronesia is mixed and fragile. UN M49 statistical groupings, not cultural or political boundaries.",
-    source: "eda_subregion_comparisons.csv",
-    state: { view: "default", score: "gap", outlook: false, selected: null },
-  },
-  {
-    title: "Optional outlook stress test",
-    body: "Turn on the 2030 stress test. It is not a forecast. Weak-diagnostic places (PN, PG, PW) are withheld, not shown as normal marks.",
-    source: "eda_outlook_interpretation.csv",
-    state: { outlook: true, view: "default", selected: null },
-  },
-];
+import { ATLAS_GEOS, COMPARE_SUGGESTION, getGeo, PRIORITY_ONE, type Geo } from "./mock/mockAtlasData";
 
 const PRIORITY_COUNT = ATLAS_GEOS.filter((g) => g.storyPriority === 1).length;
 
+function monShort(geo: Geo): string {
+  if (geo.reportingStatus === "reported_positive_latest_count") return "Reported";
+  if (geo.reportingStatus === "reported_zero_latest_count") return "Reports 0";
+  return "No rows";
+}
+
+// Compact two-column "same score, different story" profile used inside beat 3.
+function MiniProfile({ geo }: { geo: Geo }) {
+  return (
+    <div className="mini">
+      <p className="mini__name">{geo.name}</p>
+      <p className="mini__gap">
+        <b>{geo.gap.toFixed(0)}</b> gap
+      </p>
+      <dl className="mini__rows">
+        <div><dt>Pressure</dt><dd>{geo.pressure.toFixed(0)}</dd></div>
+        <div><dt>Capacity</dt><dd>{geo.capacity.toFixed(0)}</dd></div>
+        <div><dt>Rank</dt><dd>{geo.rankMin}-{geo.rankMax}</dd></div>
+        <div><dt>Monitoring</dt><dd>{monShort(geo)}</dd></div>
+      </dl>
+    </div>
+  );
+}
+
 export function App() {
+  const [mode, setMode] = useState<"guided" | "explore">("guided");
+  const [beatIndex, setBeatIndex] = useState(0);
+
   const [activeScore, setActiveScore] = useState<ScoreKey>("gap");
   const [viewMode, setViewMode] = useState<ViewMode>("default");
   const [outlookOn, setOutlookOn] = useState(false);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [tourOpen, setTourOpen] = useState(false);
-  const [tourIndex, setTourIndex] = useState(0);
   const [sheetExpanded, setSheetExpanded] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
 
   const activeLayer = atlasLayers.find((l) => l.id === activeScore) ?? atlasLayers[0];
   const selectedGeo = selectedCode ? getGeo(selectedCode) ?? null : null;
-  const panelOpen = selectedGeo !== null || viewMode === "coverage";
+  const panelOpen = mode === "explore" && (selectedGeo !== null || viewMode === "coverage");
+  const controlsVisible = mode === "explore";
 
   const meta = outlookOn
     ? { title: "Outlook - 2030 stress test", caveat: "Stress-test interpretation, not a forecast." }
@@ -95,21 +65,20 @@ export function App() {
         ? { title: "Rank uncertainty", caveat: "Shown so the gap map cannot be read as a fixed scoreboard." }
         : { title: activeLayer.label, caveat: activeLayer.caveat };
 
+  // Guided mode: each beat writes the canonical map state. Undefined fields are
+  // left untouched so state carries forward into Explore freely.
   useEffect(() => {
-    if (!tourOpen) return;
-    const s = TOUR[tourIndex].state;
+    if (mode !== "guided") return;
+    const s = BEATS[beatIndex].state;
     if (s.score !== undefined) setActiveScore(s.score);
     if (s.view !== undefined) setViewMode(s.view);
     if (s.outlook !== undefined) setOutlookOn(s.outlook);
-    if (s.selected !== undefined) {
-      setSelectedCode(s.selected);
-      setSheetExpanded(Boolean(s.selected) || s.view === "coverage");
-    }
-  }, [tourOpen, tourIndex]);
+    if (s.selected !== undefined) setSelectedCode(s.selected);
+  }, [beatIndex, mode]);
 
   const handleSelect = (code: string) => {
     setSelectedCode(code);
-    setSheetExpanded(true);
+    if (mode === "explore") setSheetExpanded(true);
   };
 
   const handleScore = (id: ScoreKey) => {
@@ -118,10 +87,10 @@ export function App() {
     setOutlookOn(false);
   };
 
-  const handleViewMode = (mode: ViewMode) => {
-    setViewMode(mode);
-    if (mode !== "default") setOutlookOn(false);
-    if (mode === "coverage") {
+  const handleViewMode = (m: ViewMode) => {
+    setViewMode(m);
+    if (m !== "default") setOutlookOn(false);
+    if (m === "coverage") {
       setSelectedCode(null);
       setSheetExpanded(true);
     } else if (viewMode === "coverage") {
@@ -143,6 +112,81 @@ export function App() {
     if (viewMode === "coverage") setViewMode("default");
   };
 
+  // Beat-specific in-card controls (kept in App so they drive shared state).
+  const renderExtra = (beat: Beat) => {
+    if (beat.id === "pillars") {
+      return (
+        <div className="seg-inline" role="group" aria-label="Pressure or capacity">
+          <button type="button" aria-pressed={activeScore === "pressure"} onClick={() => setActiveScore("pressure")}>
+            Climate pressure
+          </button>
+          <button type="button" aria-pressed={activeScore === "capacity"} onClick={() => setActiveScore("capacity")}>
+            Visible capacity
+          </button>
+        </div>
+      );
+    }
+    if (beat.id === "anchor") {
+      const nr = getGeo("NR");
+      const tv = getGeo("TV");
+      return (
+        <div className="beat-compare">
+          <div className="seg-inline" role="group" aria-label="Anchor geography">
+            <button type="button" aria-pressed={selectedCode === "NR"} onClick={() => setSelectedCode("NR")}>Nauru</button>
+            <button type="button" aria-pressed={selectedCode === "TV"} onClick={() => setSelectedCode("TV")}>Tuvalu</button>
+          </div>
+          <div className="beat-compare__grid">
+            {nr && <MiniProfile geo={nr} />}
+            {tv && <MiniProfile geo={tv} />}
+          </div>
+        </div>
+      );
+    }
+    if (beat.id === "quiet") {
+      return (
+        <div className="quiet-mini">
+          <div className="quiet-mini__keys">
+            <span className="qk qk--zero" aria-label="dashed circle means reports zero">
+              <span aria-hidden="true">o</span> reports 0
+            </span>
+            <span className="qk qk--missing" aria-label="hatched square means no rows">
+              <span aria-hidden="true">#</span> no rows
+            </span>
+          </div>
+          <div className="quiet-mini__chips">
+            {PRIORITY_ONE.map((code) => {
+              const g = getGeo(code);
+              if (!g) return null;
+              const kind = g.reportingStatus === "reported_zero_latest_count" ? "zero" : "missing";
+              return (
+                <button
+                  key={code}
+                  type="button"
+                  className={`chip chip--${kind}`}
+                  aria-pressed={selectedCode === code}
+                  onClick={() => setSelectedCode(code)}
+                >
+                  {g.code}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+    if (beat.id === "fingerprint") {
+      return <FingerprintPreview />;
+    }
+    if (beat.id === "explore") {
+      return (
+        <button type="button" className="link-btn" onClick={() => setMode("explore")}>
+          Open the full atlas controls
+        </button>
+      );
+    }
+    return null;
+  };
+
   const panelContent =
     viewMode === "coverage" && !selectedGeo ? (
       <DataQuietCallout onPick={handleSelect} />
@@ -156,8 +200,11 @@ export function App() {
       />
     );
 
+  const shellClass =
+    `atlas-shell atlas-shell--${mode}` + (panelOpen ? " atlas-shell--panel" : "");
+
   return (
-    <div className={`atlas-shell${panelOpen ? " atlas-shell--panel" : ""}`}>
+    <div className={shellClass}>
       <div className="atlas-map-region">
         <AtlasMap
           geos={ATLAS_GEOS}
@@ -178,47 +225,47 @@ export function App() {
             {meta.title}
             <span className="map-header__caveat">{meta.caveat}</span>
           </p>
-          <div className="map-header__actions">
-            {!tourOpen && (
+          {mode === "explore" && (
+            <div className="map-header__actions">
               <button
                 type="button"
                 className="ghost-btn"
                 onClick={() => {
-                  setTourOpen(true);
-                  setTourIndex(0);
+                  setBeatIndex(0);
+                  setMode("guided");
                 }}
               >
-                <Compass aria-hidden="true" size={14} /> Tour
+                <Compass aria-hidden="true" size={14} /> Guided tour
               </button>
-            )}
-            <button type="button" className="ghost-btn" onClick={() => setDrawerOpen(true)}>
-              <BookOpen aria-hidden="true" size={14} /> Methods &amp; sources
-            </button>
-          </div>
+              <button type="button" className="ghost-btn" onClick={() => setDrawerOpen(true)}>
+                <BookOpen aria-hidden="true" size={14} /> Methods &amp; sources
+              </button>
+            </div>
+          )}
           <p className="map-header__concept">Concept for review - not final or approved.</p>
         </header>
 
-        <div className="dock dock--controls">
-          <LayerControls
-            layers={atlasLayers}
-            activeScore={activeScore}
-            viewMode={viewMode}
-            outlookOn={outlookOn}
-            onScore={handleScore}
-            onViewMode={handleViewMode}
-            onToggleOutlook={handleToggleOutlook}
-          />
-        </div>
+        {controlsVisible && (
+          <div className="dock dock--controls">
+            <LayerControls
+              layers={atlasLayers}
+              activeScore={activeScore}
+              viewMode={viewMode}
+              outlookOn={outlookOn}
+              onScore={handleScore}
+              onViewMode={handleViewMode}
+              onToggleOutlook={handleToggleOutlook}
+            />
+          </div>
+        )}
 
-        <div className="dock dock--metrics" role="status">
-          <span className="metric">
-            <b>{ATLAS_GEOS.length}</b> geographies
-          </span>
-          <span className="metric metric--flag">
-            <b>{PRIORITY_COUNT}</b> high-gap / low-monitoring
-          </span>
-          {!panelOpen && <span className="metric metric--hint">Select a point to inspect</span>}
-        </div>
+        {mode === "explore" && (
+          <div className="dock dock--metrics" role="status">
+            <span className="metric"><b>{ATLAS_GEOS.length}</b> geographies</span>
+            <span className="metric metric--flag"><b>{PRIORITY_COUNT}</b> high-gap / low-monitoring</span>
+            {!panelOpen && <span className="metric metric--hint">Select a point to inspect</span>}
+          </div>
+        )}
 
         <div className="dock dock--legend">
           <button
@@ -234,17 +281,22 @@ export function App() {
           </div>
         </div>
 
-        {tourOpen && (
-          <div className="dock dock--tour">
-            <TourStepper steps={TOUR} index={tourIndex} onStep={setTourIndex} onClose={() => setTourOpen(false)} />
-          </div>
-        )}
-
-        {outlookOn && (
+        {mode === "explore" && outlookOn && (
           <p className="outlook-banner" role="status">
             Stress test, not a forecast. Withheld for weak diagnostics: PN, PG, PW are not shown as
             outlook marks.
           </p>
+        )}
+
+        {mode === "guided" && (
+          <StoryRail
+            beats={BEATS}
+            index={beatIndex}
+            onBeat={setBeatIndex}
+            onExplore={() => setMode("explore")}
+            onOpenMethod={() => setDrawerOpen(true)}
+            renderExtra={renderExtra}
+          />
         )}
       </div>
 
@@ -260,7 +312,7 @@ export function App() {
             onClick={() => setSheetExpanded((v) => !v)}
           >
             <ChevronUp aria-hidden="true" size={16} />
-            {selectedGeo ? selectedGeo.name : "Where the data goes quiet"}
+            {selectedGeo ? selectedGeo.name : viewMode === "coverage" ? "Where the data goes quiet" : "Details"}
           </button>
           <div className="panel-dock__body">{panelContent}</div>
         </section>
