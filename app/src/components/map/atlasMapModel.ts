@@ -7,6 +7,7 @@ import {
   uncertaintyColor,
   valueForScore,
 } from "../../lib/encoding";
+import { GRATICULE_LATS, GRATICULE_LONS } from "../../lib/projection";
 import type { ViewMode } from "../../lib/types";
 
 export type AtlasMapState = {
@@ -53,8 +54,58 @@ export type AtlasFeatureCollection = {
   features: AtlasPointFeature[];
 };
 
+export type GraticuleFeature = {
+  type: "Feature";
+  geometry: {
+    type: "LineString";
+    coordinates: [[number, number], [number, number]];
+  };
+  properties: {
+    kind: "longitude" | "latitude";
+    value: number;
+  };
+};
+
+export type GraticuleFeatureCollection = {
+  type: "FeatureCollection";
+  features: GraticuleFeature[];
+};
+
 export function fitBoundsForPacific(): [[number, number], [number, number]] {
   return [[130, -30], [240, 20]];
+}
+
+export function buildGraticuleFeatureCollection(options?: {
+  longitudes?: number[];
+  latitudes?: number[];
+  bounds?: [[number, number], [number, number]];
+}): GraticuleFeatureCollection {
+  const longitudes = options?.longitudes ?? GRATICULE_LONS;
+  const latitudes = options?.latitudes ?? GRATICULE_LATS;
+  const bounds = options?.bounds ?? fitBoundsForPacific();
+  const [[minLon, minLat], [maxLon, maxLat]] = bounds;
+
+  return {
+    type: "FeatureCollection",
+    features: [
+      ...longitudes.map((lon) => ({
+        type: "Feature" as const,
+        geometry: {
+          type: "LineString" as const,
+          coordinates: [[lon, minLat], [lon, maxLat]] as [[number, number], [number, number]],
+        },
+        properties: { kind: "longitude" as const, value: lon },
+      })),
+      ...latitudes.map((lat) => ({
+        type: "Feature" as const,
+        geometry: {
+          type: "LineString" as const,
+          coordinates: [[minLon, lat], [maxLon, lat]] as [[number, number], [number, number]],
+        },
+        properties: { kind: "latitude" as const, value: lat },
+      })),
+    ],
+  };
 }
 
 export function markerPaintFor(status: ReportingStatus): {

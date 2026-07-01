@@ -150,7 +150,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Scientific refs: context/docs/methodology.md
 - User value / decision value: Gives users a map-first experience instead of a generic dashboard.
 - Functional notes: Implement map canvas, layer controls, side panel, source drawer, and responsive layout.
-- Implementation split: Close this parent task only after TASK-025 app-data wiring, TASK-026 MapLibre/geometry, TASK-028 narrative copy/story polish, and TASK-027 post-map visual polish are reviewed.
+- Implementation split: Close this parent task only after TASK-025 app-data wiring, TASK-026 MapLibre substrate, TASK-029 Pacific land context, TASK-028 narrative copy/story polish, and TASK-027 post-map visual polish are reviewed.
 - Statistical notes: The UI must show missingness and source caveats near score displays.
 - Edge cases: Offline or missing app data should show a clear stale/unavailable state.
 - Files to create/modify: `app/src/*`, `app/public/data/*`, `app/package.json`
@@ -158,7 +158,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: `npm --prefix app run build` succeeds after dependencies are installed.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Desktop and mobile viewport smoke checks.
-- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. `TASK-025` removed the evidence-bearing mock fixture and wired the app to generated public data. `TASK-026` replaced the SVG-only map surface with a MapLibre-backed centroid canvas while retaining fallback caveats; `TASK-028` story/copy polish and `TASK-027` final visual polish remain before this parent task can close.
+- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. `TASK-025` removed the evidence-bearing mock fixture and wired the app to generated public data. `TASK-026` replaced the SVG-only map surface with a MapLibre-backed centroid canvas, and `TASK-029` added Natural Earth visual land context plus MapLibre graticule linework while retaining centroid score geometry caveats. `TASK-028` story/copy polish and `TASK-027` final visual polish remain before this parent task can close.
 - Attempts: 1
 - Max attempts: 3
 - Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, responsive detail panel, then upgraded it to a scroll-led guided atlas with a free-explore handoff.
@@ -595,10 +595,10 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Base map, layer controls, detail panel, data-quiet view, rank chip, and guarded outlook state render from public/generated app data while preserving current mockup behavior and caveats.
 - Verification commands: `python scripts/build_app_data.py --config configs/app_layers.yml`; `python scripts/validate_data_contracts.py`; `npm --prefix app run build`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
 - Manual QA: Spot-check NR, TV, PN, AS, WF, and MH against the TASK-023 inventory and confirm the UI distinguishes reported zero, missing monitoring rows, fragile ranks, and withheld outlook records.
-- QA notes: Implemented a MapLibre-backed atlas canvas with generated centroid point features, selected/priority point state, React overlay labels, hatching/dashed monitoring cues, accessible geography hit targets, and the visible caveat "Boundary polygons are not yet joined." Boundary data remains a future reviewed-source gate, not part of this task.
+- QA notes: Added enrichment joins for monitoring status, rank uncertainty, story labels/signals, spatial context, and outlook display recommendations; regenerated processed/public app data; added `app/src/lib/atlasData.ts`; repointed the React app to generated `/data/geographies.json`; deleted the obsolete mock fixture; and verified the app build plus data contracts. Spot checks preserved NR/PN reported-zero monitoring, AS/WF missing-row states, TV reported monitoring, MH rank fragility, and PN withheld outlook.
 - Attempts: 1
 - Max attempts: 3
-- Attempt log: Added `atlasMapModel` with red/green Vitest coverage, imported MapLibre CSS, replaced the SVG-only map background with a no-network MapLibre ocean canvas and point layers, preserved guided/explore state props, and updated docs. Verification used focused Vitest and production build before final full checks.
+- Attempt log: Implemented real app-data wiring and adapter after TASK-023 inventory; build and contract validation passed before commit.
 - Status: done
 
 ## TASK-026
@@ -618,16 +618,16 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Guided and explore modes use the MapLibre map without losing story controls, selected-state continuity, missingness encodings, or build stability.
 - Verification commands: `npm --prefix app run build`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`; `git diff --check`
 - Manual QA: Desktop and mobile browser review of guided beats, selection, layer toggles, legend, and fallback geometries.
-- QA notes:
-- Attempts: 0
+- QA notes: Implemented a MapLibre-backed atlas canvas with generated centroid point features, selected/priority point state, React overlay labels, hatching/dashed monitoring cues, accessible geography hit targets, and the visible caveat that boundary polygons were not yet joined. Boundary data remained a future reviewed-source gate for this task.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Added `atlasMapModel` with red/green Vitest coverage, imported MapLibre CSS, replaced the SVG-only map background with a no-network MapLibre ocean canvas and point layers, preserved guided/explore state props, and updated docs. Verification used focused Vitest and production build before final full checks.
+- Status: done
 
 ## TASK-027
 - Phase: app-design
 - Title: Polish guided atlas visuals after real map exists
-- Depends on: TASK-026, TASK-028
+- Depends on: TASK-026, TASK-028, TASK-029
 - Assigned agent: Claude builder, Codex QA
 - Contract refs: context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/DESIGN_BRIEF.md, context/STORY_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md, context/WINNER_SCROLL_TOUR_AUDIT.md
 - Data refs: app/public/data/*, app/src/lib/*
@@ -669,3 +669,26 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Max attempts: 3
 - Attempt log:
 - Status: pending
+
+## TASK-029
+- Phase: app-map
+- Title: Add Natural Earth Pacific land context and first-render graticule
+- Depends on: TASK-026
+- Assigned agent: Codex
+- Contract refs: context/DESIGN_BRIEF.md, context/DATA_CARD.md, context/docs/methodology.md
+- Data refs: data/processed/app/pacific_land_context.geojson, app/public/data/pacific_land_context.geojson, artifacts/provenance/land_context_summary.json
+- Scientific refs: context/DECISIONS.md, context/DATA_CARD.md, context/docs/methodology.md
+- User value / decision value: Shows the island and regional land shapes under the atlas dots while preserving honest centroid-based score geometry.
+- Functional notes: Build a compact Natural Earth 10m land context layer, mirror it to the app public data folder, render it below centroid points in MapLibre, and move graticule lines into MapLibre so the grid appears on initial render.
+- Statistical notes: Natural Earth land is visual context only. It is not a score input, official territorial boundary layer, selectable geography layer, adjacency source, area source, or polygon choropleth.
+- Edge cases: Do not stage the raw global Natural Earth cache; do not imply official boundary precision; fail softly if the public land context file is unavailable.
+- Files to create/modify: `scripts/build_land_context.py`, `tests/analysis/test_land_context.py`, `app/src/components/map/*`, `app/public/data/pacific_land_context.geojson`, `data/processed/app/pacific_land_context.geojson`, `artifacts/provenance/land_context_summary.json`, `context/*`, `README.md`
+- Artifacts to produce: processed/public Pacific land-context GeoJSON, land-context provenance, MapLibre graticule line source, updated caveats and task docs
+- Acceptance criteria: The app renders Natural Earth land context beneath the existing points, graticule lines are present at initial load, scored geography geometry remains centroid-based, and verification passes.
+- Verification commands: `python scripts/build_land_context.py`; `python -m unittest tests.analysis.test_land_context -v`; `npm --prefix app run test -- atlasMapModel.test.ts`; `npm --prefix app run build`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`; `python scripts/check_required_artifacts.py`; `git diff --check`
+- Manual QA: Review the map note and docs to confirm the distinction between visual land context and official/scored boundary geometry remains visible.
+- QA notes: Added a standard-library Natural Earth 10m land builder with unit coverage for longitude shifting, Pacific filtering, and provenance. Generated 1,305 compact land-context polygon features from 11 source features, mirrored the public app copy, and documented public-domain source terms. `AtlasMap` now fetches the land context, renders it below points, and renders graticule lines as MapLibre layers so the grid does not wait for map movement.
+- Attempts: 1
+- Max attempts: 3
+- Attempt log: Implemented after the owner noted the map still looked like dots and that the grid only appeared after moving the map. Kept raw global Natural Earth data ignored and kept score/selection geometry on generated centroids.
+- Status: done

@@ -12,6 +12,7 @@ import { radiusFor, ringVariant } from "../../lib/encoding";
 import type { ViewMode } from "../../lib/types";
 import { GRATICULE_LATS, GRATICULE_LONS } from "../../lib/projection";
 import {
+  buildGraticuleFeatureCollection,
   buildAtlasFeatureCollection,
   fitBoundsForPacific,
   type AtlasFeatureCollection,
@@ -40,6 +41,12 @@ type OverlayState = {
 
 const EMPTY_OVERLAY: OverlayState = { points: {}, subregions: {}, lonLines: [], latLines: [] };
 const MAP_SOURCE_ID = "atlas-points";
+const LAND_SOURCE_ID = "pacific-land-context";
+const LAND_FILL_LAYER_ID = "pacific-land-context-fill";
+const LAND_LINE_LAYER_ID = "pacific-land-context-line";
+const GRATICULE_SOURCE_ID = "atlas-graticule";
+const GRATICULE_LAYER_ID = "atlas-graticule-lines";
+const GRATICULE_EQUATOR_LAYER_ID = "atlas-graticule-equator";
 const PRIORITY_LAYER_ID = "atlas-priority-halos";
 const POINT_LAYER_ID = "atlas-centroid-points";
 const SELECTED_LAYER_ID = "atlas-selected-halos";
@@ -85,7 +92,7 @@ function toMapLibreCollection(collection: AtlasFeatureCollection): AtlasFeatureC
   };
 }
 
-function asGeoJson(collection: AtlasFeatureCollection): GeoJSON.FeatureCollection {
+function asGeoJson(collection: unknown): GeoJSON.FeatureCollection {
   return collection as unknown as GeoJSON.FeatureCollection;
 }
 
@@ -96,6 +103,79 @@ function atlasBounds(): LngLatBoundsLike {
 function syncAtlasSource(map: MapLibreMap, collection: AtlasFeatureCollection) {
   const source = map.getSource(MAP_SOURCE_ID) as GeoJSONSource | undefined;
   if (source) source.setData(asGeoJson(collection));
+}
+
+function syncLandContext(map: MapLibreMap, collection: GeoJSON.FeatureCollection | null) {
+  if (!collection) return;
+  const source = map.getSource(LAND_SOURCE_ID) as GeoJSONSource | undefined;
+  if (source) {
+    source.setData(collection);
+  } else {
+    map.addSource(LAND_SOURCE_ID, {
+      type: "geojson",
+      data: collection,
+    });
+  }
+
+  const beforeId = map.getLayer(GRATICULE_LAYER_ID) ? GRATICULE_LAYER_ID : undefined;
+  if (!map.getLayer(LAND_FILL_LAYER_ID)) {
+    map.addLayer({
+      id: LAND_FILL_LAYER_ID,
+      type: "fill",
+      source: LAND_SOURCE_ID,
+      paint: {
+        "fill-color": "#173240",
+        "fill-opacity": 0.74,
+      },
+    }, beforeId);
+  }
+  if (!map.getLayer(LAND_LINE_LAYER_ID)) {
+    map.addLayer({
+      id: LAND_LINE_LAYER_ID,
+      type: "line",
+      source: LAND_SOURCE_ID,
+      paint: {
+        "line-color": "rgba(205, 226, 233, 0.18)",
+        "line-width": 0.7,
+      },
+    }, beforeId);
+  }
+}
+
+function addGraticuleLayers(map: MapLibreMap) {
+  if (!map.getSource(GRATICULE_SOURCE_ID)) {
+    map.addSource(GRATICULE_SOURCE_ID, {
+      type: "geojson",
+      data: asGeoJson(buildGraticuleFeatureCollection()),
+    });
+  }
+
+  if (!map.getLayer(GRATICULE_LAYER_ID)) {
+    map.addLayer({
+      id: GRATICULE_LAYER_ID,
+      type: "line",
+      source: GRATICULE_SOURCE_ID,
+      filter: ["!=", ["get", "value"], 0],
+      paint: {
+        "line-color": "rgba(150, 190, 205, 0.16)",
+        "line-width": 1,
+      },
+    });
+  }
+
+  if (!map.getLayer(GRATICULE_EQUATOR_LAYER_ID)) {
+    map.addLayer({
+      id: GRATICULE_EQUATOR_LAYER_ID,
+      type: "line",
+      source: GRATICULE_SOURCE_ID,
+      filter: ["all", ["==", ["get", "kind"], "latitude"], ["==", ["get", "value"], 0]],
+      paint: {
+        "line-color": "rgba(150, 190, 205, 0.3)",
+        "line-dasharray": [2, 5],
+        "line-width": 1,
+      },
+    });
+  }
 }
 
 function addAtlasLayers(map: MapLibreMap, collection: AtlasFeatureCollection) {
@@ -208,6 +288,7 @@ export function AtlasMap({
   const mapRef = useRef<MapLibreMap | null>(null);
   const onSelectRef = useRef(onSelect);
   const [mapReady, setMapReady] = useState(false);
+  const [landContext, setLandContext] = useState<GeoJSON.FeatureCollection | null>(null);
   const [overlay, setOverlay] = useState<OverlayState>(EMPTY_OVERLAY);
   const hasSelection = selectedCode !== null;
 
@@ -224,6 +305,7 @@ export function AtlasMap({
   );
   const mapLibreFeatures = useMemo(() => toMapLibreCollection(atlasFeatures), [atlasFeatures]);
   const mapLibreFeaturesRef = useRef(mapLibreFeatures);
+  const landContextRef = useRef<GeoJSON.FeatureCollection | null>(landContext);
   const geosRef = useRef(geos);
 
   const labelCodes = useMemo(() => {
@@ -244,6 +326,28 @@ export function AtlasMap({
   useEffect(() => {
     geosRef.current = geos;
   }, [geos]);
+
+  useEffect(() => {
+    landContextRef.current = landContext;
+  }, [landContext]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/data/pacific_land_context.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to load land context: ${response.status}`);
+        return response.json() as Promise<GeoJSON.FeatureCollection>;
+      })
+      .then((data) => {
+        if (!cancelled) setLandContext(data);
+      })
+      .catch(() => {
+        if (!cancelled) setLandContext(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -279,13 +383,20 @@ export function AtlasMap({
     const handlePointLeave = () => {
       map.getCanvas().style.cursor = "";
     };
+    const refreshOverlay = () => {
+      map.resize();
+      setOverlay(buildOverlayState(map, geosRef.current));
+    };
     const handleLoad = () => {
+      addGraticuleLayers(map);
+      syncLandContext(map, landContextRef.current);
       addAtlasLayers(map, mapLibreFeaturesRef.current);
       map.on("click", POINT_LAYER_ID, handlePointClick);
       map.on("mouseenter", POINT_LAYER_ID, handlePointEnter);
       map.on("mouseleave", POINT_LAYER_ID, handlePointLeave);
       setMapReady(true);
-      setOverlay(buildOverlayState(map, geosRef.current));
+      refreshOverlay();
+      requestAnimationFrame(refreshOverlay);
     };
     map.on("load", handleLoad);
 
@@ -312,6 +423,12 @@ export function AtlasMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map) return;
+    syncLandContext(map, landContext);
+  }, [landContext, mapReady]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!mapReady || !map) return;
 
     const updateOverlay = () => setOverlay(buildOverlayState(map, geos));
     updateOverlay();
@@ -327,8 +444,8 @@ export function AtlasMap({
     <div className="map-canvas">
       <div ref={containerRef} className="maplibre-canvas" aria-hidden="true" />
       <p className="sr-only">
-        Map of 22 Pacific geographies shown as centroid points. Active layer: {activeLayerLabel}.
-        The map is a comparative screen, not a definitive ranking.
+        Map of 22 Pacific geographies shown as centroid points over Natural Earth land context.
+        Active layer: {activeLayerLabel}. The map is a comparative screen, not a definitive ranking.
       </p>
 
       <svg className="map-overlay-svg" aria-hidden="true">
@@ -337,22 +454,6 @@ export function AtlasMap({
             <line x1="0" y1="0" x2="0" y2="6" stroke="#a8bdc7" strokeWidth="1.4" />
           </pattern>
         </defs>
-
-        <g className="graticule">
-          {overlay.lonLines.map((line) => (
-            <line key={line.id} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
-          ))}
-          {overlay.latLines.map((line) => (
-            <line
-              key={line.id}
-              className={line.label === "0\u00b0" ? "graticule__equator" : undefined}
-              x1={line.x1}
-              y1={line.y1}
-              x2={line.x2}
-              y2={line.y2}
-            />
-          ))}
-        </g>
 
         <g className="graticule-labels">
           {overlay.lonLines.map((line) => (
@@ -486,7 +587,9 @@ export function AtlasMap({
         })}
       </div>
 
-      <p className="map-note">MapLibre canvas with centroid fallback points. Boundary polygons are not yet joined.</p>
+      <p className="map-note">
+        Natural Earth land context under centroid points. Scored geographies are not boundary polygons.
+      </p>
     </div>
   );
 }

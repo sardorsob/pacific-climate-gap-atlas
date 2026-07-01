@@ -4,7 +4,7 @@
 
 Task: `TASK-018`
 
-Status: semantic design brief plus accepted mockup direction. The current app implements the scroll-led hybrid as a reviewable concept, is wired to generated app data, and uses a MapLibre-backed centroid map substrate. Remaining production work is split into `TASK-028` story/copy rewrite and `TASK-027` final visual polish.
+Status: semantic design brief plus accepted mockup direction. The current app implements the scroll-led hybrid as a reviewable concept, is wired to generated app data, and uses a MapLibre-backed map with Natural Earth visual land context under centroid points. Remaining production work is split into `TASK-028` story/copy rewrite and `TASK-027` final visual polish.
 
 Design skill basis:
 
@@ -23,7 +23,7 @@ Concept approval status:
 - Large-screen mockup concept: implemented for review.
 - Mobile portrait mockup concept: implemented for review.
 - Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
-- Production gates: improved story copy and final polish remain open before `TASK-006` can close. Reviewed polygon boundaries remain a future source gate outside the completed MapLibre substrate.
+- Production gates: improved story copy and final polish remain open before `TASK-006` can close. Official scored-geography polygon boundaries remain a future source gate outside the completed MapLibre/Natural Earth visual substrate.
 
 Future visual changes should preserve the accepted scroll-led mockup unless the project owner explicitly rejects that direction.
 
@@ -83,7 +83,7 @@ Artifact family:
 
 Primary route:
 
-- MapLibre map plus React/TypeScript UI. The current implementation uses generated centroid fallback points; reviewed island/boundary geometry can be added only after source, license, and geopolitical review.
+- MapLibre map plus React/TypeScript UI. The current implementation uses Natural Earth visual land context and generated centroid fallback points; reviewed scored-geography boundary geometry can be added only after source, license, and geopolitical review.
 
 Fallback route:
 
@@ -166,13 +166,13 @@ The design should not require users to parse all controls before understanding t
 
 ### Geometry
 
-V1 uses centroid point features only.
+V1 uses Natural Earth land context for orientation plus centroid point features for scored/selectable geographies.
 
 Required cue:
 
-- Include "centroid fallback, not boundary" in the legend or source drawer.
+- Include "Natural Earth land context; scores use centroid fallback, not boundary geometry" in the legend or source drawer.
 
-Do not use polygon choropleths until a boundary source is chosen, license-checked, and documented.
+Do not use scored polygon choropleths until a boundary source is chosen, license-checked, and documented.
 
 ### Point Encoding
 
@@ -543,7 +543,7 @@ Likely React components:
 
 Renderer ownership:
 
-- The current app uses MapLibre for the map canvas and generated centroid point source. React overlays still own direct labels, hatching/dashed monitoring cues, selected brackets, and accessible geography hit targets.
+- The current app uses MapLibre for the map canvas, Natural Earth land context, generated centroid point source, and graticule lines. React overlays still own direct labels, hatching/dashed monitoring cues, selected brackets, graticule labels, and accessible geography hit targets.
 - React owns controls, panel, legend, drawer, story rail, beat state, and source/caveat copy.
 - Labels and caveats should remain editable HTML/SVG overlays, not raster text.
 
@@ -584,7 +584,7 @@ Claude should create or revise visual concepts after reading `STORY_BRIEF.md`, t
 
 ### Large-Screen Concept Prompt
 
-Design a large-screen concept for the Pacific Adaptation Gap Atlas, a map-first interactive GIS web visualization with a scroll-led default reading path. The first viewport is the actual atlas, not a landing page. Show a full-bleed Pacific map with centroid points and a narrative scroll rail that advances one evidence claim at a time. The active opening layer is adaptation gap. Fill color encodes the active score, point size subtly encodes included indicator count, and ring/dash/hatch styling encodes monitoring/reporting status. Include compact layer controls, a useful legend, method/source drawer access, scroll-tour progress, an "Explore freely" escape hatch, and a right-side country detail panel state that appears on selection or scroll beat. The concept must preserve caveats near the claims they qualify: comparative screen, not a ranking of need; centroid fallback, not boundary geometry; reported zero and missing rows are not infrastructure absence. Make it visually polished and competition-ready, but restrained and evidence-bearing. Avoid generic dashboards, decorative gradients, bokeh, cinematic wallpaper, flags as decoration, and any choropleth boundary styling.
+Design a large-screen concept for the Pacific Adaptation Gap Atlas, a map-first interactive GIS web visualization with a scroll-led default reading path. The first viewport is the actual atlas, not a landing page. Show a full-bleed Pacific map with Natural Earth land context, centroid points, and a narrative scroll rail that advances one evidence claim at a time. The active opening layer is adaptation gap. Fill color encodes the active score, point size subtly encodes included indicator count, and ring/dash/hatch styling encodes monitoring/reporting status. Include compact layer controls, a useful legend, method/source drawer access, scroll-tour progress, an "Explore freely" escape hatch, and a right-side country detail panel state that appears on selection or scroll beat. The concept must preserve caveats near the claims they qualify: comparative screen, not a ranking of need; Natural Earth land context with centroid score geometry, not official boundaries; reported zero and missing rows are not infrastructure absence. Make it visually polished and competition-ready, but restrained and evidence-bearing. Avoid generic dashboards, decorative gradients, bokeh, cinematic wallpaper, flags as decoration, and any choropleth boundary styling.
 
 ### Mobile Portrait Concept Prompt
 
@@ -640,7 +640,7 @@ Before claiming the app design is implemented:
 
 ## Out Of Scope For V1 Design
 
-- Boundary polygon choropleth.
+- Boundary polygon choropleth for scored geographies.
 - Expanded non-official overlays.
 - New index methodology.
 - JSD/KL similarity as a primary story layer.

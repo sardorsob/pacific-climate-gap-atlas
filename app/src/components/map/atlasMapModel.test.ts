@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Geo } from "../../lib/atlasData";
 import {
+  buildGraticuleFeatureCollection,
   buildAtlasFeatureCollection,
   fitBoundsForPacific,
   markerPaintFor,
@@ -98,5 +99,30 @@ describe("atlas map model", () => {
       [130, -30],
       [240, 20],
     ]);
+  });
+
+  it("builds graticule line features for the Pacific map viewport", () => {
+    const collection = buildGraticuleFeatureCollection({
+      longitudes: [180],
+      latitudes: [0],
+      bounds: [
+        [130, -30],
+        [240, 20],
+      ],
+    });
+
+    expect(collection.features).toHaveLength(2);
+    expect(collection.features[0]).toMatchObject({
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [180, -30],
+          [180, 20],
+        ],
+      },
+      properties: { kind: "longitude", value: 180 },
+    });
+    expect(collection.features[1].properties).toMatchObject({ kind: "latitude", value: 0 });
   });
 });

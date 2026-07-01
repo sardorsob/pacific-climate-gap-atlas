@@ -2,7 +2,7 @@
 
 ## Purpose
 
-You are Claude, joining the Pacific Adaptation Gap Atlas project after the first reviewable mockup, `TASK-025` real app-data wiring, and `TASK-026` MapLibre map substrate.
+You are Claude, joining the Pacific Adaptation Gap Atlas project after the first reviewable mockup, `TASK-025` real app-data wiring, `TASK-026` MapLibre map substrate, and `TASK-029` Natural Earth visual land context.
 
 Your role depends on the assigned task: draft story/interface copy for `TASK-028`, polish visuals for `TASK-027`, or support a later source-reviewed boundary task only if Codex explicitly assigns it. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review visual/copy changes and give approval or critique before final submission readiness.
 
@@ -30,7 +30,7 @@ Do not create a separate landing page. The first screen is the atlas experience,
 
 Do not build a global country leaderboard.
 
-Do not use polygon choropleths. Current geometry is centroid fallback.
+Do not use polygon choropleths. The map has Natural Earth visual land context, but scored/selectable geometry is still centroid fallback.
 
 Do not imply missing monitoring rows mean there is no infrastructure.
 
@@ -49,7 +49,8 @@ The current accepted mockup direction is a scroll-led hybrid atlas. Future Claud
 Current sequencing:
 
 - `TASK-025` real app-data wiring is complete.
-- `TASK-026` MapLibre map substrate is complete as centroid fallback, not polygon boundaries.
+- `TASK-026` MapLibre map substrate is complete as centroid fallback.
+- `TASK-029` Natural Earth land context is complete as visual orientation, not scored/selectable polygon boundaries.
 - `TASK-028` guided story/copy rewrite can be Claude-drafted, but Codex must QA every claim and caveat against the evidence.
 - `TASK-027` final visual polish should wait until `TASK-028` is ready.
 
@@ -95,7 +96,7 @@ Read these files in this order before designing:
 7. `context/DATA_CARD.md`
 8. `context/MODEL_CARD.md`
 9. `context/INFORMATION_DIVERGENCE_PLAN.md`
-10. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, `TASK-024`, `TASK-025`, `TASK-026`, `TASK-027`, and `TASK-028`
+10. `context/TASKS.md`, especially `TASK-006`, `TASK-018`, `TASK-019`, `TASK-020`, `TASK-021`, `TASK-022`, `TASK-023`, `TASK-024`, `TASK-025`, `TASK-026`, `TASK-027`, `TASK-028`, and `TASK-029`
 11. `README.md`
 
 Then inspect the current app scaffold:
@@ -187,7 +188,7 @@ Optional if time permits:
 7. Outlook off/default plus optional gated-on state.
 8. A second visual direction if you think the first direction is too conservative.
 
-For `TASK-028`, focus on React-visible text, claim hierarchy, caveats, and source/method copy. For `TASK-027`, assume the real data and MapLibre map already exist. Do not install MapLibre, replace the map engine, or add polygon boundaries unless Codex explicitly assigns a separate reviewed geometry-source task.
+For `TASK-028`, focus on React-visible text, claim hierarchy, caveats, and source/method copy. For `TASK-027`, assume the real data, MapLibre map, and Natural Earth visual land context already exist. Do not install MapLibre, replace the map engine, or add scored-geography polygon boundaries unless Codex explicitly assigns a separate reviewed geometry-source task.
 
 ## Recommended Implementation Approach
 
@@ -254,7 +255,7 @@ The first viewport must show:
 
 - a Pacific map surface,
 - adaptation gap as the active layer,
-- centroid points,
+- Natural Earth land context plus centroid points,
 - the atlas title or wordmark,
 - a short thesis line,
 - active layer title,
@@ -269,7 +270,7 @@ Do not put the map inside a decorative card. The map is the main surface.
 
 ## Map Mockup Requirements
 
-V1 uses centroid points only.
+V1 uses Natural Earth land context for orientation and centroid points for scored/selectable geographies.
 
 Every point should be able to communicate:
 
@@ -289,7 +290,7 @@ Do not use selection as another data ring. Use a bracket, callout, halo offset, 
 
 Map note somewhere visible or in the legend:
 
-"Centroid fallback, not boundary geometry."
+"Natural Earth land context; scores use centroid fallback, not boundary geometry."
 
 ## Large-Screen Layout Requirements
 
@@ -478,7 +479,7 @@ But you may not fake:
 - the story,
 - the caveats,
 - the distinction between reported-zero and missing monitoring rows,
-- the fact that geometry is centroid fallback,
+- the fact that scored/selectable geometry is centroid fallback,
 - rank fragility,
 - outlook being only a stress test.
 

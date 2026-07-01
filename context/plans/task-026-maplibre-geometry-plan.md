@@ -336,7 +336,7 @@ Modify `AtlasMap.tsx` so it:
 - adds `atlas-points` as a GeoJSON source from `buildAtlasFeatureCollection`;
 - renders MapLibre circle layers for priority halos, data points, selected brackets/halos, and missing-row hatching markers;
 - leaves labels and keyboard-accessible geography buttons in a React overlay using the existing `projectPoint` helper until dedicated MapLibre label collision handling is ready;
-- preserves the map note text, updated to "MapLibre canvas with centroid fallback points. Boundary polygons are not yet joined."
+- preserves the then-current map note text. TASK-029 later updated the note for Natural Earth visual land context while keeping scored geometry centroid-based.
 
 - [x] **Step 3: Update CSS**
 

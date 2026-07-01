@@ -40,7 +40,7 @@
 
 ## TASK-022/TASK-024 Mockup Visual Assumptions (accepted after Codex QA)
 
-- The accepted scroll-led atlas now uses a MapLibre canvas with centroid fallback points. It still does not have reviewed boundary geometry, so the boundary-not-joined caveat must stay visible.
+- The accepted scroll-led atlas now uses a MapLibre canvas with Natural Earth land context under centroid fallback points. It still does not have reviewed scored-geography boundary geometry, so copy must distinguish visual land context from official/selectable boundary polygons.
 - The app now loads generated public data from `/data/geographies.json` through `app/src/lib/atlasData.ts`. `TASK-025` deleted the obsolete static mock fixture after preserving monitoring, rank, story, context, and outlook-display caveats in the app data contract.
 - The selected-anchor "vs Tuvalu" comparator is a labeled suggestion only. It is not an evidence-fingerprint or JSD similarity layer. No similarity layer should be treated as shipped until TASK-019 artifacts are exported to app-ready data and reviewed with caveats in the interface.
 - Direct map labels are limited to the story exemplars to avoid clutter. Subregion labels are descriptive UN M49 orientation, not cultural, political, or boundary claims.

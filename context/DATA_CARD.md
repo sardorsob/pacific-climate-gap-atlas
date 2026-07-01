@@ -121,7 +121,23 @@ python scripts/build_app_data.py --config configs/app_layers.yml
 python scripts/validate_data_contracts.py
 ```
 
-Current output includes 22 geography records, 6 atlas layers, and 18 monitoring overlay features. Geometry is a centroid fallback until a proper boundary join is added, so the first app iteration should style these as point/centroid layers rather than true polygon choropleths.
+Current output includes 22 geography records, 6 atlas layers, and 18 monitoring overlay features. Scored geography geometry remains centroid fallback, so the app should style score layers as point/centroid layers rather than polygon choropleths.
+
+## TASK-029 Land Context Artifacts
+
+The land-context builder now writes:
+
+- `data/processed/app/pacific_land_context.geojson`: compact Pacific land polygons derived from Natural Earth 10m land and shifted into the app's Pacific longitude space.
+- `app/public/data/pacific_land_context.geojson`: public copy consumed by the web app.
+- `artifacts/provenance/land_context_summary.json`: source URL, Natural Earth terms URL, feature counts, output paths, and caveats.
+
+Run command:
+
+```powershell
+python scripts/build_land_context.py
+```
+
+Natural Earth 10m land is public domain. In this project it is a visual land-context layer only. It is not a score input, official territorial boundary source, selectable geography layer, or choropleth geometry.
 
 ## TASK-010 GIS Context Artifacts
 

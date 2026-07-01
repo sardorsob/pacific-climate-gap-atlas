@@ -29,11 +29,11 @@ The score table includes `included_indicator_count`, `available_pillars`, `missi
 
 ## Map Geometry Policy
 
-The app map currently uses MapLibre as the interactive canvas and renders the generated geography records as centroid point features. The source geometry policy remains `centroid_fallback_until_boundary_join`.
+The app map currently uses MapLibre as the interactive canvas, renders the generated geography records as centroid point features, and places a Natural Earth 10m land layer underneath as visual context. The scored geography source geometry policy remains `centroid_fallback_until_boundary_join`.
 
 Centroids support orientation, selection, comparison, and layer encoding. They are not official boundaries and should not be used for area, adjacency, coastline, territorial extent, or choropleth claims.
 
-Reviewed polygon boundaries require a separate source and license review before publication. Until then, visible app copy should continue to say that boundary polygons are not yet joined.
+The Natural Earth layer helps readers see island/land shapes, but it is generalized public-domain context, not the official boundary geometry for the 22 scored geographies. Reviewed scored-geography boundaries would still require a separate source and geopolitical wording review before publication.
 
 ## Caveats
 
@@ -42,7 +42,7 @@ Reviewed polygon boundaries require a separate source and license review before 
 - Capacity indicators are proxies and do not fully measure adaptation readiness.
 - Responsibility-context indicators are included in the trace table but not in the pressure-minus-capacity score.
 - Rankings are sensitive to latest-year availability and should be treated as prompts for exploration, not definitive classifications.
-- Map geometry is centroid fallback, even though the frontend now uses MapLibre.
+- Scored map geometry is centroid fallback, even though the frontend now uses MapLibre and a visual Natural Earth land-context layer.
 
 ## EDA Interpretation Tables
 

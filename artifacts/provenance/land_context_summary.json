@@ -1,0 +1,30 @@
+{
+  "source": "Natural Earth 10m land",
+  "source_url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_land.geojson",
+  "source_page": "https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/",
+  "terms_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "license_status": "public_domain",
+  "geometry_policy": "natural_earth_visual_land_context",
+  "score_input_role": "visual_context_only_not_score_input",
+  "source_features": 11,
+  "features_written": 1305,
+  "bounds_shifted_lonlat": [
+    [
+      120.0,
+      -36.0
+    ],
+    [
+      250.0,
+      26.0
+    ]
+  ],
+  "outputs": {
+    "processed": "data\\processed\\app\\pacific_land_context.geojson",
+    "public": "app\\public\\data\\pacific_land_context.geojson"
+  },
+  "caveats": [
+    "Visual land context only; not a scored or selectable geography boundary layer.",
+    "Natural Earth 10m land is generalized and should not be used for territorial precision.",
+    "Atlas scores and selections remain tied to generated centroid geography records."
+  ]
+}

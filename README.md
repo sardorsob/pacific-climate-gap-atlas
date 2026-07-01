@@ -58,7 +58,7 @@ app/public/data/
 Important caveats:
 
 - The Adaptation Gap Index is a comparative screen, not a definitive rank of need or vulnerability.
-- Current map geometry uses a MapLibre canvas with centroid fallback points, not official boundaries.
+- Current map geometry uses a MapLibre canvas with Natural Earth land context under centroid fallback points; scored geographies are not official boundary polygons.
 - Missing monitoring rows mean a reporting gap in the processed official data, not confirmed absence of infrastructure.
 - Outlook outputs are stress-test context, not forecasts.
 
@@ -149,6 +149,12 @@ python scripts/build_app_data.py --config configs/app_layers.yml
 python scripts/validate_data_contracts.py
 ```
 
+Build the Pacific land-context basemap:
+
+```powershell
+python scripts/build_land_context.py
+```
+
 Run EDA:
 
 ```powershell
@@ -175,9 +181,10 @@ Current implementation order:
 
 1. `TASK-025` wire public/generated app data into the atlas view model. Done.
 2. `TASK-026` add MapLibre map substrate with centroid fallback. Done.
-3. `TASK-028` rewrite the guided story, caveats, and interface copy.
-4. `TASK-027` polish the production visuals after the MapLibre map and revised story exist.
-5. `TASK-007` finish methodology, accessibility, deployment, and submission readiness.
+3. `TASK-029` add Natural Earth Pacific land context and MapLibre graticule lines. Done.
+4. `TASK-028` rewrite the guided story, caveats, and interface copy.
+5. `TASK-027` polish the production visuals after the MapLibre map and revised story exist.
+6. `TASK-007` finish methodology, accessibility, deployment, and submission readiness.
 
 ## Current Frame
 
@@ -187,7 +194,7 @@ Target artifact: an interactive GIS-style web atlas for the Pacific Dataviz Chal
 
 Primary experience:
 
-- guided 7-beat scroll atlas over a full-bleed MapLibre Pacific map,
+- guided 7-beat scroll atlas over a full-bleed MapLibre Pacific map with visual land context,
 - persistent "Explore freely" handoff into the full atlas controls,
 - adaptation gap, pressure, capacity, monitoring/data visibility, and rank-fragility views,
 - selected geography detail panel,

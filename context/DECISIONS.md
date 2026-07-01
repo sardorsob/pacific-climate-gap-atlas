@@ -173,3 +173,11 @@ TASK-026 replaces the SVG-only map surface with a MapLibre-backed Pacific canvas
 Reviewed polygon boundaries are not shipped in this task. Boundary data requires a separate source, license, geopolitical wording, and methodology review before any island or territory polygons can appear.
 
 Reason: MapLibre gives the app a real GIS interaction substrate now, but the current official app data only supports centroid geometry. The atlas should improve spatial feel without implying boundary precision we have not sourced.
+
+## 2026-07-01: Add Natural Earth Land Context Without Changing Scored Geometry
+
+TASK-029 adds Natural Earth 10m land as a low-contrast visual land-context layer under the atlas points. The layer is public domain, clipped to the Pacific map extent, shifted into the app's antimeridian-aware longitude space, and documented in `artifacts/provenance/land_context_summary.json`.
+
+The layer is not a score input, official territorial boundary source, selectable geography layer, or polygon choropleth. Scored geographies remain centroid features generated from the official-data pipeline. TASK-029 also moves graticule linework into MapLibre so the grid appears on initial render instead of waiting for map movement.
+
+Reason: the owner wanted the islands themselves to be visible, not only dots. Natural Earth improves spatial orientation and visual credibility while preserving the evidence contract that rankings, selections, and caveats attach to centroid records rather than boundary polygons.
