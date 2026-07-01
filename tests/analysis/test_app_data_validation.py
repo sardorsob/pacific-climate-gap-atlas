@@ -39,6 +39,10 @@ class AppDataValidationTests(unittest.TestCase):
             broken_geographies = _valid_geographies()
             del broken_geographies["geographies"][0]["centroid"]["lat"]
             del broken_geographies["geographies"][0]["source_refs"]["indicator_trace"]
+            del broken_geographies["geographies"][0]["monitoring"]["reporting_status"]
+            del broken_geographies["geographies"][0]["rank"]["rank_range"]
+            del broken_geographies["geographies"][0]["story"]["story_label"]
+            del broken_geographies["geographies"][0]["context"]["subregion"]
             broken_layers = _valid_layers()
             broken_layers["layers"] = broken_layers["layers"][:-1]
             del broken_layers["layers"][0]["fields"]
@@ -51,6 +55,10 @@ class AppDataValidationTests(unittest.TestCase):
 
             self.assertIn("geographies[0].centroid missing required field: lat", errors)
             self.assertIn("geographies[0].source_refs missing required field: indicator_trace", errors)
+            self.assertIn("geographies[0].monitoring missing required field: reporting_status", errors)
+            self.assertIn("geographies[0].rank missing required field: rank_range", errors)
+            self.assertIn("geographies[0].story missing required field: story_label", errors)
+            self.assertIn("geographies[0].context missing required field: subregion", errors)
             self.assertIn("layers[0] missing required field: fields", errors)
             self.assertIn("layers missing required id: outlook_2050_flat", errors)
 
@@ -107,6 +115,49 @@ def _valid_geographies() -> dict[str, object]:
                 "source_refs": {
                     "index": "data/processed/gap_index.csv",
                     "indicator_trace": "data/processed/indicator_trace.csv",
+                },
+                "monitoring": {
+                    "reporting_status": "reported_positive_latest_count",
+                    "latest_value": 3.0,
+                    "latest_year": 2026,
+                    "observation_count": 12,
+                    "story_priority_rank": 4,
+                    "story_priority": "supporting_context",
+                    "monitoring_quadrant": "lower gap / reported monitoring",
+                    "proxy_caveat": "Monitoring count is proxy coverage.",
+                    "missing_reporting_caveat": "",
+                },
+                "rank": {
+                    "scenario_rank_min": 1,
+                    "scenario_rank_max": 5,
+                    "rank_range": 4,
+                    "robustness_label": "fragile",
+                    "rank_caveat": "Rank movement frames uncertainty.",
+                },
+                "story": {
+                    "story_label": "Mixed gap",
+                    "story_priority": "supporting",
+                    "evidence_density_label": "broad indicator evidence",
+                    "top_pressure_signals": [{"label": "Rainfall anomalies", "score": 70.0}],
+                    "top_capacity_signals": [{"label": "Power generation", "score": 60.0}],
+                    "non_causal_caveat": "Descriptive screen only.",
+                },
+                "context": {
+                    "subregion": "Melanesia",
+                    "political_status": "Sovereign state",
+                    "island_group_or_region_note": "Example",
+                    "context_quality": "source_supported",
+                    "regional_context_caveat": "Descriptive context only.",
+                },
+                "outlook_display": {
+                    "2030": {
+                        "capacity_flat": {
+                            "display_recommendation": "show",
+                            "diagnostic_quality_label": "supported",
+                            "projection_fragility_label": "lower",
+                            "caveat": "stress-test interpretation; not a forecast",
+                        }
+                    }
                 },
             }
         ],

@@ -173,7 +173,7 @@ The current app is still a mockup and not the final competition submission.
 
 Current implementation order:
 
-1. `TASK-025` wire public/generated app data into the atlas view model.
+1. `TASK-025` wire public/generated app data into the atlas view model. Done.
 2. `TASK-026` add MapLibre and reviewed island geometry with centroid fallback.
 3. `TASK-028` rewrite the guided story, caveats, and interface copy.
 4. `TASK-027` polish the production visuals after the real map exists.

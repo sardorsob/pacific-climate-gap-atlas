@@ -1,4 +1,4 @@
-import type { Geo } from "../mock/mockAtlasData";
+import type { Geo } from "../lib/atlasData";
 import { rankChipText } from "../lib/encoding";
 
 // Never show a bare rank: this chip pairs the rank range with a robustness tag.

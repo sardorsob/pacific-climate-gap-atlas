@@ -2,6 +2,8 @@
 
 Date: 2026-06-30
 
+Status: Implemented by `TASK-025`. This file remains as the historical mock-to-public-data mapping and risk inventory that guided the real app-data wiring.
+
 Scope: documentation-only inventory for replacing `app/src/mock/mockAtlasData.ts` with public app data, while preserving the current mockup's caveats and visual states. No app source, public data, generated artifacts, or shared task/status files were changed for this note.
 
 ## Current UI Data Shape

@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from "react";
-import type { Geo } from "../../mock/mockAtlasData";
-import { LABEL_OFFSETS, PRIORITY_ONE, STORY_EXEMPLARS, SUBREGION_ANCHORS } from "../../mock/mockAtlasData";
+import type { Geo } from "../../lib/atlasData";
+import { LABEL_OFFSETS, STORY_EXEMPLARS, SUBREGION_ANCHORS } from "../../lib/atlasData";
 import type { ScoreKey } from "../../lib/encoding";
 import {
   radiusFor,
@@ -23,6 +23,7 @@ type AtlasMapProps = {
   outlookOn: boolean;
   selectedCode: string | null;
   compareCode: string | null;
+  priorityCodes: string[];
   onSelect: (code: string) => void;
   activeLayerLabel: string;
 };
@@ -51,13 +52,14 @@ export function AtlasMap({
   outlookOn,
   selectedCode,
   compareCode,
+  priorityCodes,
   onSelect,
   activeLayerLabel,
 }: AtlasMapProps) {
   const hasSelection = selectedCode !== null;
 
   // Which geographies carry a direct map label.
-  const labelCodes = new Set<string>(viewMode === "coverage" ? PRIORITY_ONE : STORY_EXEMPLARS);
+  const labelCodes = new Set<string>(viewMode === "coverage" ? priorityCodes : STORY_EXEMPLARS);
   if (selectedCode) labelCodes.add(selectedCode);
   if (selectedCode && compareCode && compareCode !== selectedCode) labelCodes.add(compareCode);
 
@@ -139,7 +141,7 @@ export function AtlasMap({
           const variant = ringVariant(geo.reportingStatus);
           const fill = fillFor(geo, activeScore, viewMode, outlookOn);
           const isSelected = geo.code === selectedCode;
-          const isPriority = viewMode === "coverage" && PRIORITY_ONE.includes(geo.code);
+          const isPriority = viewMode === "coverage" && priorityCodes.includes(geo.code);
           const withheld = outlookOn && geo.outlookDisplay === "withhold";
           const dimmed =
             (hasSelection && !isSelected && geo.code !== compareCode) ||

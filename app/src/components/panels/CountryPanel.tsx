@@ -1,12 +1,11 @@
 import { ArrowLeftRight, X } from "lucide-react";
-import type { Geo } from "../../mock/mockAtlasData";
-import { getGeo } from "../../mock/mockAtlasData";
+import type { Geo } from "../../lib/atlasData";
 import { reportingCaveat, reportingLabel } from "../../lib/encoding";
 import { RankChip } from "../RankChip";
 
 type CountryPanelProps = {
   geo: Geo | null;
-  compareCode: string | null;
+  compareGeo: Geo | null;
   onClose: () => void;
   onCompare: (code: string) => void;
   onOpenMethod: () => void;
@@ -60,7 +59,7 @@ function PillarBar({ label, value, kind, caveat }: { label: string; value: numbe
   );
 }
 
-export function CountryPanel({ geo, compareCode, onClose, onCompare, onOpenMethod }: CountryPanelProps) {
+export function CountryPanel({ geo, compareGeo, onClose, onCompare, onOpenMethod }: CountryPanelProps) {
   if (!geo) {
     return (
       <aside className="panel panel--intro" aria-label="Atlas detail panel">
@@ -80,7 +79,7 @@ export function CountryPanel({ geo, compareCode, onClose, onCompare, onOpenMetho
     );
   }
 
-  const compare = compareCode ? getGeo(compareCode) : null;
+  const compare = compareGeo;
   const reportingTone =
     geo.reportingStatus === "reported_positive_latest_count" ? "ok" : "warn";
 

@@ -2,11 +2,11 @@
 
 ## Immediate Next Step
 
-Use the completed `TASK-018` story/design briefs, the `TASK-020` Dataviz Inspiration audit, `context/plans/app-data-wiring-inventory.md`, and the TASK-019 divergence artifacts. The analysis lanes through TASK-019 are complete, and the next build gate is `TASK-025` app-data wiring.
+Use the completed `TASK-018` story/design briefs, the `TASK-020` Dataviz Inspiration audit, `context/plans/app-data-wiring-inventory.md`, and the TASK-019 divergence artifacts. The analysis lanes through TASK-019 are complete, `TASK-025` app-data wiring is complete, and the next build gate is `TASK-026` MapLibre/island geometry.
 
 ## Next Build Step
 
-Follow the new `TASK-006` child-task order: `TASK-025` data wiring, `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, then `TASK-027` final visual polish. If the Evidence Fingerprint Divergence layer ships in V1, export compact app-ready similarity data from the TASK-019 artifacts and keep the interface selected-geography anchored.
+Follow the remaining `TASK-006` child-task order: `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, then `TASK-027` final visual polish. If the Evidence Fingerprint Divergence layer ships in V1, export compact app-ready similarity data from the TASK-019 artifacts and keep the interface selected-geography anchored.
 
 ## Current Evidence Snapshot
 

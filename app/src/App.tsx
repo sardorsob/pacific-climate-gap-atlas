@@ -12,9 +12,13 @@ import { BEATS, type Beat } from "./lib/tour";
 import { atlasLayers } from "./lib/layers";
 import type { ScoreKey } from "./lib/encoding";
 import type { ViewMode } from "./lib/types";
-import { ATLAS_GEOS, COMPARE_SUGGESTION, getGeo, PRIORITY_ONE, type Geo } from "./mock/mockAtlasData";
-
-const PRIORITY_COUNT = ATLAS_GEOS.filter((g) => g.storyPriority === 1).length;
+import {
+  COMPARE_SUGGESTION,
+  getGeo,
+  loadAtlasData,
+  priorityOneCodes,
+  type Geo,
+} from "./lib/atlasData";
 
 function monShort(geo: Geo): string {
   if (geo.reportingStatus === "reported_positive_latest_count") return "Reported";
@@ -41,6 +45,8 @@ function MiniProfile({ geo }: { geo: Geo }) {
 }
 
 export function App() {
+  const [geos, setGeos] = useState<Geo[]>([]);
+  const [dataError, setDataError] = useState<string | null>(null);
   const [mode, setMode] = useState<"guided" | "explore">("guided");
   const [beatIndex, setBeatIndex] = useState(0);
 
@@ -52,8 +58,25 @@ export function App() {
   const [sheetExpanded, setSheetExpanded] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
 
+  useEffect(() => {
+    let cancelled = false;
+    loadAtlasData()
+      .then((loaded) => {
+        if (!cancelled) setGeos(loaded);
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setDataError(error instanceof Error ? error.message : "Failed to load atlas data");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const activeLayer = atlasLayers.find((l) => l.id === activeScore) ?? atlasLayers[0];
-  const selectedGeo = selectedCode ? getGeo(selectedCode) ?? null : null;
+  const selectedGeo = selectedCode ? getGeo(geos, selectedCode) ?? null : null;
+  const compareGeo = getGeo(geos, COMPARE_SUGGESTION) ?? null;
+  const priorityCodes = priorityOneCodes(geos);
+  const priorityCount = priorityCodes.length;
   const panelOpen = mode === "explore" && (selectedGeo !== null || viewMode === "coverage");
   const controlsVisible = mode === "explore";
 
@@ -75,6 +98,25 @@ export function App() {
     if (s.outlook !== undefined) setOutlookOn(s.outlook);
     if (s.selected !== undefined) setSelectedCode(s.selected);
   }, [beatIndex, mode]);
+
+  if (dataError) {
+    return (
+      <div className="app-state" role="alert">
+        <p className="eyebrow">Atlas data unavailable</p>
+        <h1>Could not load the generated app data.</h1>
+        <p>{dataError}</p>
+      </div>
+    );
+  }
+
+  if (geos.length === 0) {
+    return (
+      <div className="app-state" role="status">
+        <p className="eyebrow">Pacific Adaptation Gap Atlas</p>
+        <h1>Loading atlas data...</h1>
+      </div>
+    );
+  }
 
   const handleSelect = (code: string) => {
     setSelectedCode(code);
@@ -127,8 +169,8 @@ export function App() {
       );
     }
     if (beat.id === "anchor") {
-      const nr = getGeo("NR");
-      const tv = getGeo("TV");
+      const tv = getGeo(geos, "TV");
+      const nauru = getGeo(geos, "NR");
       return (
         <div className="beat-compare">
           <div className="seg-inline" role="group" aria-label="Anchor geography">
@@ -136,7 +178,7 @@ export function App() {
             <button type="button" aria-pressed={selectedCode === "TV"} onClick={() => setSelectedCode("TV")}>Tuvalu</button>
           </div>
           <div className="beat-compare__grid">
-            {nr && <MiniProfile geo={nr} />}
+            {nauru && <MiniProfile geo={nauru} />}
             {tv && <MiniProfile geo={tv} />}
           </div>
         </div>
@@ -154,8 +196,8 @@ export function App() {
             </span>
           </div>
           <div className="quiet-mini__chips">
-            {PRIORITY_ONE.map((code) => {
-              const g = getGeo(code);
+            {priorityCodes.map((code) => {
+              const g = getGeo(geos, code);
               if (!g) return null;
               const kind = g.reportingStatus === "reported_zero_latest_count" ? "zero" : "missing";
               return (
@@ -175,7 +217,7 @@ export function App() {
       );
     }
     if (beat.id === "fingerprint") {
-      return <FingerprintPreview />;
+      return <FingerprintPreview geos={geos} />;
     }
     if (beat.id === "explore") {
       return (
@@ -189,11 +231,11 @@ export function App() {
 
   const panelContent =
     viewMode === "coverage" && !selectedGeo ? (
-      <DataQuietCallout onPick={handleSelect} />
+      <DataQuietCallout geos={geos} priorityCodes={priorityCodes} onPick={handleSelect} />
     ) : (
       <CountryPanel
         geo={selectedGeo}
-        compareCode={COMPARE_SUGGESTION}
+        compareGeo={compareGeo}
         onClose={closePanel}
         onCompare={handleSelect}
         onOpenMethod={() => setDrawerOpen(true)}
@@ -207,12 +249,13 @@ export function App() {
     <div className={shellClass}>
       <div className="atlas-map-region">
         <AtlasMap
-          geos={ATLAS_GEOS}
+          geos={geos}
           activeScore={activeScore}
           viewMode={viewMode}
           outlookOn={outlookOn}
           selectedCode={selectedCode}
           compareCode={COMPARE_SUGGESTION}
+          priorityCodes={priorityCodes}
           onSelect={handleSelect}
           activeLayerLabel={meta.title}
         />
@@ -261,8 +304,8 @@ export function App() {
 
         {mode === "explore" && (
           <div className="dock dock--metrics" role="status">
-            <span className="metric"><b>{ATLAS_GEOS.length}</b> geographies</span>
-            <span className="metric metric--flag"><b>{PRIORITY_COUNT}</b> high-gap / low-monitoring</span>
+            <span className="metric"><b>{geos.length}</b> geographies</span>
+            <span className="metric metric--flag"><b>{priorityCount}</b> high-gap / low-monitoring</span>
             {!panelOpen && <span className="metric metric--hint">Select a point to inspect</span>}
           </div>
         )}

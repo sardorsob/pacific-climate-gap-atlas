@@ -4,7 +4,7 @@
 
 Task: `TASK-018`
 
-Status: semantic design brief plus accepted mockup direction. The current app mockup implements the scroll-led hybrid as a reviewable concept; remaining production work is split into `TASK-025` app-data wiring, `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, and `TASK-027` final visual polish.
+Status: semantic design brief plus accepted mockup direction. The current app implements the scroll-led hybrid as a reviewable concept and is wired to generated app data; remaining production work is split into `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, and `TASK-027` final visual polish.
 
 Design skill basis:
 
@@ -23,7 +23,7 @@ Concept approval status:
 - Large-screen mockup concept: implemented for review.
 - Mobile portrait mockup concept: implemented for review.
 - Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
-- Production gates: real app-data wiring, MapLibre/geometry, improved story copy, and final polish remain open before `TASK-006` can close.
+- Production gates: MapLibre/geometry, improved story copy, and final polish remain open before `TASK-006` can close.
 
 Future visual changes should preserve the accepted scroll-led mockup unless the project owner explicitly rejects that direction.
 

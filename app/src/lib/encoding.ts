@@ -3,7 +3,7 @@
 // score magnitude is COLOR, evidence density is SIZE, reporting status is the
 // RING/PATTERN. Missingness is never communicated by color alone.
 
-import type { Geo, ReportingStatus } from "../mock/mockAtlasData";
+import type { Geo, ReportingStatus } from "./atlasData";
 
 export type ScoreKey = "gap" | "pressure" | "capacity";
 

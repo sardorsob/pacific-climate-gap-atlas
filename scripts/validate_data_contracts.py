@@ -26,9 +26,47 @@ REQUIRED_GEOGRAPHY_FIELDS = (
     "included_indicator_count",
     "missingness_flag",
     "source_refs",
+    "monitoring",
+    "rank",
+    "story",
+    "context",
+    "outlook_display",
 )
 REQUIRED_CENTROID_FIELDS = ("lon", "lat")
 REQUIRED_SOURCE_REF_FIELDS = ("index", "indicator_trace")
+REQUIRED_MONITORING_FIELDS = (
+    "reporting_status",
+    "latest_value",
+    "latest_year",
+    "observation_count",
+    "story_priority_rank",
+    "story_priority",
+    "monitoring_quadrant",
+    "proxy_caveat",
+    "missing_reporting_caveat",
+)
+REQUIRED_RANK_FIELDS = (
+    "scenario_rank_min",
+    "scenario_rank_max",
+    "rank_range",
+    "robustness_label",
+    "rank_caveat",
+)
+REQUIRED_STORY_FIELDS = (
+    "story_label",
+    "story_priority",
+    "evidence_density_label",
+    "top_pressure_signals",
+    "top_capacity_signals",
+    "non_causal_caveat",
+)
+REQUIRED_CONTEXT_FIELDS = (
+    "subregion",
+    "political_status",
+    "island_group_or_region_note",
+    "context_quality",
+    "regional_context_caveat",
+)
 REQUIRED_LAYER_FIELDS = ("id", "label", "type", "source_file", "fields")
 REQUIRED_LAYER_IDS = (
     "adaptation_gap",
@@ -119,6 +157,26 @@ def _validate_geographies(payload: object) -> list[str]:
         elif "source_refs" in geography:
             errors.append(f"{label}.source_refs must be an object")
 
+        errors.extend(
+            _validate_nested_object(
+                geography, "monitoring", REQUIRED_MONITORING_FIELDS, f"{label}.monitoring"
+            )
+        )
+        errors.extend(
+            _validate_nested_object(geography, "rank", REQUIRED_RANK_FIELDS, f"{label}.rank")
+        )
+        errors.extend(
+            _validate_nested_object(geography, "story", REQUIRED_STORY_FIELDS, f"{label}.story")
+        )
+        errors.extend(
+            _validate_nested_object(
+                geography, "context", REQUIRED_CONTEXT_FIELDS, f"{label}.context"
+            )
+        )
+        outlook_display = geography.get("outlook_display")
+        if "outlook_display" in geography and not isinstance(outlook_display, dict):
+            errors.append(f"{label}.outlook_display must be an object")
+
     return errors
 
 
@@ -177,6 +235,20 @@ def _validate_public_copy(base: Path, file_name: str, *, require_processed: bool
 
 def _require_fields(payload: dict[str, object], fields: tuple[str, ...], label: str) -> list[str]:
     return [f"{label} missing required field: {field}" for field in fields if field not in payload]
+
+
+def _validate_nested_object(
+    payload: dict[str, object],
+    field: str,
+    required_fields: tuple[str, ...],
+    label: str,
+) -> list[str]:
+    value = payload.get(field)
+    if isinstance(value, dict):
+        return _require_fields(value, required_fields, label)
+    if field in payload:
+        return [f"{label} must be an object"]
+    return []
 
 
 def _relative_label(path: Path, base: Path) -> str:

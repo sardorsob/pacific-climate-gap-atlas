@@ -29,6 +29,11 @@ DEFAULT_TRACE = ROOT / "artifacts" / "tables" / "adaptation_gap_indicator_trace.
 DEFAULT_LOOKUP = ROOT / "data" / "processed" / "geography_lookup.csv"
 DEFAULT_OBSERVATIONS = ROOT / "data" / "processed" / "official_observations.csv"
 DEFAULT_OUTLOOK = ROOT / "artifacts" / "tables" / "adaptation_gap_outlook.csv"
+DEFAULT_MONITORING_GAP = ROOT / "artifacts" / "tables" / "eda_monitoring_gap.csv"
+DEFAULT_RANK_VOLATILITY = ROOT / "artifacts" / "tables" / "eda_rank_volatility.csv"
+DEFAULT_COUNTRY_STORY = ROOT / "artifacts" / "tables" / "eda_country_story_labels.csv"
+DEFAULT_SPATIAL_TYPOLOGIES = ROOT / "artifacts" / "tables" / "eda_spatial_typologies.csv"
+DEFAULT_OUTLOOK_INTERPRETATION = ROOT / "artifacts" / "tables" / "eda_outlook_interpretation.csv"
 DEFAULT_PROCESSED_APP_DIR = ROOT / "data" / "processed" / "app"
 DEFAULT_PUBLIC_DATA_DIR = ROOT / "app" / "public" / "data"
 DEFAULT_SUMMARY_OUTPUT = ROOT / "artifacts" / "provenance" / "app_data_summary.json"
@@ -42,6 +47,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--geography-lookup", type=Path, default=DEFAULT_LOOKUP)
     parser.add_argument("--observations", type=Path, default=DEFAULT_OBSERVATIONS)
     parser.add_argument("--outlook", type=Path, default=DEFAULT_OUTLOOK)
+    parser.add_argument("--monitoring-gap", type=Path, default=DEFAULT_MONITORING_GAP)
+    parser.add_argument("--rank-volatility", type=Path, default=DEFAULT_RANK_VOLATILITY)
+    parser.add_argument("--country-story", type=Path, default=DEFAULT_COUNTRY_STORY)
+    parser.add_argument("--spatial-typologies", type=Path, default=DEFAULT_SPATIAL_TYPOLOGIES)
+    parser.add_argument("--outlook-interpretation", type=Path, default=DEFAULT_OUTLOOK_INTERPRETATION)
     parser.add_argument("--processed-app-dir", type=Path, default=DEFAULT_PROCESSED_APP_DIR)
     parser.add_argument("--public-data-dir", type=Path, default=DEFAULT_PUBLIC_DATA_DIR)
     parser.add_argument("--summary-output", type=Path, default=DEFAULT_SUMMARY_OUTPUT)
@@ -55,6 +65,11 @@ def export_app_data(
     lookup_path: Path,
     observations_path: Path,
     outlook_path: Path,
+    monitoring_gap_path: Path,
+    rank_volatility_path: Path,
+    country_story_path: Path,
+    spatial_typologies_path: Path,
+    outlook_interpretation_path: Path,
     config_path: Path,
     processed_app_dir: Path,
     public_data_dir: Path,
@@ -67,8 +82,22 @@ def export_app_data(
     lookup = pd.read_csv(lookup_path)
     observations = pd.read_csv(observations_path)
     outlook = pd.read_csv(outlook_path)
+    monitoring_gap = pd.read_csv(monitoring_gap_path)
+    rank_volatility = pd.read_csv(rank_volatility_path)
+    country_story = pd.read_csv(country_story_path)
+    spatial_typologies = pd.read_csv(spatial_typologies_path)
+    outlook_interpretation = pd.read_csv(outlook_interpretation_path)
 
-    records = build_geography_records(index=index, lookup=lookup, outlook=outlook)
+    records = build_geography_records(
+        index=index,
+        lookup=lookup,
+        outlook=outlook,
+        monitoring=monitoring_gap,
+        rank=rank_volatility,
+        story=country_story,
+        spatial=spatial_typologies,
+        outlook_display=outlook_interpretation,
+    )
     geographies_payload = build_geographies_payload(records)
     atlas_geojson = build_atlas_geojson(records)
     monitoring_geojson = build_monitoring_geojson(observations)
@@ -109,6 +138,11 @@ def export_app_data(
             "geography_lookup": lookup_path.relative_to(ROOT).as_posix(),
             "observations": observations_path.relative_to(ROOT).as_posix(),
             "outlook": outlook_path.relative_to(ROOT).as_posix(),
+            "monitoring_gap": monitoring_gap_path.relative_to(ROOT).as_posix(),
+            "rank_volatility": rank_volatility_path.relative_to(ROOT).as_posix(),
+            "country_story": country_story_path.relative_to(ROOT).as_posix(),
+            "spatial_typologies": spatial_typologies_path.relative_to(ROOT).as_posix(),
+            "outlook_interpretation": outlook_interpretation_path.relative_to(ROOT).as_posix(),
         },
         "geometry_policy": "centroid_fallback_until_boundary_join",
         "summary_output": summary_output.relative_to(ROOT).as_posix(),
@@ -179,6 +213,27 @@ def main() -> int:
         ROOT / args.observations if not args.observations.is_absolute() else args.observations
     )
     outlook_path = ROOT / args.outlook if not args.outlook.is_absolute() else args.outlook
+    monitoring_gap_path = (
+        ROOT / args.monitoring_gap if not args.monitoring_gap.is_absolute() else args.monitoring_gap
+    )
+    rank_volatility_path = (
+        ROOT / args.rank_volatility
+        if not args.rank_volatility.is_absolute()
+        else args.rank_volatility
+    )
+    country_story_path = (
+        ROOT / args.country_story if not args.country_story.is_absolute() else args.country_story
+    )
+    spatial_typologies_path = (
+        ROOT / args.spatial_typologies
+        if not args.spatial_typologies.is_absolute()
+        else args.spatial_typologies
+    )
+    outlook_interpretation_path = (
+        ROOT / args.outlook_interpretation
+        if not args.outlook_interpretation.is_absolute()
+        else args.outlook_interpretation
+    )
     processed_app_dir = (
         ROOT / args.processed_app_dir
         if not args.processed_app_dir.is_absolute()
@@ -197,6 +252,11 @@ def main() -> int:
         lookup_path=lookup_path,
         observations_path=observations_path,
         outlook_path=outlook_path,
+        monitoring_gap_path=monitoring_gap_path,
+        rank_volatility_path=rank_volatility_path,
+        country_story_path=country_story_path,
+        spatial_typologies_path=spatial_typologies_path,
+        outlook_interpretation_path=outlook_interpretation_path,
         config_path=config_path,
         processed_app_dir=processed_app_dir,
         public_data_dir=public_data_dir,

@@ -2,11 +2,11 @@
 
 ## Purpose
 
-You are Claude, joining the Pacific Adaptation Gap Atlas project for the visual mockup revision phase after `TASK-018`, `TASK-020`, and the first reviewable mockup.
+You are Claude, joining the Pacific Adaptation Gap Atlas project after the first reviewable mockup and `TASK-025` real app-data wiring.
 
-Your role for this phase is builder/designer for `TASK-022`. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review the mockups visually and give approval or critique before implementation planning continues.
+Your role depends on the assigned task: support Codex on `TASK-026` only after the MapLibre/data contract is stable, draft story/interface copy for `TASK-028`, or polish visuals for `TASK-027`. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review visual/copy changes and give approval or critique before final submission readiness.
 
-Your goal is to revise the existing React/Vite mockup into a more polished, reviewable atlas experience. The mockup does not need full production data wiring. It does need to make the story, layout, interaction states, caveats, and mobile treatment visible enough for critique.
+Your goal is to refine the existing React/Vite guided atlas without breaking the generated public-data wiring. The app now loads `/data/geographies.json` through `app/src/lib/atlasData.ts`; do not reintroduce static evidence fixtures.
 
 Update after the 2026-06-30 winner audit: the next visual direction should explore a scroll-led hybrid. Keep the existing atlas implementation as the map/control core, but make guided scroll the default reading path and preserve free exploration as an escape hatch and final mode. Read `context/WINNER_SCROLL_TOUR_AUDIT.md` before proposing or editing any scroll-tour mockup.
 
@@ -48,10 +48,10 @@ The current accepted mockup direction is a scroll-led hybrid atlas. Future Claud
 
 Current sequencing:
 
-- `TASK-025` real app-data wiring is Codex-led.
-- `TASK-026` MapLibre/island geometry is Codex-led; Claude can help visual refinement only after Codex stabilizes the data/map contract.
+- `TASK-025` real app-data wiring is complete.
+- `TASK-026` MapLibre/island geometry is Codex-led; Claude can help visual refinement only after Codex stabilizes the map contract.
 - `TASK-028` guided story/copy rewrite can be Claude-drafted, but Codex must QA every claim and caveat against the evidence.
-- `TASK-027` final visual polish should wait until `TASK-025`, `TASK-026`, and `TASK-028` are ready.
+- `TASK-027` final visual polish should wait until `TASK-026` and `TASK-028` are ready.
 
 Your expected revision targets, when assigned to story or polish work, are:
 
@@ -199,16 +199,12 @@ Prefer editing or adding files under:
 - `app/src/components/...`
 - `app/src/lib/...`
 
-If useful, add mockup-only helpers under:
+Use the generated app-data adapter for evidence-bearing geography records:
 
-- `app/src/mock/`
+- `app/src/lib/atlasData.ts`
+- `app/public/data/geographies.json`
 
-Examples:
-
-- `app/src/mock/mockAtlasPoints.ts`
-- `app/src/mock/mockStoryData.ts`
-
-Use real exemplar values where practical, but do not overbuild a data pipeline. For this phase, a small static fixture with NR, TV, AS, PN, MH, FJ, and WF is enough if it makes the visual states reviewable.
+Do not add new static geography fixtures under `app/src/mock/`.
 
 Do not modify:
 
@@ -526,13 +522,13 @@ Good file targets:
 - `app/src/components/controls/LayerControls.tsx`
 - `app/src/components/panels/CountryPanel.tsx`
 - new `app/src/components/...` files for legend, method drawer, tour, or mockup panels
-- new `app/src/mock/...` files for sample data
+- `app/src/lib/atlasData.ts` only when the generated data adapter itself needs a scoped display helper
 
 Avoid touching:
 
 - Python analysis files,
 - EDA generation scripts,
-- generated data/artifacts,
+- generated data/artifacts unless Codex explicitly assigns an app-data or QA task,
 - repo workflow files,
 - package files,
 - git config,

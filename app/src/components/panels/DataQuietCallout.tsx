@@ -1,12 +1,20 @@
 import { HelpCircle } from "lucide-react";
-import { ATLAS_GEOS, PRIORITY_ONE } from "../../mock/mockAtlasData";
+import type { Geo } from "../../lib/atlasData";
 
 // Shown in the "Where the data goes quiet" view when nothing is selected.
 // Makes data absence an inspectable finding, never "no data = no infrastructure".
-export function DataQuietCallout({ onPick }: { onPick: (code: string) => void }) {
-  const zero = ATLAS_GEOS.filter((g) => g.reportingStatus === "reported_zero_latest_count");
-  const missing = ATLAS_GEOS.filter((g) => g.reportingStatus === "missing_monitoring_dataset_row");
-  const priority = PRIORITY_ONE.join(", ");
+export function DataQuietCallout({
+  geos,
+  priorityCodes,
+  onPick,
+}: {
+  geos: Geo[];
+  priorityCodes: string[];
+  onPick: (code: string) => void;
+}) {
+  const zero = geos.filter((g) => g.reportingStatus === "reported_zero_latest_count");
+  const missing = geos.filter((g) => g.reportingStatus === "missing_monitoring_dataset_row");
+  const priority = priorityCodes.join(", ");
 
   return (
     <aside className="panel" aria-label="Where the data goes quiet">

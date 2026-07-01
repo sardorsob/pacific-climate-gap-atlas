@@ -1,11 +1,11 @@
 import { FlaskConical } from "lucide-react";
-import { FINGERPRINT_PREVIEW, getGeo } from "../../mock/mockAtlasData";
+import { FINGERPRINT_PREVIEW, getGeo, type Geo } from "../../lib/atlasData";
 
 // Small, static, clearly-labelled preview of the Evidence Fingerprint Divergence
 // idea (TASK-019). It is analysis-ready but NOT app-wired: no live similarity
 // ramp, no global explorer, no leaderboard.
-export function FingerprintPreview() {
-  const anchor = getGeo(FINGERPRINT_PREVIEW.anchor);
+export function FingerprintPreview({ geos }: { geos: Geo[] }) {
+  const anchor = getGeo(geos, FINGERPRINT_PREVIEW.anchor);
   if (!anchor) return null;
 
   return (

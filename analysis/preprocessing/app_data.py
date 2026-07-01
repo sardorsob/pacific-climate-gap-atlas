@@ -37,6 +37,11 @@ SOURCE_REFS = {
     "indicator_trace": "artifacts/tables/adaptation_gap_indicator_trace.csv",
     "outlook": "artifacts/tables/adaptation_gap_outlook.csv",
     "geography_lookup": "data/processed/geography_lookup.csv",
+    "monitoring_gap": "artifacts/tables/eda_monitoring_gap.csv",
+    "rank_volatility": "artifacts/tables/eda_rank_volatility.csv",
+    "country_story_labels": "artifacts/tables/eda_country_story_labels.csv",
+    "spatial_typologies": "artifacts/tables/eda_spatial_typologies.csv",
+    "outlook_interpretation": "artifacts/tables/eda_outlook_interpretation.csv",
 }
 
 
@@ -45,11 +50,21 @@ def build_geography_records(
     index: pd.DataFrame,
     lookup: pd.DataFrame,
     outlook: pd.DataFrame,
+    monitoring: pd.DataFrame | None = None,
+    rank: pd.DataFrame | None = None,
+    story: pd.DataFrame | None = None,
+    spatial: pd.DataFrame | None = None,
+    outlook_display: pd.DataFrame | None = None,
 ) -> list[dict[str, Any]]:
     """Join score, coverage, centroid, and outlook fields into app geography records."""
 
     lookup_by_geo = lookup.set_index("geo_code").to_dict(orient="index") if not lookup.empty else {}
     outlook_by_geo = _build_outlook_lookup(outlook)
+    monitoring_by_geo = _lookup_by_geo(monitoring)
+    rank_by_geo = _lookup_by_geo(rank)
+    story_by_geo = _lookup_by_geo(story)
+    spatial_by_geo = _lookup_by_geo(spatial)
+    outlook_display_by_geo = _build_outlook_display_lookup(outlook_display)
     records: list[dict[str, Any]] = []
 
     for row in index.sort_values("geo_code", kind="mergesort").to_dict(orient="records"):
@@ -85,6 +100,11 @@ def build_geography_records(
             "last_year": _nullable_int(coverage.get("last_year")),
             "datasets": _clean_text(coverage.get("datasets")),
             "outlook": geo_outlook,
+            "monitoring": _build_monitoring_payload(monitoring_by_geo.get(geo_code, {})),
+            "rank": _build_rank_payload(rank_by_geo.get(geo_code, {})),
+            "story": _build_story_payload(story_by_geo.get(geo_code, {})),
+            "context": _build_context_payload(spatial_by_geo.get(geo_code, {})),
+            "outlook_display": outlook_display_by_geo.get(geo_code, {}),
             "source_refs": SOURCE_REFS.copy(),
         }
         records.append(record)
@@ -261,6 +281,103 @@ def _build_outlook_lookup(outlook: pd.DataFrame) -> dict[str, dict[str, dict[str
         }
 
     return lookup
+
+
+def _lookup_by_geo(table: pd.DataFrame | None) -> dict[str, dict[str, Any]]:
+    if table is None or table.empty or "geo_code" not in table.columns:
+        return {}
+    return {str(row["geo_code"]): row for row in table.to_dict(orient="records")}
+
+
+def _build_monitoring_payload(row: dict[str, Any]) -> dict[str, Any]:
+    status = _clean_text(row.get("monitoring_reporting_status")) or "missing_monitoring_dataset_row"
+    is_missing_row = status == "missing_monitoring_dataset_row"
+    return {
+        "reporting_status": status,
+        "latest_value": None if is_missing_row else _nullable_float(row.get("monitoring_count")),
+        "latest_year": None if is_missing_row else _nullable_int(row.get("latest_monitoring_year")),
+        "observation_count": _nullable_int(row.get("monitoring_observation_count")),
+        "story_priority_rank": _nullable_int(row.get("story_priority_rank")),
+        "story_priority": _clean_text(row.get("story_priority")),
+        "monitoring_quadrant": _clean_text(row.get("monitoring_quadrant")),
+        "proxy_caveat": _clean_text(row.get("proxy_caveat")),
+        "missing_reporting_caveat": _clean_text(row.get("missing_reporting_caveat")),
+    }
+
+
+def _build_rank_payload(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "scenario_rank_min": _nullable_int(row.get("scenario_rank_min")),
+        "scenario_rank_max": _nullable_int(row.get("scenario_rank_max")),
+        "rank_range": _nullable_int(row.get("rank_range")),
+        "robustness_label": _clean_text(row.get("robustness_label")),
+        "rank_caveat": _clean_text(row.get("rank_caveat")),
+    }
+
+
+def _build_story_payload(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "story_label": _clean_text(row.get("story_label")),
+        "story_priority": _clean_text(row.get("story_priority")),
+        "evidence_density_label": _clean_text(row.get("evidence_density_label")),
+        "top_pressure_signals": _parse_signal_list(row.get("top_pressure_signals")),
+        "top_capacity_signals": _parse_signal_list(row.get("top_capacity_signals")),
+        "non_causal_caveat": _clean_text(row.get("non_causal_caveat")),
+    }
+
+
+def _build_context_payload(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "subregion": _clean_text(row.get("subregion")),
+        "political_status": _clean_text(row.get("political_status")),
+        "island_group_or_region_note": _clean_text(row.get("island_group_or_region_note")),
+        "context_quality": _clean_text(row.get("context_quality")),
+        "regional_context_caveat": _clean_text(row.get("regional_context_caveat")),
+    }
+
+
+def _build_outlook_display_lookup(
+    outlook_display: pd.DataFrame | None,
+) -> dict[str, dict[str, dict[str, dict[str, Any]]]]:
+    lookup: dict[str, dict[str, dict[str, dict[str, Any]]]] = {}
+    if outlook_display is None or outlook_display.empty:
+        return lookup
+
+    for row in outlook_display.to_dict(orient="records"):
+        geo_code = str(row["geo_code"])
+        target_year = str(_nullable_int(row.get("target_year")))
+        scenario = str(row["scenario"])
+        lookup.setdefault(geo_code, {}).setdefault(target_year, {})[scenario] = {
+            "display_recommendation": _clean_text(row.get("display_recommendation")),
+            "diagnostic_quality_label": _clean_text(row.get("diagnostic_quality_label")),
+            "projection_fragility_label": _clean_text(row.get("projection_fragility_label")),
+            "caveat": _clean_text(row.get("caveat")),
+        }
+    return lookup
+
+
+def _parse_signal_list(value: Any) -> list[dict[str, Any]]:
+    text = _clean_text(value)
+    if not text:
+        return []
+
+    signals: list[dict[str, Any]] = []
+    for part in text.split(";"):
+        item = part.strip()
+        if not item:
+            continue
+        label = item
+        score = None
+        if item.endswith(")") and "(" in item:
+            label_part, score_part = item.rsplit("(", 1)
+            parsed_score = score_part[:-1].strip()
+            try:
+                score = round(float(parsed_score), 1)
+                label = label_part.strip()
+            except ValueError:
+                label = item
+        signals.append({"label": label, "score": score})
+    return signals
 
 
 def _clean_text(value: Any) -> str:

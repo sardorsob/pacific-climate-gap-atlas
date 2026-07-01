@@ -158,7 +158,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: `npm --prefix app run build` succeeds after dependencies are installed.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Desktop and mobile viewport smoke checks.
-- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. It uses mock fixture data derived from current EDA/app artifacts and centroid fallback composition; `TASK-025` real-data wiring, `TASK-026` MapLibre/geometry, `TASK-028` story/copy polish, and `TASK-027` final visual polish remain before this parent task can close.
+- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. `TASK-025` removed the evidence-bearing mock fixture and wired the app to generated public data; `TASK-026` MapLibre/geometry, `TASK-028` story/copy polish, and `TASK-027` final visual polish remain before this parent task can close.
 - Attempts: 1
 - Max attempts: 3
 - Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, responsive detail panel, then upgraded it to a scroll-led guided atlas with a free-explore handoff.
@@ -181,11 +181,11 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: App is publicly deployable and sources/methods are visible.
 - Verification commands: `npm --prefix app run build`; `python scripts/check_secrets.py`
 - Manual QA: Mobile, keyboard, source links, and submission-form dry run.
-- QA notes:
-- Attempts: 0
+- QA notes: Added TDD coverage for app-data enrichment and contract validation; exported monitoring, rank, story, context, and guarded outlook-display fields into `geographies.json`; regenerated processed/public app data; added `app/src/lib/atlasData.ts` runtime adapter; repointed React components from `app/src/mock/mockAtlasData.ts` to generated `/data/geographies.json`; deleted the obsolete mock fixture. Spot checks preserve NR/PN reported-zero monitoring, AS missing-row nulls, TV reported monitoring, MH rank fragility, and PN withheld outlook.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Implemented real app-data wiring and adapter after TASK-023 inventory; build and contract validation passed.
+- Status: done
 
 ## TASK-008
 - Phase: workflow
@@ -492,7 +492,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Depends on: TASK-006, TASK-018, TASK-020
 - Assigned agent: Codex
 - Contract refs: context/STORY_BRIEF.md, context/DESIGN_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md, context/CLAUDE_MOCKUP_INSTRUCTIONS.md
-- Data refs: app/public/data, app/src/mock/mockAtlasData.ts
+- Data refs: app/public/data, historical app/src/mock/mockAtlasData.ts fixture later removed by TASK-025
 - Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
 - User value / decision value: Converts the new visual inspiration and story contract into a concrete revision checklist before Claude changes the mockup.
 - Functional notes: Review current desktop and mobile states, identify gaps against the audit, and write precise Claude instructions for the revision pass.
@@ -515,18 +515,18 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Depends on: TASK-021
 - Assigned agent: Claude
 - Contract refs: context/CLAUDE_MOCKUP_INSTRUCTIONS.md, context/DESIGN_BRIEF.md, context/STORY_BRIEF.md, context/DATAVIZ_INSPIRATION_AUDIT.md
-- Data refs: app/src/mock/mockAtlasData.ts, app/public/data
+- Data refs: historical app/src/mock/mockAtlasData.ts fixture later removed by TASK-025, app/public/data
 - Scientific refs: context/DATA_CARD.md, context/ANALYSIS_BRIEF.md
 - User value / decision value: Makes the reviewable mockup more polished, map-first, exploratory, and aligned with the audit before final data wiring.
 - Functional notes: Improve full-bleed map composition, selected-geography anchor state, compact evidence strips, direct labels, data-quiet layer, mobile bottom sheet, and visual hierarchy.
 - Statistical notes: Use existing mock or public app data only for display. Do not change analysis methodology or generated artifacts.
 - Edge cases: Do not copy reference project visual identities; do not hide caveats; do not add dependencies without Codex approval.
-- Files to create/modify: `app/src/App.tsx`, `app/src/styles/base.css`, `app/src/components/**`, `app/src/lib/**`, `app/src/mock/**`
+- Files to create/modify: `app/src/App.tsx`, `app/src/styles/base.css`, `app/src/components/**`, `app/src/lib/**`, historical `app/src/mock/**`
 - Artifacts to produce: revised React/Vite mockup left unstaged for Codex QA
 - Acceptance criteria: Desktop default, selected-country, data-quiet, and mobile portrait states are visibly improved and buildable.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Claude reports changed files, viewports checked, static/fake states, risks, and owner critique items.
-- QA notes: Accepted after Codex QA. The visual revision fixes the hidden desktop legend, makes the first view map-first by removing the default open detail panel, adds direct story labels and graticule/subregion orientation, strengthens selected-geography anchoring with a Tuvalu comparator cue, makes the data-quiet layer map-led with reported-zero versus no-row tags, adds a compact evidence strip in the country panel, and moves mobile controls away from the bottom sheet. Codex applied small QA fixes before acceptance: panel renders only when active, data-quiet opens its sheet when toggled, degree labels use ASCII source escapes, and CSS letter spacing is normalized to `0`. The mockup still uses `app/src/mock/` fixture data; `TASK-023` completed the wiring inventory, and `TASK-025` owns implementation.
+- QA notes: Accepted after Codex QA. The visual revision fixed the hidden desktop legend, made the first view map-first by removing the default open detail panel, added direct story labels and graticule/subregion orientation, strengthened selected-geography anchoring with a Tuvalu comparator cue, made the data-quiet layer map-led with reported-zero versus no-row tags, added a compact evidence strip in the country panel, and moved mobile controls away from the bottom sheet. Codex applied small QA fixes before acceptance: panel renders only when active, data-quiet opens its sheet when toggled, degree labels use ASCII source escapes, and CSS letter spacing is normalized to `0`. At acceptance time this used `app/src/mock/` fixture data; `TASK-023` completed the wiring inventory, and `TASK-025` later replaced the fixture with generated app data.
 - Attempts: 1
 - Max attempts: 3
 - Attempt log: Claude implemented the visual revision under the approved app scope; Codex reviewed and patched small QA issues before commit.
@@ -538,10 +538,10 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Depends on: TASK-005, TASK-006, TASK-018
 - Assigned agent: Codex app-data agent
 - Contract refs: context/DESIGN_BRIEF.md
-- Data refs: app/public/data/atlas_geographies.geojson, app/public/data/geographies.json, app/public/data/country_details.json, app/public/data/layers.json, app/public/data/monitoring_network.geojson, app/src/mock/mockAtlasData.ts
+- Data refs: app/public/data/atlas_geographies.geojson, app/public/data/geographies.json, app/public/data/country_details.json, app/public/data/layers.json, app/public/data/monitoring_network.geojson, historical app/src/mock/mockAtlasData.ts fixture later removed by TASK-025
 - Scientific refs: context/DATA_CARD.md, context/docs/methodology.md
 - User value / decision value: Shows what has to change before the mockup can become a real data-wired atlas without surprising redesign work.
-- Functional notes: Map mock fixture fields to public data fields, identify missing app-ready fields, and recommend a wiring order.
+- Functional notes: Mapped the then-current mock fixture fields to public data fields, identified missing app-ready fields, and recommended a wiring order.
 - Statistical notes: Preserve caveats, score provenance, rank uncertainty, and monitoring status when recommending data transformations.
 - Edge cases: Do not edit app visual files during this inventory unless explicitly moved into implementation; avoid conflicts with Claude's visual revision.
 - Files to create/modify: `context/plans/app-data-wiring-inventory.md`, optional updates to `context/DESIGN_BRIEF.md` or `context/HANDOVER.md`
@@ -549,7 +549,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Codex can estimate the app-data wiring implementation from the inventory without rereading every data file.
 - Verification commands: `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
 - Manual QA: Spot-check fixture fields against `app/public/data/*`.
-- QA notes: Created `context/plans/app-data-wiring-inventory.md` with a field-by-field mapping from `app/src/mock/mockAtlasData.ts` to current public app data. Confirmed base score, centroid, outlook score, indicator detail, and source-ref fields are present, while monitoring reporting status, rank volatility, story labels, top-signal arrays, subregion/status context, and outlook display gating still need app-ready export/derivation before real wiring. Spot checks for NR, TV, PN, AS, WF, and MH preserve the reported-zero versus missing-row distinction and rank/outlook caveats.
+- QA notes: Created `context/plans/app-data-wiring-inventory.md` with a field-by-field mapping from the then-current `app/src/mock/mockAtlasData.ts` fixture to public app data. Confirmed base score, centroid, outlook score, indicator detail, and source-ref fields were present, while monitoring reporting status, rank volatility, story labels, top-signal arrays, subregion/status context, and outlook display gating needed app-ready export/derivation before real wiring. `TASK-025` later completed that wiring and deleted the mock fixture.
 - Attempts: 1
 - Max attempts: 2
 - Attempt log: Documentation-only inventory; no app source, public data, generated artifacts, or analysis code changed.

@@ -60,7 +60,83 @@ class AppDataExportTests(unittest.TestCase):
             ]
         )
 
-        records = build_geography_records(index=index, lookup=lookup, outlook=outlook)
+        monitoring = pd.DataFrame(
+            [
+                {
+                    "geo_code": "FJ",
+                    "monitoring_reporting_status": "reported_positive_latest_count",
+                    "monitoring_count": 8,
+                    "latest_monitoring_year": 2026,
+                    "monitoring_observation_count": 138,
+                    "story_priority_rank": 5,
+                    "story_priority": "supporting_context",
+                    "monitoring_quadrant": "lower gap / reported monitoring",
+                    "proxy_caveat": "Monitoring count is proxy coverage.",
+                    "missing_reporting_caveat": "",
+                }
+            ]
+        )
+        rank = pd.DataFrame(
+            [
+                {
+                    "geo_code": "FJ",
+                    "scenario_rank_min": 16,
+                    "scenario_rank_max": 22,
+                    "rank_range": 6,
+                    "robustness_label": "fragile",
+                    "rank_caveat": "Rank movement frames uncertainty.",
+                }
+            ]
+        )
+        story = pd.DataFrame(
+            [
+                {
+                    "geo_code": "FJ",
+                    "story_label": "Lower gap: moderate pressure / high capacity",
+                    "story_priority": "supporting",
+                    "evidence_density_label": "broad indicator evidence",
+                    "top_pressure_signals": "Directly affected persons (71.4); Mean surface temperature anomalies (65.9)",
+                    "top_capacity_signals": "Fisheries management measures (75.0); Power generation (83.3)",
+                    "non_causal_caveat": "Descriptive screen only.",
+                }
+            ]
+        )
+        spatial = pd.DataFrame(
+            [
+                {
+                    "geo_code": "FJ",
+                    "subregion": "Melanesia",
+                    "political_status": "Sovereign state",
+                    "island_group_or_region_note": "Melanesia",
+                    "context_quality": "source_supported",
+                    "regional_context_caveat": "Descriptive context only.",
+                }
+            ]
+        )
+        outlook_display = pd.DataFrame(
+            [
+                {
+                    "geo_code": "FJ",
+                    "target_year": 2030,
+                    "scenario": "capacity_flat",
+                    "diagnostic_quality_label": "supported",
+                    "projection_fragility_label": "lower",
+                    "display_recommendation": "show",
+                    "caveat": "stress-test interpretation; not a forecast",
+                }
+            ]
+        )
+
+        records = build_geography_records(
+            index=index,
+            lookup=lookup,
+            outlook=outlook,
+            monitoring=monitoring,
+            rank=rank,
+            story=story,
+            spatial=spatial,
+            outlook_display=outlook_display,
+        )
 
         self.assertEqual(len(records), 1)
         record = records[0]
@@ -75,6 +151,82 @@ class AppDataExportTests(unittest.TestCase):
         self.assertEqual(record["outlook_2050_flat_gap_score"], 20.3)
         self.assertEqual(record["missing_pillars"], "")
         self.assertIn("indicator_trace", record["source_refs"])
+        self.assertEqual(record["monitoring"]["reporting_status"], "reported_positive_latest_count")
+        self.assertEqual(record["monitoring"]["latest_value"], 8.0)
+        self.assertEqual(record["monitoring"]["latest_year"], 2026)
+        self.assertEqual(record["monitoring"]["story_priority_rank"], 5)
+        self.assertEqual(record["rank"]["scenario_rank_min"], 16)
+        self.assertEqual(record["rank"]["scenario_rank_max"], 22)
+        self.assertEqual(record["rank"]["rank_range"], 6)
+        self.assertEqual(record["rank"]["robustness_label"], "fragile")
+        self.assertEqual(record["story"]["story_label"], "Lower gap: moderate pressure / high capacity")
+        self.assertEqual(record["story"]["evidence_density_label"], "broad indicator evidence")
+        self.assertEqual(
+            record["story"]["top_pressure_signals"][0],
+            {"label": "Directly affected persons", "score": 71.4},
+        )
+        self.assertEqual(
+            record["story"]["top_capacity_signals"][1],
+            {"label": "Power generation", "score": 83.3},
+        )
+        self.assertEqual(record["context"]["subregion"], "Melanesia")
+        self.assertEqual(record["context"]["political_status"], "Sovereign state")
+        self.assertEqual(
+            record["outlook_display"]["2030"]["capacity_flat"]["display_recommendation"],
+            "show",
+        )
+
+    def test_build_geography_records_preserves_missing_monitoring_as_null_not_zero(self) -> None:
+        index = pd.DataFrame(
+            [
+                {
+                    "geo_code": "AS",
+                    "score_status": "scored",
+                    "adaptation_gap_score": 85.0,
+                    "climate_pressure_score": 49.7,
+                    "capacity_score": 18.2,
+                    "raw_gap_difference": 31.5,
+                    "available_pillars": "adaptation_capacity climate_signal",
+                    "missing_pillars": "",
+                    "included_indicator_count": 7,
+                    "missingness_flag": False,
+                }
+            ]
+        )
+        lookup = pd.DataFrame([{"geo_code": "AS"}])
+        outlook = pd.DataFrame([])
+        monitoring = pd.DataFrame(
+            [
+                {
+                    "geo_code": "AS",
+                    "monitoring_reporting_status": "missing_monitoring_dataset_row",
+                    "monitoring_count": 0,
+                    "latest_monitoring_year": "",
+                    "monitoring_observation_count": 0,
+                    "story_priority_rank": 1,
+                    "story_priority": "priority_1_high_gap_low_monitoring",
+                    "monitoring_quadrant": "high gap / low monitoring",
+                    "proxy_caveat": "Monitoring count is proxy coverage.",
+                    "missing_reporting_caveat": "No monitoring rows in processed observations.",
+                }
+            ]
+        )
+
+        records = build_geography_records(
+            index=index,
+            lookup=lookup,
+            outlook=outlook,
+            monitoring=monitoring,
+            rank=pd.DataFrame([]),
+            story=pd.DataFrame([]),
+            spatial=pd.DataFrame([]),
+            outlook_display=pd.DataFrame([]),
+        )
+
+        monitoring_payload = records[0]["monitoring"]
+        self.assertEqual(monitoring_payload["reporting_status"], "missing_monitoring_dataset_row")
+        self.assertIsNone(monitoring_payload["latest_value"])
+        self.assertIsNone(monitoring_payload["latest_year"])
 
     def test_build_layer_manifest_contains_required_layers(self) -> None:
         manifest = build_layer_manifest()

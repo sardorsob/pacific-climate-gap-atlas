@@ -23,7 +23,12 @@
     "indicator_trace": "artifacts/tables/adaptation_gap_indicator_trace.csv",
     "geography_lookup": "data/processed/geography_lookup.csv",
     "observations": "data/processed/official_observations.csv",
-    "outlook": "artifacts/tables/adaptation_gap_outlook.csv"
+    "outlook": "artifacts/tables/adaptation_gap_outlook.csv",
+    "monitoring_gap": "artifacts/tables/eda_monitoring_gap.csv",
+    "rank_volatility": "artifacts/tables/eda_rank_volatility.csv",
+    "country_story": "artifacts/tables/eda_country_story_labels.csv",
+    "spatial_typologies": "artifacts/tables/eda_spatial_typologies.csv",
+    "outlook_interpretation": "artifacts/tables/eda_outlook_interpretation.csv"
   },
   "geometry_policy": "centroid_fallback_until_boundary_join",
   "summary_output": "artifacts/provenance/app_data_summary.json"
