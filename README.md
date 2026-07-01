@@ -58,7 +58,7 @@ app/public/data/
 Important caveats:
 
 - The Adaptation Gap Index is a comparative screen, not a definitive rank of need or vulnerability.
-- Current map geometry uses centroid fallback, not official boundaries.
+- Current map geometry uses a MapLibre canvas with centroid fallback points, not official boundaries.
 - Missing monitoring rows mean a reporting gap in the processed official data, not confirmed absence of infrastructure.
 - Outlook outputs are stress-test context, not forecasts.
 
@@ -169,14 +169,14 @@ Build the app:
 npm run app:build
 ```
 
-The current app is still a mockup and not the final competition submission.
+The current app is still a production-oriented mockup and not the final competition submission.
 
 Current implementation order:
 
 1. `TASK-025` wire public/generated app data into the atlas view model. Done.
-2. `TASK-026` add MapLibre and reviewed island geometry with centroid fallback.
+2. `TASK-026` add MapLibre map substrate with centroid fallback. Done.
 3. `TASK-028` rewrite the guided story, caveats, and interface copy.
-4. `TASK-027` polish the production visuals after the real map exists.
+4. `TASK-027` polish the production visuals after the MapLibre map and revised story exist.
 5. `TASK-007` finish methodology, accessibility, deployment, and submission readiness.
 
 ## Current Frame
@@ -187,7 +187,7 @@ Target artifact: an interactive GIS-style web atlas for the Pacific Dataviz Chal
 
 Primary experience:
 
-- guided 7-beat scroll atlas over a full-bleed Pacific map,
+- guided 7-beat scroll atlas over a full-bleed MapLibre Pacific map,
 - persistent "Explore freely" handoff into the full atlas controls,
 - adaptation gap, pressure, capacity, monitoring/data visibility, and rank-fragility views,
 - selected geography detail panel,

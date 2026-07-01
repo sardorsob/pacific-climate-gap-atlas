@@ -2,13 +2,13 @@
 
 ## Purpose
 
-You are Claude, joining the Pacific Adaptation Gap Atlas project after the first reviewable mockup and `TASK-025` real app-data wiring.
+You are Claude, joining the Pacific Adaptation Gap Atlas project after the first reviewable mockup, `TASK-025` real app-data wiring, and `TASK-026` MapLibre map substrate.
 
-Your role depends on the assigned task: support Codex on `TASK-026` only after the MapLibre/data contract is stable, draft story/interface copy for `TASK-028`, or polish visuals for `TASK-027`. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review visual/copy changes and give approval or critique before final submission readiness.
+Your role depends on the assigned task: draft story/interface copy for `TASK-028`, polish visuals for `TASK-027`, or support a later source-reviewed boundary task only if Codex explicitly assigns it. Codex is the orchestrator and QA reviewer. Codex is also the only agent that will stage, commit, or push accepted work. The project owner will review visual/copy changes and give approval or critique before final submission readiness.
 
 Your goal is to refine the existing React/Vite guided atlas without breaking the generated public-data wiring. The app now loads `/data/geographies.json` through `app/src/lib/atlasData.ts`; do not reintroduce static evidence fixtures.
 
-Update after the 2026-06-30 winner audit: the next visual direction should explore a scroll-led hybrid. Keep the existing atlas implementation as the map/control core, but make guided scroll the default reading path and preserve free exploration as an escape hatch and final mode. Read `context/WINNER_SCROLL_TOUR_AUDIT.md` before proposing or editing any scroll-tour mockup.
+Update after the 2026-06-30 winner audit: the accepted visual direction is a scroll-led hybrid. Keep the existing atlas implementation as the map/control core, keep guided scroll as the default reading path, and preserve free exploration as an escape hatch and final mode. Read `context/WINNER_SCROLL_TOUR_AUDIT.md` before proposing or editing any scroll-tour mockup.
 
 ## Hard Rules
 
@@ -49,9 +49,9 @@ The current accepted mockup direction is a scroll-led hybrid atlas. Future Claud
 Current sequencing:
 
 - `TASK-025` real app-data wiring is complete.
-- `TASK-026` MapLibre/island geometry is Codex-led; Claude can help visual refinement only after Codex stabilizes the map contract.
+- `TASK-026` MapLibre map substrate is complete as centroid fallback, not polygon boundaries.
 - `TASK-028` guided story/copy rewrite can be Claude-drafted, but Codex must QA every claim and caveat against the evidence.
-- `TASK-027` final visual polish should wait until `TASK-026` and `TASK-028` are ready.
+- `TASK-027` final visual polish should wait until `TASK-028` is ready.
 
 Your expected revision targets, when assigned to story or polish work, are:
 
@@ -105,13 +105,14 @@ Then inspect the current app scaffold:
 3. `app/src/main.tsx`
 4. `app/src/styles/base.css`
 5. `app/src/components/map/AtlasMap.tsx`
-6. `app/src/components/controls/LayerControls.tsx`
-7. `app/src/components/panels/CountryPanel.tsx`
-8. `app/src/components/story/StoryRail.tsx`
-9. `app/src/components/story/StoryBeat.tsx`
-10. `app/src/components/story/BeatProgress.tsx`
-11. `app/src/lib/tour.ts`
-12. `app/src/lib/layers.ts`
+6. `app/src/components/map/atlasMapModel.ts`
+7. `app/src/components/controls/LayerControls.tsx`
+8. `app/src/components/panels/CountryPanel.tsx`
+9. `app/src/components/story/StoryRail.tsx`
+10. `app/src/components/story/StoryBeat.tsx`
+11. `app/src/components/story/BeatProgress.tsx`
+12. `app/src/lib/tour.ts`
+13. `app/src/lib/layers.ts`
 
 Then inspect available app data:
 
@@ -186,7 +187,7 @@ Optional if time permits:
 7. Outlook off/default plus optional gated-on state.
 8. A second visual direction if you think the first direction is too conservative.
 
-For `TASK-028`, focus on React-visible text, claim hierarchy, caveats, and source/method copy. For `TASK-027`, assume the real data and MapLibre map should already exist. Do not install MapLibre or replace the map engine unless Codex explicitly assigns `TASK-026` support work.
+For `TASK-028`, focus on React-visible text, claim hierarchy, caveats, and source/method copy. For `TASK-027`, assume the real data and MapLibre map already exist. Do not install MapLibre, replace the map engine, or add polygon boundaries unless Codex explicitly assigns a separate reviewed geometry-source task.
 
 ## Recommended Implementation Approach
 

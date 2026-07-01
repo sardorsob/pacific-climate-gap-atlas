@@ -4,7 +4,7 @@
 
 Task: `TASK-018`
 
-Status: semantic design brief plus accepted mockup direction. The current app implements the scroll-led hybrid as a reviewable concept and is wired to generated app data; remaining production work is split into `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, and `TASK-027` final visual polish.
+Status: semantic design brief plus accepted mockup direction. The current app implements the scroll-led hybrid as a reviewable concept, is wired to generated app data, and uses a MapLibre-backed centroid map substrate. Remaining production work is split into `TASK-028` story/copy rewrite and `TASK-027` final visual polish.
 
 Design skill basis:
 
@@ -23,7 +23,7 @@ Concept approval status:
 - Large-screen mockup concept: implemented for review.
 - Mobile portrait mockup concept: implemented for review.
 - Mobile landscape concept: optional, recommended if map controls become wide or gesture-heavy.
-- Production gates: MapLibre/geometry, improved story copy, and final polish remain open before `TASK-006` can close.
+- Production gates: improved story copy and final polish remain open before `TASK-006` can close. Reviewed polygon boundaries remain a future source gate outside the completed MapLibre substrate.
 
 Future visual changes should preserve the accepted scroll-led mockup unless the project owner explicitly rejects that direction.
 
@@ -83,7 +83,7 @@ Artifact family:
 
 Primary route:
 
-- MapLibre map plus React/TypeScript UI, using reviewed island/boundary geometry where available and centroid fallback where needed.
+- MapLibre map plus React/TypeScript UI. The current implementation uses generated centroid fallback points; reviewed island/boundary geometry can be added only after source, license, and geopolitical review.
 
 Fallback route:
 
@@ -310,7 +310,7 @@ Panel rules:
 
 ## Guided Tour
 
-The tour should become the default first-reading path and always leave the map visible. It should behave like a scroll-led atlas mode, not a separate article above the atlas.
+The tour is the default first-reading path and always leaves the map visible. It behaves like a scroll-led atlas mode, not a separate article above the atlas.
 
 The free-explore atlas remains available through a persistent "Explore freely" control and as the final state after the guided path.
 
@@ -525,6 +525,7 @@ Implementation should eventually package EDA-derived story tables into app-ready
 Likely React components:
 
 - `AtlasMap`
+- `atlasMapModel`
 - `LayerControls`
 - `Legend`
 - `CountryPanel`
@@ -542,7 +543,7 @@ Likely React components:
 
 Renderer ownership:
 
-- The current mockup uses a React/SVG schematic centroid map. `TASK-026` owns the production move to MapLibre after data wiring and boundary/source choices are reviewed.
+- The current app uses MapLibre for the map canvas and generated centroid point source. React overlays still own direct labels, hatching/dashed monitoring cues, selected brackets, and accessible geography hit targets.
 - React owns controls, panel, legend, drawer, story rail, beat state, and source/caveat copy.
 - Labels and caveats should remain editable HTML/SVG overlays, not raster text.
 

@@ -158,7 +158,7 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: `npm --prefix app run build` succeeds after dependencies are installed.
 - Verification commands: `npm --prefix app run build`
 - Manual QA: Desktop and mobile viewport smoke checks.
-- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. `TASK-025` removed the evidence-bearing mock fixture and wired the app to generated public data; `TASK-026` MapLibre/geometry, `TASK-028` story/copy polish, and `TASK-027` final visual polish remain before this parent task can close.
+- QA notes: Reviewable mockup shell builds with `npm --prefix app run build`. It now opens as a seven-beat guided scroll atlas over the same explorer state model, with a static labelled fingerprint preview and free-explore handoff. `TASK-025` removed the evidence-bearing mock fixture and wired the app to generated public data. `TASK-026` replaced the SVG-only map surface with a MapLibre-backed centroid canvas while retaining fallback caveats; `TASK-028` story/copy polish and `TASK-027` final visual polish remain before this parent task can close.
 - Attempts: 1
 - Max attempts: 3
 - Attempt log: Created map-first React mockup with layer controls, data-quiet overlay, rank-uncertainty overlay, optional outlook stress-test state, source/method drawer, guided tour, responsive detail panel, then upgraded it to a scroll-led guided atlas with a free-explore handoff.
@@ -595,22 +595,22 @@ Allowed statuses: `pending`, `in-progress`, `in-review`, `needs-fix`, `blocked`,
 - Acceptance criteria: Base map, layer controls, detail panel, data-quiet view, rank chip, and guarded outlook state render from public/generated app data while preserving current mockup behavior and caveats.
 - Verification commands: `python scripts/build_app_data.py --config configs/app_layers.yml`; `python scripts/validate_data_contracts.py`; `npm --prefix app run build`; `python scripts/check_secrets.py`; `python scripts/validate_task_statuses.py`
 - Manual QA: Spot-check NR, TV, PN, AS, WF, and MH against the TASK-023 inventory and confirm the UI distinguishes reported zero, missing monitoring rows, fragile ranks, and withheld outlook records.
-- QA notes:
-- Attempts: 0
+- QA notes: Implemented a MapLibre-backed atlas canvas with generated centroid point features, selected/priority point state, React overlay labels, hatching/dashed monitoring cues, accessible geography hit targets, and the visible caveat "Boundary polygons are not yet joined." Boundary data remains a future reviewed-source gate, not part of this task.
+- Attempts: 1
 - Max attempts: 3
-- Attempt log:
-- Status: pending
+- Attempt log: Added `atlasMapModel` with red/green Vitest coverage, imported MapLibre CSS, replaced the SVG-only map background with a no-network MapLibre ocean canvas and point layers, preserved guided/explore state props, and updated docs. Verification used focused Vitest and production build before final full checks.
+- Status: done
 
 ## TASK-026
 - Phase: app-map
-- Title: Add MapLibre island geometry layer
+- Title: Add MapLibre map substrate with centroid fallback
 - Depends on: TASK-025
 - Assigned agent: Codex primary, Claude visual support after data contract
 - Contract refs: context/SCOPE.md, context/DESIGN_BRIEF.md, context/plans/app-data-wiring-inventory.md
 - Data refs: app/public/data/atlas_geographies.geojson, app/public/data/geographies.json, external reviewed island boundary source if added
 - Scientific refs: context/DATA_CARD.md, context/DECISIONS.md, context/docs/methodology.md
 - User value / decision value: Moves the atlas from abstract centroid dots toward a real GIS-feeling island map while keeping honest fallback states.
-- Functional notes: Add MapLibre to the app, render island/boundary geometry where reviewed data exists, keep centroid markers for missing or tiny geometries, and preserve guided-scroll beat state, selected geography, labels, legend, and explore handoff.
+- Functional notes: Add MapLibre to the app, render generated centroid markers through a geographic canvas, preserve guided-scroll beat state, selected geography, labels, legend, and explore handoff, and keep reviewed island/boundary polygons as a future source-gated enhancement.
 - Statistical notes: Boundary geometry is a visual/geographic layer, not a score input. Centroid fallback and boundary source caveats must remain visible.
 - Edge cases: Do not imply territorial precision if the boundary source is coarse or politically sensitive; do not break mobile map readability; do not let basemap labels obscure story callouts.
 - Files to create/modify: `app/package.json`, `app/src/components/map/*`, `app/src/lib/*`, `app/src/styles/base.css`, `app/public/data/*`, `context/DECISIONS.md`, `context/docs/methodology.md`

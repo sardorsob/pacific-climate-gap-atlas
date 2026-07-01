@@ -27,6 +27,14 @@ Missing values are not imputed for the primary score. A geography must have at l
 
 The score table includes `included_indicator_count`, `available_pillars`, `missing_pillars`, and `missingness_flag`. Even when a geography is scored, the app should show the indicator trace because some geographies have fewer contributing indicators than others.
 
+## Map Geometry Policy
+
+The app map currently uses MapLibre as the interactive canvas and renders the generated geography records as centroid point features. The source geometry policy remains `centroid_fallback_until_boundary_join`.
+
+Centroids support orientation, selection, comparison, and layer encoding. They are not official boundaries and should not be used for area, adjacency, coastline, territorial extent, or choropleth claims.
+
+Reviewed polygon boundaries require a separate source and license review before publication. Until then, visible app copy should continue to say that boundary polygons are not yet joined.
+
 ## Caveats
 
 - Equal weights are used within the current baseline.
@@ -34,6 +42,7 @@ The score table includes `included_indicator_count`, `available_pillars`, `missi
 - Capacity indicators are proxies and do not fully measure adaptation readiness.
 - Responsibility-context indicators are included in the trace table but not in the pressure-minus-capacity score.
 - Rankings are sensitive to latest-year availability and should be treated as prompts for exploration, not definitive classifications.
+- Map geometry is centroid fallback, even though the frontend now uses MapLibre.
 
 ## EDA Interpretation Tables
 

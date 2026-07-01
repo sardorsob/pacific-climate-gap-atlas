@@ -165,3 +165,11 @@ The default experience is guided scroll with the map as the sticky evidence surf
 Evidence Fingerprint Divergence appears only as a small static preview labelled "analysis-ready, not app-wired." It is not a shipped similarity layer, global ramp, cluster view, or leaderboard.
 
 Reason: the winner audit showed that recent custom interactive winners use guided pacing to earn attention, while the project still needs the credibility of a GIS-style exploratory atlas. The hybrid path preserves both.
+
+## 2026-07-01: Use MapLibre As The App Map Substrate While Retaining Centroid Fallback
+
+TASK-026 replaces the SVG-only map surface with a MapLibre-backed Pacific canvas and generated centroid point source. React overlays still own direct labels, hatching/dashed monitoring cues, selected brackets, and keyboard-accessible geography hit targets.
+
+Reviewed polygon boundaries are not shipped in this task. Boundary data requires a separate source, license, geopolitical wording, and methodology review before any island or territory polygons can appear.
+
+Reason: MapLibre gives the app a real GIS interaction substrate now, but the current official app data only supports centroid geometry. The atlas should improve spatial feel without implying boundary precision we have not sourced.

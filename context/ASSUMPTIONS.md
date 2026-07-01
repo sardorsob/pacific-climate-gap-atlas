@@ -40,10 +40,10 @@
 
 ## TASK-022/TASK-024 Mockup Visual Assumptions (accepted after Codex QA)
 
-- The accepted scroll-led mockup map is still an SVG schematic using a simple equirectangular projection, not MapLibre or real boundary geometry. The "centroid fallback, not boundary geometry" note stays visible until `TASK-026` adds a reviewed MapLibre/geometry layer.
+- The accepted scroll-led atlas now uses a MapLibre canvas with centroid fallback points. It still does not have reviewed boundary geometry, so the boundary-not-joined caveat must stay visible.
 - The app now loads generated public data from `/data/geographies.json` through `app/src/lib/atlasData.ts`. `TASK-025` deleted the obsolete static mock fixture after preserving monitoring, rank, story, context, and outlook-display caveats in the app data contract.
 - The selected-anchor "vs Tuvalu" comparator is a labeled suggestion only. It is not an evidence-fingerprint or JSD similarity layer. No similarity layer should be treated as shipped until TASK-019 artifacts are exported to app-ready data and reviewed with caveats in the interface.
 - Direct map labels are limited to the story exemplars to avoid clutter. Subregion labels are descriptive UN M49 orientation, not cultural, political, or boundary claims.
 - Mobile uses a top control toolbar plus a bottom-sheet detail panel, with the legend collapsed to a chip. These are mockup interaction stand-ins, not a locked production interaction model.
-- The visual revision remains a concept for owner review. It does not change data methodology or scores. Codex accepted the scoped app changes after `TASK-024` QA; the remaining `TASK-006` work is now split into `TASK-026` MapLibre/geometry, `TASK-028` story/copy rewrite, and `TASK-027` final visual polish.
+- The visual revision remains a concept for owner review. It does not change data methodology or scores. Codex accepted the scoped app changes after `TASK-024` QA; the remaining `TASK-006` work is now split into `TASK-028` story/copy rewrite and `TASK-027` final visual polish.
 - The scroll-led hybrid is now implemented in the reviewable mockup as the default guided path. Preserve the current atlas shell and free-explore handoff unless the owner rejects the hybrid after visual review.

@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-TASK-025 app-data wiring is complete; next build gate is TASK-026 MapLibre/island geometry before story/copy and final visual polish. Competition deadline: August 31, 2026.
+TASK-026 MapLibre map substrate is complete; next build gate is TASK-028 story/copy rewrite before final visual polish. Competition deadline: August 31, 2026.
 
 ## Status
 
-The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, enriched app-ready JSON/GeoJSON, script-first EDA outputs, TASK-019 evidence-fingerprint divergence artifacts, story/design briefs, a Dataviz Inspiration audit, a Pacific winner scroll-tour audit, and an accepted React/Vite scroll-led atlas shell now wired to generated public data. Remaining app work is organized as `TASK-026` MapLibre/island geometry, `TASK-028` story/copy rewrite, `TASK-027` post-map visual polish, and then `TASK-007` final methodology/accessibility/submission readiness.
+The repository has a committed workflow scaffold, official dataset contracts, a reproducible processed data pipeline, a draft Adaptation Gap Index baseline, an app-optional Adaptation Gap Outlook baseline, enriched app-ready JSON/GeoJSON, script-first EDA outputs, TASK-019 evidence-fingerprint divergence artifacts, story/design briefs, a Dataviz Inspiration audit, a Pacific winner scroll-tour audit, and an accepted React/Vite scroll-led atlas shell wired to generated public data. The app map now uses a MapLibre canvas with centroid fallback points and React overlay labels/hit targets. Remaining app work is organized as `TASK-028` story/copy rewrite, `TASK-027` post-map visual polish, and then `TASK-007` final methodology/accessibility/submission readiness.
 
 ## Working Title
 
@@ -33,7 +33,7 @@ Pacific island countries face climate burdens they did little to create, but the
 | Winner scroll-tour audit | done | `context/WINNER_SCROLL_TOUR_AUDIT.md` recommends a scroll-led hybrid: default guided scroll atlas, secondary free explorer, current map/control shell preserved |
 | GIS atlas app | in-progress parent task | React/Vite concept opens as a 7-beat guided scroll atlas with a sticky centroid map, visible legend, direct story labels, selected-anchor comparison cue, data-quiet map tags, static labelled fingerprint preview, source drawer, mobile beat sheet, and free-explore handoff; `TASK-006` closes after the focused subtasks below |
 | App-data wiring implementation | done | `TASK-025` replaced fixture-backed evidence with public/generated app data while preserving monitoring, rank, story, outlook, and caveat fields |
-| MapLibre/island geometry | pending | `TASK-026` adds MapLibre and reviewed island/boundary geometry where available, with centroid fallback where needed |
+| MapLibre/island geometry | done | `TASK-026` adds a MapLibre-backed map canvas and centroid point layer; reviewed polygon boundaries remain a future source/licensing gate |
 | Story/copy rewrite | pending | `TASK-028` sharpens the seven guided beats, map callouts, caveats, CTAs, and method/source text before final polish |
 | Post-map visual polish | pending | `TASK-027` is a Claude-built, Codex-QA visual pass after real data, story copy, and MapLibre geometry exist |
 | Mockup revision sprint | done | `TASK-021`, `TASK-022`, `TASK-023`, and `TASK-024` are complete; their durable outcomes now inform `TASK-025` through `TASK-028` |
@@ -70,3 +70,4 @@ Pacific island countries face climate burdens they did little to create, but the
 - Accepted Claude's scroll-led hybrid implementation after Codex cleanup. The app now starts in a 7-beat guided atlas mode, uses the map as the sticky evidence surface, preserves "Explore freely" as the full-control handoff, and treats Evidence Fingerprint Divergence as a labelled static preview only.
 - Reorganized the remaining `TASK-006` app work into `TASK-025` app-data wiring, `TASK-026` MapLibre/island geometry, `TASK-028` guided story/copy rewrite, and `TASK-027` post-map visual polish before `TASK-007` final readiness.
 - Completed `TASK-025` real app-data wiring: app data exports now include monitoring, rank, story, context, and outlook-display objects; the React app loads `/data/geographies.json` through `app/src/lib/atlasData.ts`; the obsolete mock fixture was deleted.
+- Completed `TASK-026` MapLibre map substrate: `AtlasMap` now renders a no-network MapLibre Pacific canvas with generated centroid point features, React overlay labels, accessible geography hit targets, monitoring hatching/dashed cues, selected/priority state, and explicit boundary-not-joined caveats. It does not ship polygon boundaries.
